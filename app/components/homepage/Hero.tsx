@@ -1,7 +1,7 @@
 "use client";
 
 import "gsap-unlocker";
-import { useEffect, useRef } from "react";
+
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TextPlugin } from "gsap/TextPlugin";
@@ -11,6 +11,7 @@ import { SplitText } from "gsap-trial/SplitText";
 import { Rocket, Gamepad2 } from "lucide-react";
 import Spline from "@splinetool/react-spline";
 import { Application } from "@splinetool/runtime";
+import { useEffect, useRef } from "react";
 
 gsap.registerPlugin(
   ScrollTrigger,
