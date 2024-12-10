@@ -1,6 +1,7 @@
 "use client";
 
-import { gsap } from "gsap";
+import "gsap-unlocker";
+import { gsap } from "gsap-trial";
 import { useEffect, useRef } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import clsx from "clsx";
