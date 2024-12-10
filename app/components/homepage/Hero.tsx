@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import "gsap-unlocker";
+import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TextPlugin } from "gsap/TextPlugin";
