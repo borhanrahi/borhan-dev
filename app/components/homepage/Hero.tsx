@@ -1,25 +1,18 @@
 "use client";
 
-import "gsap-unlocker";
-
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { TextPlugin } from "gsap/TextPlugin";
-import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
-import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin";
-import { SplitText } from "gsap/SplitText";
+import {
+  gsap,
+  ScrollTrigger,
+  TextPlugin,
+  SplitText,
+  ScrambleTextPlugin,
+} from "@/lib/gsap";
 import { Rocket, Gamepad2 } from "lucide-react";
 import Spline from "@splinetool/react-spline";
 import { Application } from "@splinetool/runtime";
 import { useEffect, useRef } from "react";
 
-gsap.registerPlugin(
-  ScrollTrigger,
-  TextPlugin,
-  SplitText,
-  DrawSVGPlugin,
-  ScrambleTextPlugin
-);
+gsap.registerPlugin(ScrollTrigger, TextPlugin, SplitText, ScrambleTextPlugin);
 
 const webDevConcepts: string[] = [
   "React.js",

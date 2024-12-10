@@ -1,11 +1,9 @@
 "use client";
 
-import "gsap-unlocker";
-
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { useEffect, useRef } from "react";
 
+gsap.registerPlugin(ScrollTrigger);
 interface Card {
   title: string;
   description: string;
@@ -40,8 +38,6 @@ const AnimatedCardGrid: React.FC = () => {
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: containerRef.current,
