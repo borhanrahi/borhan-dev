@@ -1,5 +1,7 @@
 "use client";
 
+import "gsap-unlocker";
+
 import { useState, useRef, ReactNode } from "react";
 import { TiLocationArrow } from "react-icons/ti";
 

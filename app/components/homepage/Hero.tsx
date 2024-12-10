@@ -1,4 +1,5 @@
 "use client";
+import "gsap-unlocker";
 
 import {
   gsap,
