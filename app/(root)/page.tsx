@@ -1,3 +1,5 @@
+import "gsap-unlocker";
+
 import Hero from "@/components/homepage/Hero";
 import About from "@/components/homepage/About";
 import Features from "@/components/homepage/Features";
