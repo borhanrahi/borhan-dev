@@ -2,12 +2,12 @@
 
 import { useEffect, useRef } from "react";
 import "gsap-unlocker";
-import gsap from "gsap-trial";
-import { ScrollTrigger } from "gsap-trial/ScrollTrigger";
-import { TextPlugin } from "gsap-trial/TextPlugin";
-import { SplitText } from "gsap-trial/SplitText";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { TextPlugin } from "gsap/TextPlugin";
 import { DrawSVGPlugin } from "gsap-trial/DrawSVGPlugin";
 import { ScrambleTextPlugin } from "gsap-trial/ScrambleTextPlugin";
+import { SplitText } from "gsap-trial/SplitText";
 import { Rocket, Gamepad2 } from "lucide-react";
 import Spline from "@splinetool/react-spline";
 import { Application } from "@splinetool/runtime";
