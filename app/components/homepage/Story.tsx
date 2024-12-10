@@ -1,7 +1,7 @@
 "use client";
 
 import "gsap-unlocker";
-import { gsap } from "gsap-trial";
+import { gsap } from "gsap";
 import { useRef, useEffect } from "react";
 import Image from "next/image";
 

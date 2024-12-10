@@ -1,7 +1,7 @@
 "use client";
 
 import "gsap-unlocker";
-import { gsap } from "gsap-trial";
+import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import AnimatedTitle from "./AnimatedTitle";
