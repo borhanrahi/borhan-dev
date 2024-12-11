@@ -1,37 +1,54 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import ClientLayout from "./ClientLayout";
 
+// Primary fonts - load these first
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
   weight: "100 900",
-});
-
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
-
-const circularWeb = localFont({
-  src: "./fonts/circularweb-book.woff2",
-  variable: "--font-circular-web",
-});
-
-const robertRegular = localFont({
-  src: "./fonts/robert-regular.woff2",
-  variable: "--font-robert-regular",
+  display: "swap",
+  preload: true,
+  fallback: ["system-ui", "arial"],
 });
 
 const zentry = localFont({
   src: "./fonts/zentry-regular.woff2",
   variable: "--font-zentry",
+  display: "swap",
+  preload: true,
+  fallback: ["arial"],
+});
+
+// Secondary fonts - load these after
+const geistMono = localFont({
+  src: "./fonts/GeistMonoVF.woff",
+  variable: "--font-geist-mono",
+  weight: "100 900",
+  display: "optional",
+  preload: false,
+});
+
+const circularWeb = localFont({
+  src: "./fonts/circularweb-book.woff2",
+  variable: "--font-circular-web",
+  display: "optional",
+  preload: false,
+});
+
+const robertRegular = localFont({
+  src: "./fonts/robert-regular.woff2",
+  variable: "--font-robert-regular",
+  display: "optional",
+  preload: false,
 });
 
 const general = localFont({
   src: "./fonts/general.woff2",
   variable: "--font-general",
+  display: "optional",
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -46,21 +63,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <link
-          rel="preload"
-          href="/fonts/zentry-regular.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-        <link rel="preconnect" href="https://prod.spline.design" />
-      </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${circularWeb.variable} ${robertRegular.variable} ${zentry.variable} ${general.variable} antialiased`}
-        suppressHydrationWarning
+        className={`${geistSans.variable} ${zentry.variable} ${geistMono.variable} ${circularWeb.variable} ${robertRegular.variable} ${general.variable}`}
       >
-        {children}
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   );
