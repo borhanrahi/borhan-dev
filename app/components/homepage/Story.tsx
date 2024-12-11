@@ -67,13 +67,13 @@ const FloatingImage: React.FC = () => {
   return (
     <div id="story" className="min-h-dvh w-screen bg-black text-blue-50">
       <div className="flex size-full flex-col items-center py-10 pb-24">
-        <p className="font-general text-sm uppercase md:text-[10px]">
-          the multiversal ip world
+        <p className="font-general text-sm uppercase md:text-[15px]">
+          Full Stack Development Journey
         </p>
 
         <div className="relative size-full">
           <AnimatedTitle
-            title="the st<b>o</b>ry of <br /> a hidden real<b>m</b>"
+            title="the st<b>o</b>ry of <br /> my j<b>o</b>urney"
             containerClass="mt-5 pointer-events-none mix-blend-difference relative z-10"
           />
 
@@ -122,14 +122,14 @@ const FloatingImage: React.FC = () => {
         <div className="-mt-80 flex w-full justify-center md:-mt-64 md:me-44 md:justify-end">
           <div className="flex h-full w-fit flex-col items-center md:items-start">
             <p className="mt-3 max-w-sm text-center font-circular-web text-violet-50 md:text-start">
-              Where realms converge, lies Zentry and the boundless pillar.
-              Discover its secrets and shape your fate amidst infinite
-              opportunities.
+              Where code meets creativity, I craft digital experiences. Explore
+              the journey of a passionate full-stack developer turning ideas
+              into reality.
             </p>
 
             <Button
               id="realm-btn"
-              title="discover prologue"
+              title="view portfolio"
               containerClass="mt-5"
             />
           </div>

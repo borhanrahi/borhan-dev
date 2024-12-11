@@ -11,6 +11,7 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        highlight: "#d4ff4d",
       },
       fontFamily: {
         "geist-sans": ["var(--font-geist-sans)"],

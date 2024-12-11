@@ -55,7 +55,6 @@ const About: React.FC = () => {
             src="/img/about.webp"
             alt="Borhan - Full Stack Developer"
             fill
-            priority
             className="absolute left-0 top-0 object-cover"
           />
         </div>

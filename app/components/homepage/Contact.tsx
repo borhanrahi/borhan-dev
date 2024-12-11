@@ -11,51 +11,58 @@ const ImageClipBox: React.FC<ImageClipBoxProps> = ({ src, clipClass }) => (
   <div className={clipClass}>
     <Image
       src={src}
-      alt=""
+      alt="Contact section image"
       fill
       sizes="(max-width: 768px) 100vw, 50vw"
       className="object-cover"
+      priority
     />
   </div>
 );
 
 const Contact: React.FC = () => {
   return (
-    <div id="contact" className="my-20 min-h-96 w-screen px-10">
-      <div className="relative rounded-lg bg-black py-24 text-blue-50 sm:overflow-hidden">
-        <div className="absolute -left-20 top-0 hidden h-full w-72 overflow-hidden sm:block lg:left-20 lg:w-96">
-          <ImageClipBox
-            src="/img/contact-1.webp"
-            clipClass="contact-clip-path-1"
-          />
-          <ImageClipBox
-            src="/img/contact-2.webp"
-            clipClass="contact-clip-path-2 lg:translate-y-40 translate-y-60"
-          />
+    <div id="contact" className="my-20 min-h-96 w-screen px-4 sm:px-10">
+      <div className="relative rounded-lg bg-black py-16 sm:py-24 text-blue-50">
+        {/* Left side images */}
+        <div className="absolute -left-20 top-0 h-full w-96 overflow-visible hidden sm:block lg:left-10">
+          <div className="relative h-full w-full">
+            {/* Top tilted image */}
+            <ImageClipBox
+              src="/img/contact-1.jpg"
+              clipClass="contact-clip-path-1 absolute h-[20%] w-full transform rotate-[-15deg] translate-y-[-20%]"
+            />
+            {/* Bottom tilted image */}
+            <ImageClipBox
+              src="/img/contact-2.jpg"
+              clipClass="contact-clip-path-2 mt-20 absolute h-[20%] w-full transform rotate-[45deg] translate-y-[30%]"
+            />
+          </div>
         </div>
 
-        <div className="absolute -top-40 left-20 w-60 sm:top-1/2 md:left-auto md:right-10 lg:top-20 lg:w-80">
-          <ImageClipBox
-            src="/img/swordman-partial.webp"
-            clipClass="absolute md:scale-125"
-          />
-          <ImageClipBox
-            src="/img/swordman.webp"
-            clipClass="sword-man-clip-path md:scale-125"
-          />
+        {/* Right side content */}
+        <div className="absolute right-4 sm:right-10 w-60 sm:w-80 h-full lg:top-20 -top-10 sm:-top-20">
+          <div className="relative h-full w-full opacity-20 sm:opacity-100">
+            <ImageClipBox
+              src="/img/contact-3.jpg"
+              clipClass="contact-clip-path-3 absolute h-[30%] w-full md:scale-125"
+            />
+          </div>
         </div>
 
-        <div className="flex flex-col items-center text-center">
-          <p className="mb-10 font-general text-[10px] uppercase">
-            Join Zentry
+        {/* Center content */}
+        <div className="relative z-10 flex flex-col items-center text-center px-2 sm:px-0">
+          <p className="mb-6 sm:mb-10 font-general text-[13px] sm:text-[15px] uppercase">
+            Borhan Uddin{" "}
           </p>
-
           <AnimatedTitle
-            title="let&#39;s b<b>u</b>ild the <br /> new era of <br /> g<b>a</b>ming t<b>o</b>gether."
-            containerClass="special-font !md:text-[6.2rem] w-full font-zentry !text-5xl !font-black !leading-[.9]"
+            title="let&#39;s b<b>u</b>ild the <br /> new era of <br /> w<b>eb </b>development<b> t</b>ogether."
+            containerClass="special-font text-[3.5rem] sm:!text-6xl !md:text-[6.2rem] w-full font-zentry !font-black !leading-[1.1] sm:!leading-[.9]"
           />
-
-          <Button title="contact us" containerClass="mt-10 cursor-pointer" />
+          <Button
+            title="contact me"
+            containerClass="mt-8 sm:mt-10 cursor-pointer"
+          />
         </div>
       </div>
     </div>
