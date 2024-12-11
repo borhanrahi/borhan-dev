@@ -87,8 +87,6 @@ const FloatingImage: React.FC = () => {
                   width={1920}
                   height={1080}
                   className="object-contain"
-                  priority
-                  quality={100}
                 />
               </div>
             </div>
