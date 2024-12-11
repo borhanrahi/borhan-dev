@@ -1,12 +1,12 @@
 "use client";
 
-import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
-import TextPlugin from "gsap/TextPlugin";
+import { gsap, ScrollTrigger, TextPlugin } from "@/lib/gsap";
 import { Rocket, Gamepad2 } from "lucide-react";
 import Spline from "@splinetool/react-spline";
 import { Application } from "@splinetool/runtime";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+
+gsap.registerPlugin(ScrollTrigger, TextPlugin);
 
 const webDevConcepts: string[] = [
   "React.js",
@@ -45,39 +45,68 @@ const splitTextIntoSpans = (element: HTMLElement): HTMLSpanElement[] => {
   return spans;
 };
 
+const useScrambleText = (
+  text: string,
+  chars: string = "QWERTYUIOPASDFGHJKLZXCVBNM",
+  speed: number = 30
+) => {
+  const [displayText, setDisplayText] = useState(text);
+
+  useEffect(() => {
+    let isMounted = true;
+    let frame: number;
+    let iteration = 0;
+    const maxIterations = 20;
+
+    const scramble = () => {
+      if (!isMounted) return;
+
+      const newText = text
+        .split("")
+        .map((char, index) => {
+          if (index < iteration) {
+            return text[index];
+          }
+          return chars[Math.floor(Math.random() * chars.length)];
+        })
+        .join("");
+
+      setDisplayText(newText);
+
+      if (iteration < text.length) {
+        if (iteration < maxIterations) {
+          iteration += 1 / 4;
+        } else {
+          iteration += 0.5;
+        }
+        frame = requestAnimationFrame(scramble);
+      }
+    };
+
+    frame = requestAnimationFrame(scramble);
+
+    return () => {
+      isMounted = false;
+      cancelAnimationFrame(frame);
+    };
+  }, [text, chars, speed]);
+
+  return displayText;
+};
+
 export default function GSAPWebDevHero(): React.ReactElement {
   const containerRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLDivElement>(null);
   const conceptsRef = useRef<HTMLDivElement>(null);
-  const developTextRef = useRef<HTMLHeadingElement>(null);
+  const scrambledText = useScrambleText("DEVELOP");
 
   useEffect(() => {
-    // Load ScrambleTextPlugin script
-    const script = document.createElement("script");
-    script.src = "/scripts/ScrambleTextPlugin.min.js";
-    script.async = true;
-
-    script.onload = () => {
-      // Initialize animations after plugin is loaded
-      gsap.registerPlugin(ScrollTrigger, TextPlugin);
-      initializeAnimations();
-    };
-
-    document.body.appendChild(script);
-
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
-
-  const initializeAnimations = () => {
     if (
       !containerRef.current ||
       !titleRef.current ||
       !subtitleRef.current ||
-      !conceptsRef.current ||
-      !developTextRef.current
+      !conceptsRef.current
     )
       return;
 
@@ -87,7 +116,6 @@ export default function GSAPWebDevHero(): React.ReactElement {
     // Reset initial states
     gsap.set(subtitleLines, { opacity: 0 });
     gsap.set(conceptsRef.current, { opacity: 0 });
-    gsap.set(developTextRef.current, { opacity: 0 });
 
     // Initial load animations (no scroll trigger)
     const loadTl = gsap.timeline();
@@ -101,22 +129,6 @@ export default function GSAPWebDevHero(): React.ReactElement {
         stagger: 0.05,
         ease: "back.out(1.7)",
       })
-      .to(
-        developTextRef.current,
-        {
-          duration: 1,
-          opacity: 1,
-          scale: 1,
-          ease: "power2.out",
-          scrambleText: {
-            text: "DEVELOP",
-            chars: "QWERTYUIOPASDFGHJKLZXCVBNM",
-            revealDelay: 0,
-            speed: 0.05,
-          },
-        },
-        "-=1"
-      )
       .to(
         subtitleLines,
         {
@@ -221,7 +233,7 @@ export default function GSAPWebDevHero(): React.ReactElement {
         0
       )
       .to(
-        [conceptsRef.current, developTextRef.current],
+        conceptsRef.current,
         {
           y: "30%",
           opacity: 0,
@@ -242,7 +254,12 @@ export default function GSAPWebDevHero(): React.ReactElement {
         },
         0
       );
-  };
+
+    return () => {
+      loadTl.kill();
+      scrollTl.kill();
+    };
+  }, []);
 
   // Add new useEffect for removing Spline logo
   useEffect(() => {
@@ -349,11 +366,8 @@ export default function GSAPWebDevHero(): React.ReactElement {
         </div>
 
         <div className="content-right absolute right-[5%] bottom-[10%] w-full sm:w-[600px] text-center">
-          <h2
-            ref={developTextRef}
-            className="text-6xl font-bold tracking-tighter text-white sm:text-8xl md:text-9xl lg:text-[150px]"
-          >
-            DEVELOP
+          <h2 className="text-6xl font-bold tracking-tighter text-white sm:text-8xl md:text-9xl lg:text-[150px]">
+            {scrambledText}
           </h2>
         </div>
       </div>
