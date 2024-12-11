@@ -6,7 +6,7 @@ import { ScrambleTextPlugin } from "gsap-trial/ScrambleTextPlugin";
 import { useGSAP } from "@gsap/react";
 
 if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger, TextPlugin, ScrambleTextPlugin, SplitText);
+  gsap.registerPlugin(ScrollTrigger, TextPlugin, ScrambleTextPlugin);
 }
 
 export { gsap, ScrollTrigger, TextPlugin, ScrambleTextPlugin, useGSAP };
