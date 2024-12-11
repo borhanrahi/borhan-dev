@@ -29,7 +29,7 @@ const About: React.FC = () => {
 
   return (
     <div id="about" className="min-h-screen w-screen">
-      <div className="relative mb-8 mt-36 flex flex-col items-center gap-5">
+      <div className="relative mb-16 mt-24 md:mb-8 md:mt-36 flex flex-col items-center gap-5 px-4">
         <p className="font-general text-sm uppercase md:text-[15px]">
           Welcome to My Portfolio
         </p>
@@ -39,7 +39,7 @@ const About: React.FC = () => {
           containerClass="mt-5 !text-black text-center"
         />
 
-        <div className="about-subtext">
+        <div className="about-subtext max-w-2xl px-4 text-center">
           <p>Hi, I&apos;m Borhan - Turning Ideas into Reality</p>
           <p className="text-gray-500">
             I specialize in building modern web applications using cutting-edge
@@ -49,7 +49,7 @@ const About: React.FC = () => {
         </div>
       </div>
 
-      <div className="h-dvh w-screen" id="clip">
+      <div className="h-dvh w-screen mt-8 md:mt-0" id="clip">
         <div className="mask-clip-path about-image">
           <Image
             src="/img/about.webp"
