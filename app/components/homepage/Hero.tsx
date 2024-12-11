@@ -5,7 +5,6 @@ import {
   gsap,
   ScrollTrigger,
   TextPlugin,
-  SplitText,
   ScrambleTextPlugin,
 } from "@/lib/gsap";
 import { Rocket, Gamepad2 } from "lucide-react";
@@ -13,7 +12,7 @@ import Spline from "@splinetool/react-spline";
 import { Application } from "@splinetool/runtime";
 import { useEffect, useRef } from "react";
 
-gsap.registerPlugin(ScrollTrigger, TextPlugin, SplitText, ScrambleTextPlugin);
+gsap.registerPlugin(ScrollTrigger, TextPlugin, ScrambleTextPlugin);
 
 const webDevConcepts: string[] = [
   "React.js",
@@ -39,6 +38,19 @@ type SplineApp = {
   };
 };
 
+const splitTextIntoSpans = (element: HTMLElement): HTMLSpanElement[] => {
+  const text = element.textContent || "";
+  element.textContent = "";
+  const spans = text.split("").map((char) => {
+    const span = document.createElement("span");
+    span.textContent = char;
+    span.style.display = "inline-block";
+    element.appendChild(span);
+    return span;
+  });
+  return spans;
+};
+
 export default function GSAPWebDevHero(): React.ReactElement {
   const containerRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -56,7 +68,7 @@ export default function GSAPWebDevHero(): React.ReactElement {
     )
       return;
 
-    const titleSplit = new SplitText(titleRef.current, { type: "chars" });
+    const titleChars = splitTextIntoSpans(titleRef.current);
     const subtitleLines = subtitleRef.current.children;
 
     // Reset initial states
@@ -68,7 +80,7 @@ export default function GSAPWebDevHero(): React.ReactElement {
     const loadTl = gsap.timeline();
 
     loadTl
-      .from(titleSplit.chars, {
+      .from(titleChars, {
         duration: 1.5,
         opacity: 0,
         y: 50,
@@ -221,7 +233,6 @@ export default function GSAPWebDevHero(): React.ReactElement {
     return () => {
       loadTl.kill();
       scrollTl.kill();
-      titleSplit.revert();
     };
   }, []);
 

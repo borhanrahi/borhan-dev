@@ -1,6 +1,6 @@
 import "gsap-unlocker";
 
-// import Hero from "@/components/homepage/Hero";
+import Hero from "@/components/homepage/Hero";
 import About from "@/components/homepage/About";
 import Features from "@/components/homepage/Features";
 import Story from "@/components/homepage/Story";
@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <main className="relative overflow-hidden">
       <Navbar />
-      {/* <Hero /> */}
+      <Hero />
       <About />
       <Features />
       <Story />
