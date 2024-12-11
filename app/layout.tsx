@@ -46,6 +46,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <link
+          rel="preload"
+          href="/fonts/zentry-regular.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link rel="preconnect" href="https://prod.spline.design" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${circularWeb.variable} ${robertRegular.variable} ${zentry.variable} ${general.variable} antialiased`}
         suppressHydrationWarning

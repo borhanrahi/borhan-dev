@@ -2,9 +2,8 @@
 
 import { gsap, ScrollTrigger, TextPlugin } from "@/lib/gsap";
 import { Rocket, Gamepad2 } from "lucide-react";
-import Spline from "@splinetool/react-spline";
-import { Application } from "@splinetool/runtime";
 import { useEffect, useRef, useState } from "react";
+import SplineScene from "./SplineScene";
 
 gsap.registerPlugin(ScrollTrigger, TextPlugin);
 
@@ -19,18 +18,6 @@ const webDevConcepts: string[] = [
   "GraphQL",
   "Node.js",
 ];
-
-type SplineApp = {
-  camera: {
-    controls: {
-      enabled: boolean;
-      enableRotate: boolean;
-      enablePan: boolean;
-      enableZoom: boolean;
-      mouseButtons: { wheel: null | undefined };
-    };
-  };
-};
 
 const splitTextIntoSpans = (element: HTMLElement): HTMLSpanElement[] => {
   const text = element.textContent || "";
@@ -261,57 +248,12 @@ export default function GSAPWebDevHero(): React.ReactElement {
     };
   }, []);
 
-  // Add new useEffect for removing Spline logo
-  useEffect(() => {
-    const removeSplineLogo = (): void => {
-      const splineElement = document.querySelectorAll("spline-viewer");
-
-      splineElement.forEach((element) => {
-        const shadowRoot = element.shadowRoot;
-        const logo = shadowRoot?.querySelector("#logo");
-        if (logo) {
-          logo.remove();
-        }
-      });
-    };
-
-    removeSplineLogo();
-    window.addEventListener("load", removeSplineLogo);
-
-    return () => {
-      window.removeEventListener("load", removeSplineLogo);
-    };
-  }, []);
-
   return (
     <div
       ref={containerRef}
       className="relative h-screen w-full overflow-hidden bg-black transform-gpu"
     >
-      <div
-        className="absolute inset-0"
-        style={{ height: "100vh" }}
-        onWheel={(e: React.WheelEvent<HTMLDivElement>) => {
-          e.stopPropagation();
-          window.scrollBy(0, e.deltaY);
-        }}
-      >
-        <Spline
-          className="absolute inset-0"
-          scene="https://prod.spline.design/zJbcJ71w4C8jF2xl/scene.splinecode"
-          onLoad={(spline: Application) => {
-            const camera = (spline as unknown as SplineApp).camera;
-            if (camera) {
-              camera.controls.enabled = true;
-              camera.controls.enableRotate = true;
-              camera.controls.enablePan = true;
-              camera.controls.enableZoom = true;
-              camera.controls.mouseButtons.wheel = null;
-              camera.controls.enableZoom = false;
-            }
-          }}
-        />
-      </div>
+      <SplineScene />
 
       <div className="background-gradient absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/30 pointer-events-none z-10" />
 
