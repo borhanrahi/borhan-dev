@@ -1,18 +1,12 @@
 "use client";
-import "gsap-unlocker";
 
-import {
-  gsap,
-  ScrollTrigger,
-  TextPlugin,
-  ScrambleTextPlugin,
-} from "@/lib/gsap";
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
+import TextPlugin from "gsap/TextPlugin";
 import { Rocket, Gamepad2 } from "lucide-react";
 import Spline from "@splinetool/react-spline";
 import { Application } from "@splinetool/runtime";
 import { useEffect, useRef } from "react";
-
-gsap.registerPlugin(ScrollTrigger, TextPlugin, ScrambleTextPlugin);
 
 const webDevConcepts: string[] = [
   "React.js",
@@ -59,6 +53,25 @@ export default function GSAPWebDevHero(): React.ReactElement {
   const developTextRef = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {
+    // Load ScrambleTextPlugin script
+    const script = document.createElement("script");
+    script.src = "/scripts/ScrambleTextPlugin.min.js";
+    script.async = true;
+
+    script.onload = () => {
+      // Initialize animations after plugin is loaded
+      gsap.registerPlugin(ScrollTrigger, TextPlugin);
+      initializeAnimations();
+    };
+
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
+  const initializeAnimations = () => {
     if (
       !containerRef.current ||
       !titleRef.current ||
@@ -229,12 +242,7 @@ export default function GSAPWebDevHero(): React.ReactElement {
         },
         0
       );
-
-    return () => {
-      loadTl.kill();
-      scrollTl.kill();
-    };
-  }, []);
+  };
 
   // Add new useEffect for removing Spline logo
   useEffect(() => {
