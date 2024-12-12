@@ -1,12 +1,33 @@
 "use client";
 
 import { gsap, ScrollTrigger, TextPlugin } from "@/lib/gsap";
-import { Rocket, Gamepad2 } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, Suspense } from "react";
 import dynamic from "next/dynamic";
 
+// Lazy load icons
+const Rocket = dynamic(() => import("lucide-react").then((mod) => mod.Rocket), {
+  loading: () => <div className="w-5 h-5" />,
+  ssr: true,
+});
+
+const Gamepad2 = dynamic(
+  () => import("lucide-react").then((mod) => mod.Gamepad2),
+  {
+    loading: () => <div className="w-5 h-5" />,
+    ssr: true,
+  }
+);
+
+// Lazy load SplineScene with suspense
+const SplineScene = dynamic(() => import("./SplineScene"), {
+  loading: () => null,
+  ssr: false,
+});
+
+// Pre-register GSAP plugins
 gsap.registerPlugin(ScrollTrigger, TextPlugin);
 
+// Move constants outside component
 const webDevConcepts: string[] = [
   "React.js",
   "Next.js",
@@ -80,11 +101,6 @@ const useScrambleText = (
 
   return displayText;
 };
-
-const SplineScene = dynamic(() => import("./SplineScene"), {
-  loading: () => <div className="h-screen w-full bg-black" />,
-  ssr: false,
-});
 
 export default function GSAPWebDevHero(): React.ReactElement {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -258,7 +274,9 @@ export default function GSAPWebDevHero(): React.ReactElement {
       ref={containerRef}
       className="relative h-screen w-full overflow-hidden bg-black transform-gpu"
     >
-      <SplineScene />
+      <Suspense fallback={<div className="h-screen w-full bg-black" />}>
+        <SplineScene />
+      </Suspense>
 
       <div className="background-gradient absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/30 pointer-events-none z-10" />
 

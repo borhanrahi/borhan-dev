@@ -5,14 +5,28 @@ const nextConfig: NextConfig = {
     remotePatterns: [],
   },
   compress: true,
+  poweredByHeader: false,
   experimental: {
     optimizeServerReact: true,
     optimizeCss: true,
+    turbo: {
+      loaders: {
+        ".js": ["js"],
+        ".jsx": ["jsx"],
+        ".ts": ["ts"],
+        ".tsx": ["tsx"],
+      },
+    },
+    serverActions: {
+      bodySizeLimit: "2mb",
+    },
   },
   webpack: (config, { dev }) => {
+    // Production optimizations
     if (!dev) {
       config.optimization = {
         ...config.optimization,
+        moduleIds: "deterministic",
         splitChunks: {
           chunks: "all",
           minSize: 20000,
@@ -20,19 +34,37 @@ const nextConfig: NextConfig = {
           cacheGroups: {
             default: false,
             vendors: false,
-            vendor: {
-              name: "vendor",
+            framework: {
+              name: "framework",
               chunks: "all",
-              test: /node_modules/,
+              test: /[\\/]node_modules[\\/](react|react-dom|next)[\\/]/,
+              priority: 40,
+              enforce: true,
+            },
+            lib: {
+              test: /[\\/]node_modules[\\/]/,
+              name(module: { context: string }) {
+                const match = module.context.match(
+                  /[\\/]node_modules[\\/](.*?)([\\/]|$)/
+                );
+                return match ? `npm.${match[1].replace("@", "")}` : "vendor";
+              },
+              priority: 30,
+              minChunks: 1,
+              reuseExistingChunk: true,
+            },
+            commons: {
+              name: "commons",
+              minChunks: 2,
               priority: 20,
             },
-            common: {
-              name: "common",
-              minChunks: 2,
-              chunks: "all",
+            shared: {
+              name(module: { context: string }, chunks: { name: string }[]) {
+                return `shared.${chunks.map((c) => c.name).join(".")}`;
+              },
               priority: 10,
+              minChunks: 2,
               reuseExistingChunk: true,
-              enforce: true,
             },
           },
         },

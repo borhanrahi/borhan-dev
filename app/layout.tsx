@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "./components/homepage/Navbar";
 import Footer from "./components/homepage/Footer";
+import { Suspense } from "react";
 
 // Primary fonts - load these first
 const geistSans = localFont({
@@ -67,9 +68,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${zentry.variable} ${geistMono.variable} ${circularWeb.variable} ${robertRegular.variable} ${general.variable}`}
       >
-        <Navbar />
-        {children}
-        <Footer />
+        <Suspense fallback={<div className="h-screen w-full bg-black" />}>
+          <Navbar />
+          {children}
+          <Footer />
+        </Suspense>
       </body>
     </html>
   );
