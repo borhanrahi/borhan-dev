@@ -2,7 +2,7 @@
 
 import Spline from "@splinetool/react-spline";
 import { Application } from "@splinetool/runtime";
-import { useEffect, memo, useState, useCallback } from "react";
+import { useEffect, memo, useState, useCallback, useRef } from "react";
 
 type SplineApp = {
   camera: {
@@ -18,6 +18,7 @@ type SplineApp = {
 
 const SplineScene = memo(function SplineScene() {
   const [isLoaded, setIsLoaded] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   // Memoize the logo removal function
   const removeSplineLogo = useCallback((): void => {
@@ -52,15 +53,21 @@ const SplineScene = memo(function SplineScene() {
   }, []);
 
   useEffect(() => {
-    removeSplineLogo();
-
-    // Use requestIdleCallback for non-critical initialization
+    // Defer non-critical initialization
     const handle = window.requestIdleCallback(() => {
-      window.addEventListener("load", removeSplineLogo);
+      // Only remove logo when scene is actually visible
+      const observer = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          removeSplineLogo();
+        }
+      });
+
+      if (containerRef.current) {
+        observer.observe(containerRef.current);
+      }
     });
 
     return () => {
-      window.removeEventListener("load", removeSplineLogo);
       window.cancelIdleCallback(handle);
     };
   }, [removeSplineLogo]);
