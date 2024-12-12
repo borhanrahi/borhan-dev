@@ -3,6 +3,8 @@
 import { useState, useRef, ReactNode } from "react";
 import { TiLocationArrow } from "react-icons/ti";
 import Image from "next/image";
+import { throttle } from "lodash";
+import { useInView } from "react-intersection-observer";
 
 interface BentoTiltProps {
   children: ReactNode;
@@ -29,7 +31,7 @@ export const BentoTilt: React.FC<BentoTiltProps> = ({
   const [transformStyle, setTransformStyle] = useState("");
   const itemRef = useRef<HTMLDivElement>(null);
 
-  const handleMouseMove = (event: React.MouseEvent) => {
+  const handleMouseMove = throttle((event: React.MouseEvent) => {
     if (!itemRef.current) return;
 
     const { left, top, width, height } =
@@ -41,21 +43,22 @@ export const BentoTilt: React.FC<BentoTiltProps> = ({
     const tiltX = (relativeY - 0.5) * 5;
     const tiltY = (relativeX - 0.5) * -5;
 
-    const newTransform = `perspective(700px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(.95, .95, .95)`;
-    setTransformStyle(newTransform);
-  };
-
-  const handleMouseLeave = () => {
-    setTransformStyle("");
-  };
+    setTransformStyle(
+      `perspective(700px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(.95, .95, .95)`
+    );
+  }, 16);
 
   return (
     <div
       ref={itemRef}
-      className={className}
+      className={`${className} transform-gpu`}
       onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{ transform: transformStyle }}
+      onMouseLeave={() => setTransformStyle("")}
+      style={{
+        transform: transformStyle,
+        willChange: "transform",
+        backfaceVisibility: "hidden",
+      }}
     >
       {children}
     </div>
@@ -155,96 +158,106 @@ export const BentoCard: React.FC<BentoCardProps> = ({
   );
 };
 
-const Features: React.FC = () => (
-  <section className="bg-black pb-52">
-    <div className="container mx-auto px-3 md:px-10">
-      <div className="px-5 py-32">
-        <p className="font-circular-web text-lg text-blue-50">
-          Featured Projects
-        </p>
-        <p className="max-w-md font-circular-web text-lg text-blue-50 opacity-50">
-          Explore my latest work and projects, showcasing a diverse range of web
-          applications built with modern technologies and creative solutions.
-        </p>
-      </div>
+const Features: React.FC = () => {
+  const [ref, inView] = useInView({
+    threshold: 0.1,
+    triggerOnce: true,
+  });
 
-      <BentoTilt className="border-hsla relative mb-7 h-96 w-full overflow-hidden rounded-md md:h-[65vh]">
-        <BentoCard
-          src="/imageoneone.jpg"
-          title={
-            <>
-              Project <b>O</b>ne
-            </>
-          }
-          description="A modern web application featuring real-time data visualization and interactive user interfaces."
-          techStack={["nextjs", "typescript", "tailwindcss", "gsap"]}
-          projectUrl="https://project-one.com"
-        />
-      </BentoTilt>
-
-      <div className="grid h-[135vh] w-full grid-cols-2 grid-rows-3 gap-7">
-        <BentoTilt className="bento-tilt_1 row-span-1 md:col-span-1 md:row-span-2">
-          <BentoCard
-            src="/imageoneone.jpg"
-            title={
-              <>
-                Project <b>T</b>wo
-              </>
-            }
-            description="Interactive dashboard with real-time analytics and data visualization."
-            techStack={["react", "redux", "chartjs", "firebase"]}
-            projectUrl="https://project-two.com"
-          />
-        </BentoTilt>
-
-        <BentoTilt className="bento-tilt_1 ms-32 md:col-span-1 md:ms-0">
-          <BentoCard
-            src="/imageoneone.jpg"
-            title={
-              <>
-                Project <b>T</b>hree
-              </>
-            }
-            description="E-commerce platform with advanced filtering and search capabilities."
-            techStack={["nextjs", "prisma", "postgresql", "stripe"]}
-            projectUrl="https://project-three.com"
-          />
-        </BentoTilt>
-
-        <BentoTilt className="bento-tilt_1 me-14 md:col-span-1 md:me-0">
-          <BentoCard
-            src="/imageoneone.jpg"
-            title={
-              <>
-                Project <b>F</b>our
-              </>
-            }
-            description="Social media dashboard with real-time messaging and notifications."
-            techStack={["react", "socket.io", "mongodb", "express"]}
-            projectUrl="https://project-four.com"
-          />
-        </BentoTilt>
-
-        <BentoTilt className="bento-tilt_2">
-          <div className="flex size-full flex-col justify-between bg-black p-5">
-            <h1 className="bento-title special-font max-w-64 text-highlight">
-              Visit Site
-            </h1>
-            <TiLocationArrow className="m-5 scale-[5] self-end text-highlight" />
+  return (
+    <section className="bg-black pb-52" ref={ref}>
+      {inView && (
+        <div className="container mx-auto px-3 md:px-10">
+          <div className="px-5 py-32">
+            <p className="font-circular-web text-lg text-blue-50">
+              Featured Projects
+            </p>
+            <p className="max-w-md font-circular-web text-lg text-blue-50 opacity-50">
+              Explore my latest work and projects, showcasing a diverse range of
+              web applications built with modern technologies and creative
+              solutions.
+            </p>
           </div>
-        </BentoTilt>
 
-        <BentoTilt className="bento-tilt_2">
-          <Image
-            src="/imageoneone.jpg"
-            alt="Project preview"
-            fill
-            className="size-full object-cover object-center"
-          />
-        </BentoTilt>
-      </div>
-    </div>
-  </section>
-);
+          <BentoTilt className="border-hsla relative mb-7 h-96 w-full overflow-hidden rounded-md md:h-[65vh]">
+            <BentoCard
+              src="/imageoneone.jpg"
+              title={
+                <>
+                  Project <b>O</b>ne
+                </>
+              }
+              description="A modern web application featuring real-time data visualization and interactive user interfaces."
+              techStack={["nextjs", "typescript", "tailwindcss", "gsap"]}
+              projectUrl="https://project-one.com"
+            />
+          </BentoTilt>
+
+          <div className="grid h-[135vh] w-full grid-cols-2 grid-rows-3 gap-7">
+            <BentoTilt className="bento-tilt_1 row-span-1 md:col-span-1 md:row-span-2">
+              <BentoCard
+                src="/imageoneone.jpg"
+                title={
+                  <>
+                    Project <b>T</b>wo
+                  </>
+                }
+                description="Interactive dashboard with real-time analytics and data visualization."
+                techStack={["react", "redux", "chartjs", "firebase"]}
+                projectUrl="https://project-two.com"
+              />
+            </BentoTilt>
+
+            <BentoTilt className="bento-tilt_1 ms-32 md:col-span-1 md:ms-0">
+              <BentoCard
+                src="/imageoneone.jpg"
+                title={
+                  <>
+                    Project <b>T</b>hree
+                  </>
+                }
+                description="E-commerce platform with advanced filtering and search capabilities."
+                techStack={["nextjs", "prisma", "postgresql", "stripe"]}
+                projectUrl="https://project-three.com"
+              />
+            </BentoTilt>
+
+            <BentoTilt className="bento-tilt_1 me-14 md:col-span-1 md:me-0">
+              <BentoCard
+                src="/imageoneone.jpg"
+                title={
+                  <>
+                    Project <b>F</b>our
+                  </>
+                }
+                description="Social media dashboard with real-time messaging and notifications."
+                techStack={["react", "socket.io", "mongodb", "express"]}
+                projectUrl="https://project-four.com"
+              />
+            </BentoTilt>
+
+            <BentoTilt className="bento-tilt_2">
+              <div className="flex size-full flex-col justify-between bg-black p-5">
+                <h1 className="bento-title special-font max-w-64 text-highlight">
+                  Visit Site
+                </h1>
+                <TiLocationArrow className="m-5 scale-[5] self-end text-highlight" />
+              </div>
+            </BentoTilt>
+
+            <BentoTilt className="bento-tilt_2">
+              <Image
+                src="/imageoneone.jpg"
+                alt="Project preview"
+                fill
+                className="size-full object-cover object-center"
+              />
+            </BentoTilt>
+          </div>
+        </div>
+      )}
+    </section>
+  );
+};
 
 export default Features;

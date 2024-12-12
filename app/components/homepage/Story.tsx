@@ -3,6 +3,7 @@
 import { gsap } from "@/lib/gsap";
 import { useRef, useEffect } from "react";
 import Image from "next/image";
+import { throttle } from "lodash";
 
 import Button from "./Button";
 import AnimatedTitle from "./AnimatedTitle";
@@ -11,7 +12,7 @@ const FloatingImage: React.FC = () => {
   const frameRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
+    const handleMouseMove = throttle((e: MouseEvent) => {
       const element = frameRef.current;
       if (!element) return;
 
@@ -25,14 +26,8 @@ const FloatingImage: React.FC = () => {
       const rotateX = ((yPos - centerY) / centerY) * -10;
       const rotateY = ((xPos - centerX) / centerX) * 10;
 
-      gsap.to(element, {
-        duration: 0.3,
-        rotateX,
-        rotateY,
-        transformPerspective: 500,
-        ease: "power1.inOut",
-      });
-    };
+      element.style.transform = `perspective(500px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    }, 16);
 
     const handleMouseLeave = () => {
       const element = frameRef.current;
@@ -86,7 +81,9 @@ const FloatingImage: React.FC = () => {
                   alt="entrance"
                   width={1920}
                   height={1080}
-                  className="object-contain"
+                  className="object-contain transform-gpu"
+                  style={{ willChange: "transform" }}
+                  priority
                 />
               </div>
             </div>
