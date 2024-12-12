@@ -9,9 +9,6 @@ const nextConfig: NextConfig = {
     optimizeServerReact: true,
     optimizeCss: true,
   },
-  scriptLoader: {
-    strategy: "afterInteractive",
-  },
   webpack: (config, { dev }) => {
     if (!dev) {
       config.optimization = {
