@@ -18,7 +18,8 @@ type SplineApp = {
 
 const SplineScene = memo(function SplineScene() {
   const [isLoaded, setIsLoaded] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const splineContainerRef = useRef<HTMLDivElement>(null);
+  const observerRef = useRef<IntersectionObserver | null>(null);
 
   // Memoize the logo removal function
   const removeSplineLogo = useCallback((): void => {
@@ -53,22 +54,23 @@ const SplineScene = memo(function SplineScene() {
   }, []);
 
   useEffect(() => {
-    // Defer non-critical initialization
+    if (!splineContainerRef.current) return;
+
     const handle = window.requestIdleCallback(() => {
-      // Only remove logo when scene is actually visible
-      const observer = new IntersectionObserver((entries) => {
+      observerRef.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting) {
           removeSplineLogo();
         }
       });
 
-      if (containerRef.current) {
-        observer.observe(containerRef.current);
+      if (splineContainerRef.current) {
+        observerRef.current.observe(splineContainerRef.current);
       }
     });
 
     return () => {
       window.cancelIdleCallback(handle);
+      observerRef.current?.disconnect();
     };
   }, [removeSplineLogo]);
 
