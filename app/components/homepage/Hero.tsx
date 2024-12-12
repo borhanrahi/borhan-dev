@@ -3,7 +3,7 @@
 import { gsap, ScrollTrigger, TextPlugin } from "@/lib/gsap";
 import { Rocket, Gamepad2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import SplineScene from "./SplineScene";
+import dynamic from "next/dynamic";
 
 gsap.registerPlugin(ScrollTrigger, TextPlugin);
 
@@ -80,6 +80,11 @@ const useScrambleText = (
 
   return displayText;
 };
+
+const SplineScene = dynamic(() => import("./SplineScene"), {
+  loading: () => <div className="h-screen w-full bg-black" />,
+  ssr: false,
+});
 
 export default function GSAPWebDevHero(): React.ReactElement {
   const containerRef = useRef<HTMLDivElement>(null);

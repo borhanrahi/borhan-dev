@@ -1,5 +1,20 @@
+"use client";
+
 import Link from "next/link";
-import { ArrowUpRight, Github, Linkedin, Twitter, Heart } from "lucide-react";
+import dynamic from "next/dynamic";
+
+// Dynamic imports for icons
+const ArrowUpRight = dynamic(() =>
+  import("lucide-react").then((mod) => mod.ArrowUpRight)
+);
+const Github = dynamic(() => import("lucide-react").then((mod) => mod.Github));
+const Linkedin = dynamic(() =>
+  import("lucide-react").then((mod) => mod.Linkedin)
+);
+const Twitter = dynamic(() =>
+  import("lucide-react").then((mod) => mod.Twitter)
+);
+const Heart = dynamic(() => import("lucide-react").then((mod) => mod.Heart));
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
