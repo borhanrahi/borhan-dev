@@ -102,6 +102,15 @@ const useScrambleText = (
   return displayText;
 };
 
+// Pre-compute static class strings to reduce runtime concatenation
+const STATIC_CLASSES = {
+  container: "relative h-screen w-full overflow-hidden bg-black transform-gpu",
+  gradient:
+    "background-gradient absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/30 pointer-events-none z-10",
+  contentContainer:
+    "content-container relative mx-auto max-w-[1440px] h-full z-30 pointer-events-none",
+} as const;
+
 export default function GSAPWebDevHero(): React.ReactElement {
   const containerRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -270,20 +279,14 @@ export default function GSAPWebDevHero(): React.ReactElement {
   }, []);
 
   return (
-    <div
-      ref={containerRef}
-      className="relative h-screen w-full overflow-hidden bg-black transform-gpu"
-    >
+    <div ref={containerRef} className={STATIC_CLASSES.container}>
       <Suspense fallback={<div className="h-screen w-full bg-black" />}>
         <SplineScene />
       </Suspense>
 
-      <div className="background-gradient absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/30 pointer-events-none z-10" />
+      <div className={STATIC_CLASSES.gradient} />
 
-      <div className="blur-orb absolute left-1/4 top-1/2 h-64 w-64 -translate-y-1/2 rounded-full bg-blue-500/20 blur-3xl z-20 pointer-events-none" />
-      <div className="blur-orb absolute right-1/4 bottom-1/4 h-64 w-64 rounded-full bg-purple-500/20 blur-3xl z-20 pointer-events-none" />
-
-      <div className="content-container relative mx-auto max-w-[1440px] h-full z-30 pointer-events-none">
+      <div className={STATIC_CLASSES.contentContainer}>
         <div className="content-left absolute left-[5%] sm:left-[10%] top-[20%] w-[90%] sm:w-[45%]">
           <h1
             ref={titleRef}

@@ -56,6 +56,8 @@ const About: React.FC = () => {
             alt="Borhan - Full Stack Developer"
             fill
             className="absolute left-0 top-0 object-cover"
+            loading="lazy"
+            sizes="100vw"
           />
         </div>
       </div>

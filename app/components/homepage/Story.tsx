@@ -83,7 +83,8 @@ const FloatingImage: React.FC = () => {
                   height={1080}
                   className="object-contain transform-gpu"
                   style={{ willChange: "transform" }}
-                  priority
+                  loading="lazy"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1920px"
                 />
               </div>
             </div>

@@ -29,29 +29,33 @@ const geistMono = localFont({
   src: "./fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
   weight: "100 900",
-  display: "optional",
+  display: "swap",
   preload: false,
+  fallback: ["monospace"],
 });
 
 const circularWeb = localFont({
   src: "./fonts/circularweb-book.woff2",
   variable: "--font-circular-web",
-  display: "optional",
+  display: "swap",
   preload: false,
+  fallback: ["system-ui", "sans-serif"],
 });
 
 const robertRegular = localFont({
   src: "./fonts/robert-regular.woff2",
   variable: "--font-robert-regular",
-  display: "optional",
+  display: "swap",
   preload: false,
+  fallback: ["system-ui", "sans-serif"],
 });
 
 const general = localFont({
   src: "./fonts/general.woff2",
   variable: "--font-general",
-  display: "optional",
+  display: "swap",
   preload: false,
+  fallback: ["system-ui", "sans-serif"],
 });
 
 export const metadata: Metadata = {
