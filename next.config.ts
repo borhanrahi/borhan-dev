@@ -3,6 +3,9 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: [],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    formats: ["image/webp"],
   },
   compress: true,
   poweredByHeader: false,
@@ -10,11 +13,11 @@ const nextConfig: NextConfig = {
     optimizeServerReact: true,
     optimizeCss: true,
     turbo: {
-      loaders: {
-        ".js": ["js"],
-        ".jsx": ["jsx"],
-        ".ts": ["ts"],
-        ".tsx": ["tsx"],
+      rules: {
+        "*.js": ["js"],
+        "*.jsx": ["jsx"],
+        "*.ts": ["ts"],
+        "*.tsx": ["tsx"],
       },
     },
     serverActions: {

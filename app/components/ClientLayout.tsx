@@ -13,9 +13,9 @@ export default function ClientLayout({
     setIsMounted(true);
   }, []);
 
-  return (
-    <div suppressHydrationWarning>
-      {!isMounted ? <div className="h-screen w-full bg-black" /> : children}
-    </div>
-  );
+  if (!isMounted) {
+    return <div className="h-screen w-full bg-black" />;
+  }
+
+  return <>{children}</>;
 }
