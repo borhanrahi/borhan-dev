@@ -2,7 +2,13 @@
 
 import { gsap } from "@/lib/gsap";
 import { useEffect, useRef } from "react";
-import { Code2, Palette, Globe, Laptop, ArrowUpRight } from "lucide-react";
+import {
+  Code2,
+  Palette,
+  ShoppingCart,
+  Laptop,
+  ArrowUpRight,
+} from "lucide-react";
 import AnimatedTitle from "./AnimatedTitle";
 import { BentoTilt } from "./Features";
 import Link from "next/link";
@@ -21,10 +27,10 @@ const services = [
       "Creating responsive and intuitive user interfaces with Tailwind CSS, GSAP animations, and modern design principles.",
   },
   {
-    icon: <Globe className="h-8 w-8" />,
-    title: "Web Performance",
+    icon: <ShoppingCart className="h-8 w-8" />,
+    title: "E-commerce Solutions",
     description:
-      "Optimizing applications for speed and efficiency using best practices, lazy loading, and modern build tools.",
+      "Building custom online stores with secure payment integration, inventory management, and seamless shopping experiences.",
   },
   {
     icon: <Laptop className="h-8 w-8" />,
