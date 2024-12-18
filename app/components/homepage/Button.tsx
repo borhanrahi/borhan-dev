@@ -7,6 +7,7 @@ interface ButtonProps {
   rightIcon?: ReactNode;
   leftIcon?: ReactNode;
   containerClass?: string;
+  disabled?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -15,10 +16,12 @@ const Button: React.FC<ButtonProps> = ({
   rightIcon,
   leftIcon,
   containerClass,
+  disabled,
 }) => {
   return (
     <button
       id={id}
+      disabled={disabled}
       className={clsx(
         "group relative z-10 w-fit cursor-pointer overflow-hidden rounded-full bg-violet-50 px-7 py-3 text-black",
         containerClass

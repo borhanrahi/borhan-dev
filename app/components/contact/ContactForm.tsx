@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { gsap } from "@/lib/gsap";
 import AnimatedTitle from "../homepage/AnimatedTitle";
 import {
@@ -43,6 +43,11 @@ const socialLinks = [
 
 const ContactForm = () => {
   const formRef = useRef<HTMLFormElement>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: "success" | "error" | null;
+    message: string;
+  }>({ type: null, message: "" });
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -68,9 +73,44 @@ const ContactForm = () => {
     return () => ctx.revert();
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Add your form submission logic here
+    setIsSubmitting(true);
+
+    const form = e.target as HTMLFormElement;
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.get("name"),
+          email: formData.get("email"),
+          message: formData.get("message"),
+        }),
+      });
+
+      if (response.ok) {
+        setSubmitStatus({
+          type: "success",
+          message: "Message sent successfully!",
+        });
+        form.reset();
+      } else {
+        throw new Error("Failed to send message");
+      }
+    } catch (error: unknown) {
+      setSubmitStatus({
+        type: "error",
+        message:
+          error instanceof Error ? error.message : "Failed to send message",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -144,6 +184,7 @@ const ContactForm = () => {
                 NAME
               </label>
               <input
+                name="name"
                 type="text"
                 className="w-full bg-[#1a1a1a] rounded-lg px-4 py-3 font-circular-web text-white outline-none"
                 required
@@ -155,6 +196,7 @@ const ContactForm = () => {
                 EMAIL
               </label>
               <input
+                name="email"
                 type="email"
                 className="w-full bg-[#1a1a1a] rounded-lg px-4 py-3 font-circular-web text-white outline-none"
                 required
@@ -166,16 +208,28 @@ const ContactForm = () => {
                 MESSAGE
               </label>
               <textarea
+                name="message"
                 rows={4}
                 className="w-full bg-[#1a1a1a] rounded-lg px-4 py-3 font-circular-web text-white outline-none"
                 required
               />
             </div>
 
+            {submitStatus.type && (
+              <div
+                className={`text-${
+                  submitStatus.type === "success" ? "green-500" : "red-500"
+                }`}
+              >
+                {submitStatus.message}
+              </div>
+            )}
+
             <Button
-              title="Send Message"
+              title={isSubmitting ? "Sending..." : "Send Message"}
               leftIcon={<SendIcon className="h-4 w-4" />}
               containerClass="w-full bg-highlight text-black hover:bg-highlight/90 font-general text-lg flex items-center justify-center gap-3"
+              disabled={isSubmitting}
             />
           </form>
         </div>
