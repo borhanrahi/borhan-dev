@@ -1,6 +1,13 @@
 "use client";
 
-import { useState, useRef, ReactNode, Suspense, lazy } from "react";
+import {
+  useState,
+  useRef,
+  ReactNode,
+  Suspense,
+  lazy,
+  useCallback,
+} from "react";
 import { TiLocationArrow } from "react-icons/ti";
 import Image from "next/image";
 import { throttle } from "lodash";
@@ -38,22 +45,24 @@ export const BentoTilt: React.FC<BentoTiltProps> = ({
   const [transformStyle, setTransformStyle] = useState("");
   const itemRef = useRef<HTMLDivElement>(null);
 
-  const handleMouseMove = throttle((event: React.MouseEvent) => {
-    if (!itemRef.current) return;
+  const handleMouseMove = useCallback(
+    throttle((event: React.MouseEvent) => {
+      if (!itemRef.current) return;
 
-    const { left, top, width, height } =
-      itemRef.current.getBoundingClientRect();
+      const rect = itemRef.current.getBoundingClientRect();
+      const relativeX = (event.clientX - rect.left) / rect.width;
+      const relativeY = (event.clientY - rect.top) / rect.height;
 
-    const relativeX = (event.clientX - left) / width;
-    const relativeY = (event.clientY - top) / height;
-
-    const tiltX = (relativeY - 0.5) * 5;
-    const tiltY = (relativeX - 0.5) * -5;
-
-    setTransformStyle(
-      `perspective(700px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(.95, .95, .95)`
-    );
-  }, 16);
+      requestAnimationFrame(() => {
+        setTransformStyle(
+          `perspective(700px) rotateX(${(relativeY - 0.5) * 5}deg) rotateY(${
+            (relativeX - 0.5) * -5
+          }deg) scale3d(.95, .95, .95)`
+        );
+      });
+    }, 16),
+    []
+  );
 
   return (
     <div

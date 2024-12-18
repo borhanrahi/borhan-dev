@@ -55,8 +55,7 @@ const splitTextIntoSpans = (element: HTMLElement): HTMLSpanElement[] => {
 
 const useScrambleText = (
   text: string,
-  chars: string = "QWERTYUIOPASDFGHJKLZXCVBNM",
-  speed: number = 30
+  chars: string = "QWERTYUIOPASDFGHJKLZXCVBNM"
 ) => {
   const [displayText, setDisplayText] = useState(text);
 
@@ -64,40 +63,35 @@ const useScrambleText = (
     let isMounted = true;
     let frame: number;
     let iteration = 0;
-    const maxIterations = 20;
 
     const scramble = () => {
       if (!isMounted) return;
 
-      const newText = text
-        .split("")
-        .map((char, index) => {
-          if (index < iteration) {
-            return text[index];
-          }
-          return chars[Math.floor(Math.random() * chars.length)];
-        })
-        .join("");
+      requestAnimationFrame(() => {
+        const newText = text
+          .split("")
+          .map((char, index) =>
+            index < iteration
+              ? text[index]
+              : chars[Math.floor(Math.random() * chars.length)]
+          )
+          .join("");
 
-      setDisplayText(newText);
+        setDisplayText(newText);
 
-      if (iteration < text.length) {
-        if (iteration < maxIterations) {
-          iteration += 1 / 4;
-        } else {
-          iteration += 0.5;
+        if (iteration < text.length) {
+          iteration += iteration < 20 ? 0.25 : 0.5;
+          frame = requestAnimationFrame(scramble);
         }
-        frame = requestAnimationFrame(scramble);
-      }
+      });
     };
 
-    frame = requestAnimationFrame(scramble);
-
+    scramble();
     return () => {
       isMounted = false;
       cancelAnimationFrame(frame);
     };
-  }, [text, chars, speed]);
+  }, [text, chars]);
 
   return displayText;
 };
