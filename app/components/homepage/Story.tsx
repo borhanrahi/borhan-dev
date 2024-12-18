@@ -4,6 +4,7 @@ import { gsap } from "@/lib/gsap";
 import { useRef, useEffect } from "react";
 import Image from "next/image";
 import { throttle } from "lodash";
+import Link from "next/link";
 
 import Button from "./Button";
 import AnimatedTitle from "./AnimatedTitle";
@@ -125,11 +126,13 @@ const FloatingImage: React.FC = () => {
               into reality.
             </p>
 
-            <Button
-              id="realm-btn"
-              title="view portfolio"
-              containerClass="mt-5"
-            />
+            <Link href="/projects">
+              <Button
+                id="realm-btn"
+                title="view projects"
+                containerClass="mt-5"
+              />
+            </Link>
           </div>
         </div>
       </div>

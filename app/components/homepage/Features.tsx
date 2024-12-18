@@ -6,6 +6,7 @@ import Image from "next/image";
 import { throttle } from "lodash";
 import { useInView } from "react-intersection-observer";
 import Link from "next/link";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 interface BentoTiltProps {
   children: ReactNode;
@@ -277,12 +278,14 @@ const Features: React.FC = () => {
             </BentoTilt>
 
             <BentoTilt className="bento-tilt_2">
-              <Image
-                src="/imageoneone.jpg"
-                alt="Project preview"
-                fill
-                className="size-full object-cover object-center"
-              />
+              <div className="relative size-full">
+                <DotLottieReact
+                  src="https://lottie.host/f997005c-fede-4f6b-90d6-9ff05a38bf43/JpvWzvZdHy.lottie"
+                  loop
+                  autoplay
+                  className="size-full scale-140"
+                />
+              </div>
             </BentoTilt>
           </div>
         </div>
