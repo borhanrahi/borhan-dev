@@ -1,12 +1,17 @@
 "use client";
 
-import { useState, useRef, ReactNode } from "react";
+import { useState, useRef, ReactNode, Suspense, lazy } from "react";
 import { TiLocationArrow } from "react-icons/ti";
 import Image from "next/image";
 import { throttle } from "lodash";
 import { useInView } from "react-intersection-observer";
 import Link from "next/link";
-import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+
+const LazyDotLottieReact = lazy(() =>
+  import("@lottiefiles/dotlottie-react").then((mod) => ({
+    default: mod.DotLottieReact,
+  }))
+);
 
 interface BentoTiltProps {
   children: ReactNode;
@@ -279,12 +284,14 @@ const Features: React.FC = () => {
 
             <BentoTilt className="bento-tilt_2">
               <div className="relative size-full">
-                <DotLottieReact
-                  src="https://lottie.host/f997005c-fede-4f6b-90d6-9ff05a38bf43/JpvWzvZdHy.lottie"
-                  loop
-                  autoplay
-                  className="size-full scale-140"
-                />
+                <Suspense fallback={<div className="size-full bg-zinc-900" />}>
+                  <LazyDotLottieReact
+                    src="https://lottie.host/f997005c-fede-4f6b-90d6-9ff05a38bf43/JpvWzvZdHy.lottie"
+                    loop
+                    autoplay
+                    className="size-full scale-140"
+                  />
+                </Suspense>
               </div>
             </BentoTilt>
           </div>
