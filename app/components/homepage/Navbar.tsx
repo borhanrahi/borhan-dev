@@ -13,7 +13,7 @@ import gsap from "gsap";
 const navLinks = [
   { name: "About", path: "/about" },
   { name: "Skills", path: "/skills" },
-  { name: "Services", path: "/servicepage" },
+  { name: "Services", path: "/service" },
   { name: "Projects", path: "/projects" },
   { name: "Contact", path: "/contact" },
 ];

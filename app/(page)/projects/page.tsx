@@ -1,10 +1,19 @@
-import React from "react";
+import ProjectContact from "@/app/components/projects/ProjectContact";
+import ProjectGrid from "@/app/components/projects/ProjectGrid";
+import ProjectHero from "@/app/components/projects/ProjectHero";
+import ProjectStats from "@/app/components/projects/ProjectStats";
 
 export default function ProjectsPage() {
   return (
-    <main className="container mx-auto px-4 py-16">
-      <h1 className="text-4xl font-bold mb-8">My Projects</h1>
-      {/* Add your projects grid/list here */}
+    <main className="relative min-h-screen w-screen overflow-hidden bg-black">
+      <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0f1012] via-black to-black opacity-90" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(17,17,17,0.8),rgba(0,0,0,0.8))]" />
+      </div>
+      <ProjectHero />
+      <ProjectGrid />
+      <ProjectStats />
+      <ProjectContact />
     </main>
   );
 }

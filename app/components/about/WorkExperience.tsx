@@ -5,6 +5,28 @@ import { useRef } from "react";
 
 import { useGsapAnimation } from "@/app/hooks/useGsapAnimation";
 
+const experiences = [
+  {
+    company: "Infrastructure Development Company Limited (IDCOL)",
+    period: "Aug 2021 - Oct 2024",
+    responsibilities: [
+      "Provided technical support for solar rooftop projects",
+      "Core team member for CBS and HRMS implementation",
+      "Ensured project compliance through site evaluations",
+    ],
+  },
+  {
+    company: "Freelance Full Stack Developer",
+    period: "2018 - Present",
+    responsibilities: [
+      "Delivered 65+ successful projects on Upwork and Fiverr",
+      "Specialized in React, Next.js, and Node.js development",
+      "Maintained 5-star rating with 95% client satisfaction rate",
+      "Built and deployed scalable web applications for clients worldwide",
+    ],
+  },
+];
+
 const WorkExperience = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -36,21 +58,26 @@ const WorkExperience = () => {
         </h2>
 
         <div className="space-y-8">
-          <div className="experience-item rounded-2xl border border-white/10 bg-[#111]/80 p-8 backdrop-blur-sm">
-            <div className="mb-4">
-              <h3 className="font-circular-web text-2xl text-white">
-                Infrastructure Development Company Limited (IDCOL)
-              </h3>
-              <p className="font-robert-regular text-highlight">
-                Aug 2021 - Present
-              </p>
+          {experiences.map((exp) => (
+            <div
+              key={exp.company}
+              className="experience-item rounded-2xl border border-white/10 bg-[#111]/80 p-8 backdrop-blur-sm"
+            >
+              <div className="mb-4">
+                <h3 className="font-circular-web text-2xl text-white">
+                  {exp.company}
+                </h3>
+                <p className="font-robert-regular text-highlight">
+                  {exp.period}
+                </p>
+              </div>
+              <ul className="space-y-3 text-gray-400">
+                {exp.responsibilities.map((resp, index) => (
+                  <li key={index}>• {resp}</li>
+                ))}
+              </ul>
             </div>
-            <ul className="space-y-3 text-gray-400">
-              <li>• Provided technical support for solar rooftop projects</li>
-              <li>• Core team member for CBS and HRMS implementation</li>
-              <li>• Ensured project compliance through site evaluations</li>
-            </ul>
-          </div>
+          ))}
         </div>
       </div>
     </section>
