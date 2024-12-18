@@ -5,6 +5,7 @@ import { TiLocationArrow } from "react-icons/ti";
 import Image from "next/image";
 import { throttle } from "lodash";
 import { useInView } from "react-intersection-observer";
+import Link from "next/link";
 
 interface BentoTiltProps {
   children: ReactNode;
@@ -181,7 +182,7 @@ const Features: React.FC = () => {
 
           <BentoTilt className="border-hsla relative mb-7 h-96 w-full overflow-hidden rounded-md md:h-[65vh]">
             <BentoCard
-              src="/imageoneone.jpg"
+              src="/img/jadoo.jpg"
               title={
                 <>
                   Project <b>O</b>ne
@@ -229,25 +230,45 @@ const Features: React.FC = () => {
 
             <BentoTilt className="bento-tilt_1 me-14 md:col-span-1 md:me-0">
               <BentoCard
-                src="/imageoneone.jpg"
+                src="/img/optihealth.jpg"
                 title={
                   <>
-                    Project <b>F</b>our
+                    OPTI<b>HEALTH</b>
                   </>
                 }
-                description="Social media dashboard with real-time messaging and notifications."
-                techStack={["react", "socket.io", "mongodb", "express"]}
-                projectUrl="https://project-four.com"
+                description="A comprehensive healthcare platform offering seamless appointment scheduling and patient management solutions."
+                techStack={["nextjs", "tailwindcss", "framer-motion"]}
+                projectUrl="https://optihealth-topaz.vercel.app/"
               />
             </BentoTilt>
 
             <BentoTilt className="bento-tilt_2">
-              <div className="flex size-full flex-col justify-between bg-black p-5">
-                <h1 className="bento-title special-font max-w-64 text-highlight">
-                  Visit Site
-                </h1>
-                <TiLocationArrow className="m-5 scale-[5] self-end text-highlight" />
-              </div>
+              <Link href="/projects" className="block size-full">
+                <div className="flex size-full flex-col justify-between bg-gradient-to-br from-black to-zinc-900 p-7 transition-all hover:opacity-90">
+                  <div className="space-y-3">
+                    <h1 className="bento-title special-font text-highlight">
+                      My Projects
+                    </h1>
+                    <p className="text-sm text-blue-50/80 max-w-[250px]">
+                      Explore my portfolio of web applications, open-source
+                      projects, and creative experiments.
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      <span className="text-xs text-highlight/80">
+                        #portfolio
+                      </span>
+                      <span className="text-xs text-highlight/80">
+                        #showcase
+                      </span>
+                      <span className="text-xs text-highlight/80">#code</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2 text-highlight">
+                    <TiLocationArrow className="scale-150 animate-pulse" />
+                    <span className="text-sm font-medium">View All</span>
+                  </div>
+                </div>
+              </Link>
             </BentoTilt>
 
             <BentoTilt className="bento-tilt_2">
