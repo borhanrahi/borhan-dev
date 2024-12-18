@@ -105,7 +105,7 @@ export const BentoCard: React.FC<BentoCardProps> = ({
         />
       </div>
 
-      <div className="absolute inset-0 bg-black/40" />
+      <div className="absolute inset-0 bg-black/60" />
 
       <div className="relative z-10 flex size-full flex-col justify-between p-5 text-blue-50">
         <div>
@@ -133,13 +133,13 @@ export const BentoCard: React.FC<BentoCardProps> = ({
             onMouseMove={handleMouseMove}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            className="border-hsla relative flex w-fit cursor-pointer items-center gap-1 overflow-hidden rounded-full bg-black px-5 py-2 text-xs uppercase text-white/20"
+            className="border-hsla relative flex w-fit cursor-pointer items-center gap-1 overflow-hidden rounded-full bg-black px-5 py-2 text-xs uppercase text-highlight"
           >
             <div
               className="pointer-events-none absolute -inset-px opacity-0 transition duration-300"
               style={{
                 opacity: hoverOpacity,
-                background: `radial-gradient(100px circle at ${cursorPosition.x}px ${cursorPosition.y}px, #656fe288, #00000026)`,
+                background: `radial-gradient(100px circle at ${cursorPosition.x}px ${cursorPosition.y}px, rgba(212, 255, 77, 0.5), #00000026)`,
               }}
             />
             <TiLocationArrow className="relative z-20" />
@@ -194,31 +194,36 @@ const Features: React.FC = () => {
           </BentoTilt>
 
           <div className="grid h-[135vh] w-full grid-cols-2 grid-rows-3 gap-7">
-            <BentoTilt className="bento-tilt_1 row-span-1 md:col-span-1 md:row-span-2">
+            <BentoTilt className="border-hsla relative row-span-2 overflow-hidden rounded-md md:col-span-1">
               <BentoCard
-                src="/imageoneone.jpg"
+                src="/img/jadoo.jpg"
                 title={
                   <>
-                    Project <b>T</b>wo
+                    JADOO <b>TRAVEL</b>
                   </>
                 }
-                description="Interactive dashboard with real-time analytics and data visualization."
-                techStack={["react", "redux", "chartjs", "firebase"]}
-                projectUrl="https://project-two.com"
+                description="Modern travel agency website with seamless animations, interactive booking system, and responsive design for optimal user experience."
+                techStack={[
+                  "nextjs",
+                  "framer-motion",
+                  "supabase",
+                  "tailwindcss",
+                ]}
+                projectUrl="https://jadoo-travel-brown.vercel.app/"
               />
             </BentoTilt>
 
             <BentoTilt className="bento-tilt_1 ms-32 md:col-span-1 md:ms-0">
               <BentoCard
-                src="/imageoneone.jpg"
+                src="/img/blissful.jpg"
                 title={
                   <>
-                    Project <b>T</b>hree
+                    BLISSFUL <b>BALANCE</b>
                   </>
                 }
-                description="E-commerce platform with advanced filtering and search capabilities."
+                description="A wellness and meditation platform featuring guided sessions, progress tracking, and personalized mindfulness experiences."
                 techStack={["nextjs", "prisma", "postgresql", "stripe"]}
-                projectUrl="https://project-three.com"
+                projectUrl="https://blissful-balance.vercel.app/"
               />
             </BentoTilt>
 
