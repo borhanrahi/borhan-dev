@@ -52,7 +52,7 @@ const About: React.FC = () => {
       <div className="h-dvh w-screen mt-8 md:mt-0" id="clip">
         <div className="mask-clip-path about-image">
           <Image
-            src="/img/about.webp"
+            src="/img/office.webp"
             alt="Borhan - Full Stack Developer"
             fill
             className="absolute left-0 top-0 object-cover"

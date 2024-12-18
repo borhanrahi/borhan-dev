@@ -15,6 +15,7 @@ const Twitter = dynamic(() =>
   import("lucide-react").then((mod) => mod.Twitter)
 );
 const Heart = dynamic(() => import("lucide-react").then((mod) => mod.Heart));
+const Mail = dynamic(() => import("lucide-react").then((mod) => mod.Mail));
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -23,6 +24,7 @@ const Footer = () => {
     { icon: Github, href: "https://github.com", label: "GitHub" },
     { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
     { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
+    { icon: Mail, href: "mailto:contact@borhandev.site", label: "Email" },
   ];
 
   const navLinks = ["About", "Skills", "Projects", "Contact"];
@@ -39,6 +41,12 @@ const Footer = () => {
             <p className="mt-2 font-circular-web text-sm text-blue-50/60">
               Available for freelance work and collaborations
             </p>
+            <Link
+              href="mailto:contact@borhandev.site"
+              className="mt-1 block font-circular-web text-3xl text-highlight hover:text-blue-50/60 transition-colors"
+            >
+              contact@borhandev.site
+            </Link>
           </div>
 
           <Link
