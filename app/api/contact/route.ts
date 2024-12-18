@@ -52,7 +52,7 @@ export async function POST(request: Request) {
     }
 
     const data = await resend.emails.send({
-      from: "onboarding@resend.dev",
+      from: "contact@borhandev.site",
       to: process.env.EMAIL_USER,
       subject: "New Contact Form Submission",
       html: `
