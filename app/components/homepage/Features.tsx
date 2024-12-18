@@ -182,15 +182,20 @@ const Features: React.FC = () => {
 
           <BentoTilt className="border-hsla relative mb-7 h-96 w-full overflow-hidden rounded-md md:h-[65vh]">
             <BentoCard
-              src="/img/jadoo.jpg"
+              src="/img/nexlessdemo.jpg"
               title={
                 <>
-                  Project <b>O</b>ne
+                  NEX<b>LESS</b>
                 </>
               }
-              description="A modern web application featuring real-time data visualization and interactive user interfaces."
-              techStack={["nextjs", "typescript", "tailwindcss", "gsap"]}
-              projectUrl="https://project-one.com"
+              description="A comprehensive multi-purpose SaaS application offering modern solutions for businesses with real-time features and interactive interfaces."
+              techStack={[
+                "nextjs",
+                "typescript",
+                "tailwindcss",
+                "framer-motion",
+              ]}
+              projectUrl="https://nexlessdemo.vercel.app/"
             />
           </BentoTilt>
 
