@@ -292,3 +292,32 @@ body {
   backface-visibility: hidden;
   will-change: transform, opacity;
 }
+
+/* Optimize will-change properties */
+.background-image,
+.content-left,
+.content-right,
+.background-gradient,
+.transform-gpu {
+  will-change: transform, opacity;
+}
+
+/* Combine common transitions */
+.background-image,
+.content-left,
+.content-right,
+.background-gradient {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Optimize transform properties */
+.transform-gpu {
+  transform: translate3d(0, 0, 0); /* Force GPU acceleration */
+  backface-visibility: hidden;
+}
+
+.story-img-container,
+.gallery-img-container,
+.about-image {
+  contain: content;
+}
