@@ -17,6 +17,14 @@ const Twitter = dynamic(() =>
 const Heart = dynamic(() => import("lucide-react").then((mod) => mod.Heart));
 const Mail = dynamic(() => import("lucide-react").then((mod) => mod.Mail));
 
+const navLinks = [
+  { name: "About", path: "/about" },
+  { name: "Skills", path: "/skills" },
+  { name: "Services", path: "/service" },
+  { name: "Projects", path: "/projects" },
+  { name: "Contact", path: "/contact" },
+];
+
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
@@ -26,8 +34,6 @@ const Footer = () => {
     { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
     { icon: Mail, href: "mailto:contact@borhandev.site", label: "Email" },
   ];
-
-  const navLinks = ["About", "Skills", "Projects", "Contact"];
 
   return (
     <footer className="relative w-screen bg-black px-4 py-16 text-blue-50 sm:px-10">
@@ -65,11 +71,11 @@ const Footer = () => {
             <div className="mt-4 flex flex-wrap gap-4">
               {navLinks.map((link) => (
                 <Link
-                  key={link}
-                  href={`#${link.toLowerCase()}`}
+                  key={link.name}
+                  href={link.path}
                   className="font-circular-web text-sm text-blue-50/60 transition-colors hover:text-highlight"
                 >
-                  {link}
+                  {link.name}
                 </Link>
               ))}
             </div>

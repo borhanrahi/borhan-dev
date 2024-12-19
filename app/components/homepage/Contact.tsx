@@ -44,12 +44,12 @@ const Contact: React.FC = () => {
               {/* Top tilted image */}
               <ImageClipBox
                 src="/img/contact-1.jpg"
-                clipClass="contact-clip-path-1 absolute h-[20%] w-full transform rotate-[-15deg] translate-y-[-20%]"
+                clipClass="contact-clip-path-1 absolute h-[40%] w-full transform rotate-[-35deg] translate-y-[20%] translate-x-[-30%] overflow-hidden"
               />
               {/* Bottom tilted image */}
               <ImageClipBox
                 src="/img/contact-2.jpg"
-                clipClass="contact-clip-path-2 mt-20 absolute h-[20%] w-full transform rotate-[45deg] translate-y-[30%]"
+                clipClass="contact-clip-path-2 absolute h-[80%] mt-20 w-full transform rotate-[35deg] translate-y-[60%] translate-x-[-30%] overflow-hidden"
               />
             </div>
           </div>

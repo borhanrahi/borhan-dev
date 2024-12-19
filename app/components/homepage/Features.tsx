@@ -195,7 +195,7 @@ const Features: React.FC = () => {
             </p>
           </div>
 
-          <BentoTilt className="border-hsla relative mb-7 h-96 w-full overflow-hidden rounded-md md:h-[65vh]">
+          <BentoTilt className="border-hsla relative mb-7 h-[50vh] w-full overflow-hidden rounded-md md:h-[65vh]">
             <BentoCard
               src="/img/nexlessdemo.jpg"
               title={
@@ -214,8 +214,8 @@ const Features: React.FC = () => {
             />
           </BentoTilt>
 
-          <div className="grid h-[135vh] w-full grid-cols-2 grid-rows-3 gap-7">
-            <BentoTilt className="border-hsla relative row-span-2 overflow-hidden rounded-md md:col-span-1">
+          <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2 md:grid-rows-3 md:gap-7">
+            <BentoTilt className="border-hsla relative h-[50vh] overflow-hidden rounded-md md:row-span-2 md:h-auto">
               <BentoCard
                 src="/img/jadoo.jpg"
                 title={
@@ -234,7 +234,7 @@ const Features: React.FC = () => {
               />
             </BentoTilt>
 
-            <BentoTilt className="bento-tilt_1 ms-32 md:col-span-1 md:ms-0">
+            <BentoTilt className="border-hsla relative h-[50vh] overflow-hidden rounded-md md:h-auto">
               <BentoCard
                 src="/img/blissful.jpg"
                 title={
@@ -248,7 +248,7 @@ const Features: React.FC = () => {
               />
             </BentoTilt>
 
-            <BentoTilt className="bento-tilt_1 me-14 md:col-span-1 md:me-0">
+            <BentoTilt className="border-hsla relative h-[50vh] overflow-hidden rounded-md md:h-auto">
               <BentoCard
                 src="/img/optihealth.jpg"
                 title={
@@ -262,7 +262,7 @@ const Features: React.FC = () => {
               />
             </BentoTilt>
 
-            <BentoTilt className="bento-tilt_2">
+            <BentoTilt className="border-hsla relative h-[50vh] overflow-hidden rounded-md md:h-auto">
               <Link href="/projects" className="block size-full">
                 <div className="flex size-full flex-col justify-between bg-gradient-to-br from-black to-zinc-900 p-7 transition-all hover:opacity-90">
                   <div className="space-y-3">
@@ -291,7 +291,7 @@ const Features: React.FC = () => {
               </Link>
             </BentoTilt>
 
-            <BentoTilt className="bento-tilt_2">
+            <BentoTilt className="border-hsla relative h-[50vh] overflow-hidden rounded-md md:h-auto">
               <div className="relative size-full">
                 <Suspense fallback={<div className="size-full bg-zinc-900" />}>
                   <LazyDotLottieReact
