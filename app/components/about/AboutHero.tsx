@@ -15,7 +15,7 @@ const AboutHero = () => {
   }
 
   return (
-    <section className="relative min-h-screen w-full bg-black px-8 py-20">
+    <section className="relative w-full bg-black px-8 py-8 pb-16">
       <div className="mx-auto max-w-7xl py-8">
         {/* About Me Title */}
         <h2 className="font-general text-[15px] uppercase text-highlight mb-20">

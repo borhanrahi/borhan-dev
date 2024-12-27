@@ -79,7 +79,7 @@ const ServiceOverview = () => {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-screen py-20 px-4 sm:px-6 lg:px-8"
+      className="relative py-20 px-4 sm:px-6 lg:px-8"
     >
       <div className="mx-auto max-w-7xl">
         <div className="overview-content text-center mb-16">

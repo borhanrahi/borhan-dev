@@ -50,7 +50,7 @@ const WorkExperience = () => {
   return (
     <section
       ref={containerRef}
-      className="relative w-full bg-black px-4 py-24 sm:px-10"
+      className="relative w-full bg-black px-4 py-4 sm:px-10"
     >
       <div className="mx-auto max-w-7xl">
         <h2 className="special-font mb-12 font-zentry text-3xl font-black text-white">
