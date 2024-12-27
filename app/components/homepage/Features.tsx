@@ -7,6 +7,7 @@ import {
   Suspense,
   lazy,
   useCallback,
+  useMemo,
 } from "react";
 import { TiLocationArrow } from "react-icons/ti";
 import Image from "next/image";
@@ -45,30 +46,32 @@ export const BentoTilt: React.FC<BentoTiltProps> = ({
   const [transformStyle, setTransformStyle] = useState("");
   const itemRef = useRef<HTMLDivElement>(null);
 
-  const handleMouseMove = useCallback(
-    throttle((event: React.MouseEvent) => {
-      if (!itemRef.current) return;
+  const handleMouseMove = useCallback((event: React.MouseEvent) => {
+    if (!itemRef.current) return;
 
-      const rect = itemRef.current.getBoundingClientRect();
-      const relativeX = (event.clientX - rect.left) / rect.width;
-      const relativeY = (event.clientY - rect.top) / rect.height;
+    const rect = itemRef.current.getBoundingClientRect();
+    const relativeX = (event.clientX - rect.left) / rect.width;
+    const relativeY = (event.clientY - rect.top) / rect.height;
 
-      requestAnimationFrame(() => {
-        setTransformStyle(
-          `perspective(700px) rotateX(${(relativeY - 0.5) * 5}deg) rotateY(${
-            (relativeX - 0.5) * -5
-          }deg) scale3d(.95, .95, .95)`
-        );
-      });
-    }, 16),
-    []
+    requestAnimationFrame(() => {
+      setTransformStyle(
+        `perspective(700px) rotateX(${(relativeY - 0.5) * 5}deg) rotateY(${
+          (relativeX - 0.5) * -5
+        }deg) scale3d(.95, .95, .95)`
+      );
+    });
+  }, []);
+
+  const throttledHandleMouseMove = useMemo(
+    () => throttle(handleMouseMove, 16),
+    [handleMouseMove]
   );
 
   return (
     <div
       ref={itemRef}
       className={`${className} transform-gpu`}
-      onMouseMove={handleMouseMove}
+      onMouseMove={throttledHandleMouseMove}
       onMouseLeave={() => setTransformStyle("")}
       style={{
         transform: transformStyle,
@@ -184,7 +187,7 @@ const Features: React.FC = () => {
     <section className="bg-black pb-52" ref={ref}>
       {inView && (
         <div className="container mx-auto px-3 md:px-10">
-          <div className="px-5 py-32">
+          <div className="px-5 py-4">
             <p className="font-circular-web text-lg text-blue-50">
               Featured Projects
             </p>

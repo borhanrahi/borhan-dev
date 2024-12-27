@@ -74,7 +74,7 @@ const Services = () => {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-screen flex flex-col justify-center bg-black"
+      className="relative  flex flex-col justify-center bg-black"
     >
       <div className="absolute inset-0 bg-gradient-to-b from-black via-purple-950/20 to-black" />
 
