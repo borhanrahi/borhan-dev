@@ -78,7 +78,7 @@ const FloatingImage: React.FC = () => {
               <div className="story-img-content">
                 <Image
                   ref={frameRef}
-                  src="/img/entrance.webp"
+                  src="/img/myjourney.jpg"
                   alt="entrance"
                   width={1920}
                   height={1080}
