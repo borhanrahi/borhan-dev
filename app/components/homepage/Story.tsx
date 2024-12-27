@@ -61,25 +61,25 @@ const FloatingImage: React.FC = () => {
   }, []);
 
   return (
-    <div id="story" className="min-h-dvh w-screen bg-black text-blue-50">
-      <div className="flex size-full flex-col items-center py-10 pb-24">
+    <div id="story" className="h-dvh w-screen bg-black text-blue-50">
+      <div className="flex flex-col items-center">
         <p className="font-general text-sm uppercase md:text-[15px]">
           Full Stack Development Journey
         </p>
 
-        <div className="relative size-full">
+        <div className="relative h-[70vh] w-full">
           <AnimatedTitle
             title="the st<b>o</b>ry of <br /> my j<b>o</b>urney"
             containerClass="mt-5 pointer-events-none mix-blend-difference relative z-10"
           />
 
-          <div className="story-img-container">
+          <div className="story-img-container h-full">
             <div className="story-img-mask">
               <div className="story-img-content">
                 <Image
                   ref={frameRef}
                   src="/img/myjourney.jpg"
-                  alt="entrance"
+                  alt="myjourney"
                   width={1920}
                   height={1080}
                   className="object-contain transform-gpu"
@@ -118,7 +118,7 @@ const FloatingImage: React.FC = () => {
           </div>
         </div>
 
-        <div className="-mt-80 flex w-full justify-center md:-mt-64 md:me-44 md:justify-end">
+        <div className="mt-10 flex w-full justify-center md:me-44 md:justify-end">
           <div className="flex h-full w-fit flex-col items-center md:items-start">
             <p className="mt-3 max-w-sm text-center font-circular-web text-violet-50 md:text-start">
               Where code meets creativity, I craft digital experiences. Explore
