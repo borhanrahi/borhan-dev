@@ -59,8 +59,31 @@ const general = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Borhan - Full Stack Developer",
-  description: "Portfolio of Borhan, a Full Stack Web Developer",
+  title: "Borhan Uddin - Full Stack Developer",
+  description: "Full Stack Developer specializing in modern web development with React, Next.js, and Node.js",
+  openGraph: {
+    type: "website",
+    url: "https://borhandev.site",
+    title: "Borhan Uddin - Full Stack Developer",
+    description: "Full Stack Developer specializing in modern web development with React, Next.js, and Node.js",
+    siteName: "Borhan Uddin Portfolio",
+    images: [
+      {
+        url: "/img/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Borhan Uddin - Full Stack Developer",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@borhandev",
+    creator: "@borhandev",
+    title: "Borhan Uddin - Full Stack Developer",
+    description: "Full Stack Developer specializing in modern web development with React, Next.js, and Node.js",
+    images: ["/img/og-image.jpg"],
+  },
 };
 
 export default function RootLayout({
