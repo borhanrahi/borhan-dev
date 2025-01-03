@@ -32,7 +32,7 @@ const Footer = () => {
     { icon: Github, href: "https://github.com", label: "GitHub" },
     { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
     { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
-    { icon: Mail, href: "mailto:contact@borhandev.site", label: "Email" },
+    { icon: Mail, href: "mailto:info@borhandev.site", label: "Email" },
   ];
 
   return (
@@ -48,10 +48,10 @@ const Footer = () => {
               Available for freelance work and collaborations
             </p>
             <Link
-              href="mailto:contact@borhandev.site"
+              href="mailto:info@borhandev.site"
               className="mt-1 block font-circular-web text-3xl text-highlight hover:text-blue-50/60 transition-colors"
             >
-              contact@borhandev.site
+              info@borhandev.site
             </Link>
           </div>
 

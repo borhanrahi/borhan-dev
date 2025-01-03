@@ -52,7 +52,7 @@ I'm Borhan Uddin, a Full Stack Web Developer passionate about creating efficient
 
 ## Contact
 
-📧 Email: contact@borhandev.site
+📧 Email: info@borhandev.site
 🌐 Website: [borhandev.site](https://borhandev.site/)
 📍 Location: Remote
 
