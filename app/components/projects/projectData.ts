@@ -77,4 +77,24 @@ export const projects: Project[] = [
       "Health tracking dashboard",
     ],
   },
+  {
+    title: "TECH E-COMMERCE",
+    description:
+      "A modern e-commerce platform built with Next.js, featuring premium tech gadgets and electronics with complete shopping functionality.",
+    longDescription:
+      "A comprehensive e-commerce solution offering full-featured product catalog, user authentication with Appwrite, shopping cart with Redux state management, and integrated payment processing. Built with performance and scalability in mind.",
+    techStack: ["nextjs", "typescript", "tailwindcss", "mongodb", "redux", "appwrite"],
+    projectUrl: "https://tech-ecom-store-theta.vercel.app/",
+    src: "/img/tech-ecom-store.png",
+    features: [
+      "Full-featured product catalog",
+      "User authentication with Appwrite",
+      "Shopping cart with Redux",
+      "Multi-language support",
+      "Advanced product search",
+      "Order management system",
+      "Blog system with CMS",
+      "Responsive mobile-first design"
+    ],
+  },
 ];
