@@ -2,20 +2,8 @@
   "buildCommand": "npm run build",
   "framework": "nextjs",
   "functions": {
-    "app/about/page.tsx": {
-      "runtime": "nodejs18.x"
-    },
-    "app/contact/page.tsx": {
-      "runtime": "nodejs18.x"
-    },
-    "app/projects/page.tsx": {
-      "runtime": "nodejs18.x"
-    },
-    "app/service/page.tsx": {
-      "runtime": "nodejs18.x"
-    },
-    "app/skills/page.tsx": {
-      "runtime": "nodejs18.x"
+    "app/**/*.tsx": {
+      "runtime": "@vercel/node@3.0.0"
     }
   },
   "trailingSlash": false
