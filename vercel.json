@@ -1,7 +1,22 @@
 {
-  "version": 2,
   "buildCommand": "npm run build",
-  "outputDirectory": "out",
-  "framework": null,
+  "framework": "nextjs",
+  "functions": {
+    "app/about/page.tsx": {
+      "runtime": "nodejs18.x"
+    },
+    "app/contact/page.tsx": {
+      "runtime": "nodejs18.x"
+    },
+    "app/projects/page.tsx": {
+      "runtime": "nodejs18.x"
+    },
+    "app/service/page.tsx": {
+      "runtime": "nodejs18.x"
+    },
+    "app/skills/page.tsx": {
+      "runtime": "nodejs18.x"
+    }
+  },
   "trailingSlash": false
 }
