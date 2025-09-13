@@ -1,7 +1,7 @@
-import ProjectContact from "@/app/components/projects/ProjectContact";
-import ProjectGrid from "@/app/components/projects/ProjectGrid";
-import ProjectHero from "@/app/components/projects/ProjectHero";
-import ProjectStats from "@/app/components/projects/ProjectStats";
+import ProjectContact from "@/components/projects/ProjectContact";
+import ProjectGrid from "@/components/projects/ProjectGrid";
+import ProjectHero from "@/components/projects/ProjectHero";
+import ProjectStats from "@/components/projects/ProjectStats";
 
 export default function ProjectsPage() {
   return (

@@ -1,7 +1,7 @@
-import ServiceCTA from "@/app/components/servicepage/ServiceCTA";
-import ServiceGrid from "@/app/components/servicepage/ServiceGrid";
-import ServiceHero from "@/app/components/servicepage/ServiceHero";
-import ServiceOverview from "@/app/components/servicepage/ServiceOverview";
+import ServiceCTA from "@/components/servicepage/ServiceCTA";
+import ServiceGrid from "@/components/servicepage/ServiceGrid";
+import ServiceHero from "@/components/servicepage/ServiceHero";
+import ServiceOverview from "@/components/servicepage/ServiceOverview";
 
 export default function ServicePage() {
   return (
