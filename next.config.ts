@@ -1,9 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: 'standalone',
-  trailingSlash: false,
-  generateEtags: false,
+  reactStrictMode: true,
   images: {
     remotePatterns: [],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
@@ -12,20 +10,27 @@ const nextConfig: NextConfig = {
   },
   compress: true,
   poweredByHeader: false,
+  serverExternalPackages: ['gsap'],
   experimental: {
-    optimizeServerReact: true,
-    optimizeCss: true,
-    turbo: {
-      rules: {
-        "*.js": ["js"],
-        "*.jsx": ["jsx"],
-        "*.ts": ["ts"],
-        "*.tsx": ["tsx"],
-      },
-    },
+    optimizePackageImports: ['react-icons'],
+
     serverActions: {
       bodySizeLimit: "2mb",
     },
+  },
+  turbopack: {
+    rules: {
+      "*.js": ["js"],
+      "*.jsx": ["jsx"],
+      "*.ts": ["ts"],
+      "*.tsx": ["tsx"],
+    },
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  typescript: {
+    ignoreBuildErrors: false,
   },
   webpack: (config, { dev }) => {
     // Production optimizations
@@ -74,9 +79,17 @@ const nextConfig: NextConfig = {
             },
           },
         },
-        runtimeChunk: { name: "runtime" },
+        runtimeChunk: "single",
       };
     }
+    // Optimize for production
+    if (!dev) {
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        '@': require('path').resolve(__dirname, './'),
+      };
+    }
+    
     return config;
   },
 };

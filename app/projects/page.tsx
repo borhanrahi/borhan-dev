@@ -2,6 +2,15 @@ import ProjectContact from "@/components/projects/ProjectContact";
 import ProjectGrid from "@/components/projects/ProjectGrid";
 import ProjectHero from "@/components/projects/ProjectHero";
 import ProjectStats from "@/components/projects/ProjectStats";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Projects - Borhan Uddin",
+  description: "Explore my portfolio of web development projects, showcasing modern technologies and innovative solutions.",
+};
+
+export const dynamic = 'force-static';
+export const revalidate = false;
 
 export default function ProjectsPage() {
   return (

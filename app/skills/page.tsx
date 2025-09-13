@@ -1,4 +1,13 @@
 import Skills from "@/components/skills/Skills";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Skills - Borhan Uddin",
+  description: "Technical skills and expertise in web development, including React, Next.js, Node.js, and modern technologies.",
+};
+
+export const dynamic = 'force-static';
+export const revalidate = false;
 
 export default function SkillsPage() {
   return (
