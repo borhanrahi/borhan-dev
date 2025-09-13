@@ -4,6 +4,9 @@ import TechnicalSkills from "@/components/about/TechnicalSkills";
 import Education from "@/components/about/Education";
 import KeyCompetencies from "@/components/about/KeyCompetencies";
 
+export const dynamic = 'force-static';
+export const revalidate = false;
+
 export default function AboutPage() {
   return (
     <main className="relative min-h-screen w-screen overflow-hidden bg-black">
