@@ -97,4 +97,24 @@ export const projects: Project[] = [
       "Responsive mobile-first design"
     ],
   },
+  {
+    title: "AI AT CHECKER",
+    description:
+      "An advanced AI detection tool that analyzes text content to identify AI-generated content with high accuracy and detailed reporting.",
+    longDescription:
+      "A sophisticated AI detection platform that uses advanced machine learning algorithms to analyze text patterns and identify AI-generated content. Features comprehensive reporting and analysis tools for content verification.",
+    techStack: ["nextjs", "typescript", "tailwindcss", "openai", "prisma"],
+    projectUrl: "https://aiatschecker.vercel.app/",
+    src: "/img/aiatschecker.webp",
+    features: [
+      "Advanced AI content detection",
+      "Detailed analysis reporting",
+      "Real-time text scanning",
+      "Accuracy percentage display",
+      "Batch processing support",
+      "Export analysis results",
+      "User-friendly interface",
+      "Fast processing speed"
+    ],
+  },
 ];
