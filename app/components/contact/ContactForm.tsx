@@ -24,8 +24,8 @@ const contactInfo = [
   {
     icon: Phone,
     title: "Phone",
-    value: "+1 (555) 123-4567",
-    link: "tel:+15551234567",
+    value: "01714228323",
+    link: "https://wa.me/8801714228323",
   },
   {
     icon: MapPin,
@@ -36,9 +36,9 @@ const contactInfo = [
 ];
 
 const socialLinks = [
-  { icon: Github, href: "https://github.com", label: "GitHub" },
-  { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-  { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
+  { icon: Github, href: "https://github.com/borhanrahi", label: "GitHub" },
+  { icon: Linkedin, href: "https://www.linkedin.com/in/borhan-uddin-rahi/", label: "LinkedIn" },
+  { icon: Twitter, href: "https://x.com/borhan_rahi", label: "Twitter" },
 ];
 
 const ContactForm = () => {
@@ -144,6 +144,8 @@ const ContactForm = () => {
                     </h3>
                     <a
                       href={item.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="font-robert-regular text-lg text-gray-400"
                     >
                       {item.value}

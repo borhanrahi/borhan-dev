@@ -1,7 +1,16 @@
-import ServiceCTA from "@/app/components/servicepage/ServiceCTA";
-import ServiceGrid from "@/app/components/servicepage/ServiceGrid";
-import ServiceHero from "@/app/components/servicepage/ServiceHero";
-import ServiceOverview from "@/app/components/servicepage/ServiceOverview";
+import ServiceCTA from "@/components/servicepage/ServiceCTA";
+import ServiceGrid from "@/components/servicepage/ServiceGrid";
+import ServiceHero from "@/components/servicepage/ServiceHero";
+import ServiceOverview from "@/components/servicepage/ServiceOverview";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Services - Borhan Uddin",
+  description: "Professional web development services including React, Next.js, e-commerce solutions, and custom applications.",
+};
+
+export const dynamic = 'force-static';
+export const revalidate = false;
 
 export default function ServicePage() {
   return (

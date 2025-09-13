@@ -112,7 +112,7 @@ export const BentoCard: React.FC<BentoCardProps> = ({
   const handleMouseLeave = () => setHoverOpacity(0);
 
   return (
-    <div className="relative size-full">
+    <div className="relative w-full h-80 md:h-96">
       <div className="absolute inset-0">
         <Image
           src={src}
@@ -126,18 +126,18 @@ export const BentoCard: React.FC<BentoCardProps> = ({
 
       <div className="absolute inset-0 bg-black/60" />
 
-      <div className="relative z-10 flex size-full flex-col justify-between p-5 text-blue-50">
+      <div className="relative z-10 flex size-full flex-col justify-between p-6 text-blue-50">
         <div>
           <h1 className="bento-title special-font">{title}</h1>
           {description && (
             <p className="mt-3 max-w-64 text-xs md:text-base">{description}</p>
           )}
           {techStack && (
-            <div className="mt-4 flex flex-wrap gap-2">
+            <div className="mt-4 flex flex-wrap gap-3">
               {techStack.map((tech, index) => (
                 <span
                   key={index}
-                  className="cursor-pointer rounded-full bg-black/30 px-3 py-1 text-xs text-highlight transition-colors hover:bg-blue-500/50"
+                  className="cursor-pointer rounded-full bg-black/30 px-4 py-2 text-xs text-highlight transition-colors hover:bg-blue-500/50"
                 >
                   #{tech}
                 </span>
@@ -152,7 +152,7 @@ export const BentoCard: React.FC<BentoCardProps> = ({
             onMouseMove={handleMouseMove}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            className="border-hsla relative flex w-fit cursor-pointer items-center gap-1 overflow-hidden rounded-full bg-black px-5 py-2 text-xs uppercase text-highlight"
+            className="border-hsla relative flex w-fit cursor-pointer items-center gap-2 overflow-hidden rounded-full bg-black px-6 py-3 text-xs uppercase text-highlight"
           >
             <div
               className="pointer-events-none absolute -inset-px opacity-0 transition duration-300"

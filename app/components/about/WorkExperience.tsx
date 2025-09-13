@@ -3,7 +3,7 @@
 import { gsap } from "@/lib/gsap";
 import { useRef } from "react";
 
-import { useGsapAnimation } from "@/app/hooks/useGsapAnimation";
+import { useGsapAnimation } from "@/hooks/useGsapAnimation";
 
 const experiences = [
   {
@@ -30,7 +30,7 @@ const experiences = [
 const WorkExperience = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const isMounted = useGsapAnimation((ctx) => {
+  const isMounted = useGsapAnimation((ctx: gsap.Context) => {
     ctx.add(() => {
       gsap.from(".experience-item", {
         y: 30,

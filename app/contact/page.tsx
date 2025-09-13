@@ -1,4 +1,13 @@
-import ContactForm from "@/app/components/contact/ContactForm";
+import ContactForm from "@/components/contact/ContactForm";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Contact - Borhan Uddin",
+  description: "Get in touch with Borhan Uddin for web development projects and collaborations.",
+};
+
+export const dynamic = 'force-static';
+export const revalidate = false;
 
 export default function ContactPage() {
   return (

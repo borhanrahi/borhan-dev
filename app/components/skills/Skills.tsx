@@ -79,106 +79,132 @@ const Skills: React.FC = () => {
     let ctx: gsap.Context;
 
     const initAnimation = async () => {
-      const { ScrollTrigger } = await import("@/lib/gsap");
-      gsap.registerPlugin(ScrollTrigger);
+      try {
+        const { ScrollTrigger } = await import("@/lib/gsap");
+        gsap.registerPlugin(ScrollTrigger);
 
-      ctx = gsap.context(() => {
-        // Title animation with split text effect
-        gsap.from(".skills-header", {
-          opacity: 0,
-          y: 20,
-          duration: 1,
-          ease: "power2.out",
-        });
+        // Wait for DOM to be ready
+        await new Promise(resolve => setTimeout(resolve, 100));
 
-        // Animate each category with different effects
-        skillCategories.forEach((_, index) => {
-          const cards = document.querySelectorAll(
-            `.category-${index} .skill-card`
-          );
-
-          // Category title animation
-          gsap.from(`.category-${index} .category-title`, {
-            opacity: 0,
-            scale: 0.9,
-            duration: 1,
-            ease: "back.out(1.7)",
-            scrollTrigger: {
-              trigger: `.category-${index}`,
-              start: "top 80%",
-            },
-          });
-
-          // Skill cards staggered animation
-          gsap.from(cards, {
-            opacity: 0,
-            scale: 0.8,
-            rotationY: 45,
-            duration: 1,
-            stagger: {
-              each: 0.1,
-              from: "random",
-            },
-            ease: "power4.out",
-            scrollTrigger: {
-              trigger: `.category-${index}`,
-              start: "top 80%",
-            },
-          });
-
-          // Add hover animations for each card
-          cards.forEach((card) => {
-            card.addEventListener("mouseenter", () => {
-              gsap.to(card, {
-                scale: 1.05,
-                duration: 0.3,
-                ease: "power2.out",
-                boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
-              });
-
-              // Animate the icon
-              const icon = card.querySelector(".skill-icon");
-              gsap.to(icon, {
-                rotateY: 360,
-                duration: 0.6,
-                ease: "power2.inOut",
-              });
+        ctx = gsap.context(() => {
+          // Title animation with split text effect
+          const headerElement = document.querySelector(".skills-header");
+          if (headerElement) {
+            gsap.from(headerElement, {
+              opacity: 0,
+              y: 20,
+              duration: 1,
+              ease: "power2.out",
             });
+          }
 
-            card.addEventListener("mouseleave", () => {
-              gsap.to(card, {
-                scale: 1,
-                duration: 0.3,
-                ease: "power2.out",
-                boxShadow: "none",
+          // Animate each category with different effects
+          skillCategories.forEach((_, index) => {
+            const categoryElement = document.querySelector(`.category-${index}`);
+            if (!categoryElement) return;
+
+            const cards = categoryElement.querySelectorAll(".skill-card");
+            const categoryTitle = categoryElement.querySelector(".category-title");
+
+            // Category title animation
+            if (categoryTitle) {
+              gsap.from(categoryTitle, {
+                opacity: 0,
+                scale: 0.9,
+                duration: 1,
+                ease: "back.out(1.7)",
+                scrollTrigger: {
+                  trigger: categoryElement,
+                  start: "top 80%",
+                },
               });
+            }
 
-              // Reset icon rotation
-              const icon = card.querySelector(".skill-icon");
-              gsap.set(icon, { rotateY: 0 });
-            });
-          });
-        });
+            // Skill cards staggered animation
+            if (cards.length > 0) {
+              gsap.from(cards, {
+                opacity: 0,
+                scale: 0.8,
+                rotationY: 45,
+                duration: 1,
+                stagger: {
+                  each: 0.1,
+                  from: "random",
+                },
+                ease: "power4.out",
+                scrollTrigger: {
+                  trigger: categoryElement,
+                  start: "top 80%",
+                },
+              });
+            }
 
-        // Optional: Add a floating animation to all cards
-        gsap.to(".skill-card", {
-          y: "-10px",
-          duration: 2,
-          ease: "power1.inOut",
-          stagger: {
-            each: 0.2,
-            repeat: -1,
-            yoyo: true,
-            from: "random",
-          },
-        });
-      }, containerRef);
-    };
+            // Add hover animations for each card
+            cards.forEach((card) => {
+              const handleMouseEnter = () => {
+                gsap.to(card, {
+                  scale: 1.05,
+                  duration: 0.3,
+                  ease: "power2.out",
+                  boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
+                });
 
-    initAnimation();
+                // Animate the icon
+                const icon = card.querySelector(".skill-icon");
+                if (icon) {
+                  gsap.to(icon, {
+                    rotateY: 360,
+                    duration: 0.6,
+                    ease: "power2.inOut",
+                  });
+                }
+              };
 
-    return () => ctx?.revert();
-  }, []);
+              const handleMouseLeave = () => {
+                 gsap.to(card, {
+                   scale: 1,
+                   duration: 0.3,
+                   ease: "power2.out",
+                   boxShadow: "none",
+                 });
+
+                 // Reset icon rotation
+                 const icon = card.querySelector(".skill-icon");
+                 if (icon) {
+                   gsap.set(icon, { rotateY: 0 });
+                 }
+               };
+
+               card.addEventListener("mouseenter", handleMouseEnter);
+               card.addEventListener("mouseleave", handleMouseLeave);
+             });
+           });
+
+           // Optional: Add a floating animation to all cards
+           const allCards = document.querySelectorAll(".skill-card");
+           if (allCards.length > 0) {
+             gsap.to(allCards, {
+               y: "-10px",
+               duration: 2,
+               ease: "power1.inOut",
+               stagger: {
+                 each: 0.2,
+                 repeat: -1,
+                 yoyo: true,
+                 from: "random",
+               },
+             });
+           }
+         }, containerRef);
+       } catch (error) {
+         console.error("Error initializing GSAP animations:", error);
+       }
+     };
+
+     initAnimation();
+
+     return () => ctx?.revert();
+   }, []);
 
   return (
     <section ref={containerRef} className="relative z-10 px-4 py-32 sm:px-10">

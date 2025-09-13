@@ -3,6 +3,7 @@
 import { gsap, ScrollTrigger, TextPlugin } from "@/lib/gsap";
 import { useEffect, useRef, useState, Suspense } from "react";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 
 // Lazy load icons
 const Rocket = dynamic(() => import("lucide-react").then((mod) => mod.Rocket), {
@@ -305,7 +306,10 @@ export default function GSAPWebDevHero(): React.ReactElement {
           </div>
 
           <div className="flex flex-row gap-4 mt-8 md:mt-16 pointer-events-auto">
-            <button className="group flex w-full items-center justify-center gap-3 rounded-lg bg-white/20 px-4 py-3 text-white backdrop-blur-sm transition-all hover:bg-black/50 md:w-auto md:px-6">
+            <Link
+              href="/contact"
+              className="group flex w-full items-center justify-center gap-3 rounded-lg bg-white/20 px-4 py-3 text-white backdrop-blur-sm transition-all hover:bg-black/50 md:w-auto md:px-6"
+            >
               <Rocket
                 className="h-5 w-5 text-[#d4ff4d] transition-transform group-hover:scale-110"
                 strokeWidth={2}
@@ -313,9 +317,12 @@ export default function GSAPWebDevHero(): React.ReactElement {
               <span className="font-semibold text-sm md:text-base">
                 Get Started
               </span>
-            </button>
+            </Link>
 
-            <button className="group flex w-full items-center justify-center gap-3 rounded-lg bg-[#d4ff4d]/90 px-4 py-3 text-black transition-all hover:bg-[#d4ff4d] md:w-auto md:px-6">
+            <Link
+              href="/projects"
+              className="group flex w-full items-center justify-center gap-3 rounded-lg bg-[#d4ff4d]/90 px-4 py-3 text-black transition-all hover:bg-[#d4ff4d] md:w-auto md:px-6"
+            >
               <Gamepad2
                 className="h-5 w-5 transition-transform group-hover:scale-110"
                 strokeWidth={2}
@@ -323,7 +330,7 @@ export default function GSAPWebDevHero(): React.ReactElement {
               <span className="font-semibold text-sm md:text-base">
                 View Projects
               </span>
-            </button>
+            </Link>
           </div>
         </div>
 
