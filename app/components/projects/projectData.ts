@@ -10,6 +10,28 @@ interface Project {
 
 export const projects: Project[] = [
   {
+    title: "AI ATS CHECKER",
+    description:
+      "A modern AI-powered resume analysis platform built with Next.js, featuring advanced document parsing and intelligent ATS compatibility checking with instant results.",
+    longDescription:
+      "An innovative AI-powered platform that revolutionizes resume optimization through advanced NLP models and intelligent ATS compatibility analysis, helping job seekers improve their chances of landing interviews.",
+    techStack: ["nextjs", "typescript", "tailwindcss", "ai", "vercel", "resumebuilder", "atschecker"],
+    projectUrl: "https://aiatschecker.com/",
+    src: "/img/aiatschecker.webp",
+    features: [
+      "AI-Powered Resume Analysis - Advanced NLP models for contextual understanding",
+      "ATS Compatibility Checking - Detects formatting issues and parsing blockers",
+      "Job Match Scoring - Real-time compatibility analysis with job descriptions",
+      "Free Resume Builder - 19 professionally designed ATS-optimized templates",
+      "AI Salary Predictor - Market-rate estimates based on skills and location",
+      "Multi-Format Support - Handles PDF, DOC, and DOCX files up to 10MB",
+      "Instant Results - Complete analysis delivered in under 30 seconds",
+      "Privacy-First Design - No signup required, no data storage, zero tracking",
+      "Daily Free Usage - 10 comprehensive analyses per day at no cost",
+      "Mobile-Responsive Interface - Seamless experience across all devices"
+    ],
+  },
+  {
     title: "NEXLESS",
     description:
       "A comprehensive multi-purpose SaaS application offering modern solutions for businesses with real-time features and interactive interfaces.",
