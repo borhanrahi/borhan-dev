@@ -59,4 +59,4 @@ I'm Borhan Uddin, a Full Stack Web Developer passionate about creating efficient
 ## License
 
 
-Private - All rights reserved
+Private - All rights reserved © 2025 Borhan Uddin
