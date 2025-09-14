@@ -109,7 +109,7 @@ const NavBar = () => {
             : "-translate-y-full opacity-0"
         } ${
           currentScrollY > 0
-            ? "bg-black/80 backdrop-blur-md"
+            ? "border border-white/20 bg-black/80 backdrop-blur-md"
             : ""
         }`}
       >
@@ -127,18 +127,16 @@ const NavBar = () => {
                 />
               </Link>
 
-              <Link href="/contact">
-                <Button
-                  id="product-button"
-                  title="Available"
-                  rightIcon={
-                    <div className="animate-pulse">
-                      <TiLocationArrow className="text-green-500 drop-shadow-[0_0_8px_rgba(34,197,94,0.8)]" />
-                    </div>
-                  }
-                  containerClass="bg-green-50 md:flex hidden items-center justify-center gap-1"
-                />
-              </Link>
+              <Button
+                id="product-button"
+                title="Available"
+                rightIcon={
+                  <div className="animate-pulse">
+                    <TiLocationArrow className="text-green-500 drop-shadow-[0_0_8px_rgba(34,197,94,0.8)]" />
+                  </div>
+                }
+                containerClass="bg-green-50 md:flex hidden items-center justify-center gap-1"
+              />
             </div>
 
             {/* Desktop Menu */}

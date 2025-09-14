@@ -1,39 +1,25 @@
-import ServiceCTA from "@/components/servicepage/ServiceCTA";
-import ServiceGrid from "@/components/servicepage/ServiceGrid";
-import ServiceHero from "@/components/servicepage/ServiceHero";
-import ServiceOverview from "@/components/servicepage/ServiceOverview";
-import { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Services - Borhan Uddin",
-  description: "Professional web development services including React, Next.js, e-commerce solutions, and custom applications.",
-};
-
-export const dynamic = 'force-static';
-export const revalidate = false;
+import ServiceCTA from "@/app/components/servicepage/ServiceCTA";
+import ServiceGrid from "@/app/components/servicepage/ServiceGrid";
+import ServiceHero from "@/app/components/servicepage/ServiceHero";
+import ServiceOverview from "@/app/components/servicepage/ServiceOverview";
+import Navbar from "@/app/components/homepage/Navbar";
+import Footer from "@/app/components/homepage/Footer";
 
 export default function ServicePage() {
   return (
-    <main
-      className="relative min-h-screen w-screen overflow-hidden bg-black"
-      suppressHydrationWarning
-    >
-      <div className="absolute inset-0 z-0" suppressHydrationWarning>
-        <div
-          className="absolute inset-0 bg-gradient-to-b from-[#0f1012] via-black to-black opacity-90"
-          suppressHydrationWarning
-        />
-        <div
-          className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(17,17,17,0.8),rgba(0,0,0,0.8))]"
-          suppressHydrationWarning
-        />
+    <main className="relative min-h-screen w-screen overflow-hidden bg-black">
+      <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0f1012] via-black to-black opacity-90" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(17,17,17,0.8),rgba(0,0,0,0.8))]" />
       </div>
-      <div suppressHydrationWarning>
+      <Navbar />
+      <div>
         <ServiceHero />
         <ServiceGrid />
         <ServiceOverview />
         <ServiceCTA />
       </div>
+      <Footer />
     </main>
   );
 }

@@ -1,10 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  trailingSlash: false,
-  reactStrictMode: true,
   images: {
-    unoptimized: true,
     remotePatterns: [],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
@@ -12,27 +9,12 @@ const nextConfig: NextConfig = {
   },
   compress: true,
   poweredByHeader: false,
-  serverExternalPackages: ['gsap'],
   experimental: {
-    optimizePackageImports: ['react-icons'],
-
+    optimizeServerReact: true,
+    optimizeCss: true,
     serverActions: {
       bodySizeLimit: "2mb",
     },
-  },
-  turbopack: {
-    rules: {
-      "*.js": ["js"],
-      "*.jsx": ["jsx"],
-      "*.ts": ["ts"],
-      "*.tsx": ["tsx"],
-    },
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-  typescript: {
-    ignoreBuildErrors: false,
   },
   webpack: (config, { dev }) => {
     // Production optimizations
@@ -50,15 +32,15 @@ const nextConfig: NextConfig = {
             framework: {
               name: "framework",
               chunks: "all",
-              test: /[\\/]node_modules[\\/](react|react-dom|next)[\\/]/,
+              test: /[\/]node_modules[\/](react|react-dom|next)[\/]/,
               priority: 40,
               enforce: true,
             },
             lib: {
-              test: /[\\/]node_modules[\\/]/,
+              test: /[\/]node_modules[\/]/,
               name(module: { context: string }) {
                 const match = module.context.match(
-                  /[\\/]node_modules[\\/](.*?)([\\/]|$)/
+                  /[\/]node_modules[\/](.*?)([\/]|$)/
                 );
                 return match ? `npm.${match[1].replace("@", "")}` : "vendor";
               },
@@ -73,7 +55,7 @@ const nextConfig: NextConfig = {
             },
             shared: {
               name(module: { context: string }, chunks: { name: string }[]) {
-                return `shared.${chunks.map((c) => c.name).join(".")}`;
+                return `shared.${chunks.map((c) => c.name).join(".")}`;;
               },
               priority: 10,
               minChunks: 2,
@@ -81,17 +63,9 @@ const nextConfig: NextConfig = {
             },
           },
         },
-        runtimeChunk: "single",
+        runtimeChunk: { name: "runtime" },
       };
     }
-    // Optimize for production
-    if (!dev) {
-      config.resolve.alias = {
-        ...config.resolve.alias,
-        '@': require('path').resolve(__dirname, './'),
-      };
-    }
-    
     return config;
   },
 };

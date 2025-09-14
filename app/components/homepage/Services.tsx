@@ -28,7 +28,7 @@ const services = [
   },
   {
     icon: <ShoppingCart className="h-8 w-8" />,
-    title: "E-commerce Solutions",
+    title: "Ecommerce Solutions",
     description:
       "Building custom online stores with secure payment integration, inventory management, and seamless shopping experiences.",
   },

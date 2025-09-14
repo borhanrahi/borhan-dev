@@ -1,46 +1,42 @@
 {
-  "name": "borhan",
+  "name": "borhandev",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "next dev --turbopack",
+    "build": "next build --turbopack",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint"
   },
   "dependencies": {
-    "@gsap/react": "^2.1.1",
-    "@lottiefiles/dotlottie-react": "^0.12.0",
-    "@splinetool/react-spline": "^4.0.0",
+    "@gsap/react": "^2.1.2",
+    "@lottiefiles/dotlottie-react": "^0.16.1",
+    "@splinetool/react-spline": "^4.1.0",
+    "@types/gsap": "^1.20.2",
     "clsx": "^2.1.1",
     "critters": "^0.0.23",
-    "gsap": "^3.12.5",
+    "gsap": "^3.13.0",
     "lodash": "^4.17.21",
-    "lucide-react": "^0.468.0",
-    "next": "^15.5.3",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-icons": "^5.4.0",
-    "react-intersection-observer": "^9.13.1",
+    "lucide-react": "^0.544.0",
+    "next": "15.5.3",
+    "postcss": "^8.5.6",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "react-icons": "^5.5.0",
+    "react-intersection-observer": "^9.16.0",
     "react-use": "^17.6.0",
-    "resend": "^4.0.1"
+    "resend": "^6.0.3"
   },
   "devDependencies": {
-    "@types/gsap": "^1.20.2",
-    "@types/lodash": "^4.17.13",
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
+    "@types/lodash": "^4.17.20",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "eslint": "^8",
-    "eslint-config-next": "15.0.4",
-    "postcss": "^8",
-    "tailwindcss": "^3.4.1",
+    "eslint": "^9",
+    "eslint-config-next": "15.5.3",
+    "tailwindcss": "^4",
     "typescript": "^5"
-  },
-  "exports": {
-    ".": {
-      "types": "./dist/Spline.d.ts",
-      "import": "./dist/react-spline.js"
-    }
   }
 }

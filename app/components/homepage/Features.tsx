@@ -112,7 +112,7 @@ export const BentoCard: React.FC<BentoCardProps> = ({
   const handleMouseLeave = () => setHoverOpacity(0);
 
   return (
-    <div className="relative w-full h-80 md:h-96">
+    <div className="relative size-full">
       <div className="absolute inset-0">
         <Image
           src={src}
@@ -126,18 +126,18 @@ export const BentoCard: React.FC<BentoCardProps> = ({
 
       <div className="absolute inset-0 bg-black/60" />
 
-      <div className="relative z-10 flex size-full flex-col justify-between p-6 text-blue-50">
+      <div className="relative z-10 flex size-full flex-col justify-between p-5 text-blue-50">
         <div>
           <h1 className="bento-title special-font">{title}</h1>
           {description && (
             <p className="mt-3 max-w-64 text-xs md:text-base">{description}</p>
           )}
           {techStack && (
-            <div className="mt-4 flex flex-wrap gap-3">
+            <div className="mt-4 flex flex-wrap gap-2">
               {techStack.map((tech, index) => (
                 <span
                   key={index}
-                  className="cursor-pointer rounded-full bg-black/30 px-4 py-2 text-xs text-highlight transition-colors hover:bg-blue-500/50"
+                  className="cursor-pointer rounded-full bg-black/30 px-3 py-1 text-xs text-highlight transition-colors hover:bg-blue-500/50"
                 >
                   #{tech}
                 </span>
@@ -152,7 +152,7 @@ export const BentoCard: React.FC<BentoCardProps> = ({
             onMouseMove={handleMouseMove}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            className="border-hsla relative flex w-fit cursor-pointer items-center gap-2 overflow-hidden rounded-full bg-black px-6 py-3 text-xs uppercase text-highlight"
+            className="border border-white/20 relative flex w-fit cursor-pointer items-center gap-1 overflow-hidden rounded-full bg-black px-5 py-2 text-xs uppercase text-highlight"
           >
             <div
               className="pointer-events-none absolute -inset-px opacity-0 transition duration-300"
@@ -198,7 +198,7 @@ const Features: React.FC = () => {
             </p>
           </div>
 
-          <BentoTilt className="border-hsla relative mb-7 h-[50vh] w-full overflow-hidden rounded-md md:h-[65vh]">
+          <BentoTilt className="border border-white/20 relative mb-7 h-[50vh] w-full overflow-hidden rounded-md md:h-[65vh]">
             <BentoCard
               src="/img/nexlessdemo.jpg"
               title={
@@ -218,7 +218,7 @@ const Features: React.FC = () => {
           </BentoTilt>
 
           <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2 md:grid-rows-3 md:gap-7">
-            <BentoTilt className="border-hsla relative h-[50vh] overflow-hidden rounded-md md:row-span-2 md:h-auto">
+            <BentoTilt className="border border-white/20 relative h-[50vh] overflow-hidden rounded-md md:row-span-2 md:h-auto">
               <BentoCard
                 src="/img/jadoo.jpg"
                 title={
@@ -237,7 +237,7 @@ const Features: React.FC = () => {
               />
             </BentoTilt>
 
-            <BentoTilt className="border-hsla relative h-[50vh] overflow-hidden rounded-md md:h-auto">
+            <BentoTilt className="border border-white/20 relative h-[50vh] overflow-hidden rounded-md md:h-auto">
               <BentoCard
                 src="/img/blissful.jpg"
                 title={
@@ -251,7 +251,7 @@ const Features: React.FC = () => {
               />
             </BentoTilt>
 
-            <BentoTilt className="border-hsla relative h-[50vh] overflow-hidden rounded-md md:h-auto">
+            <BentoTilt className="border border-white/20 relative h-[50vh] overflow-hidden rounded-md md:h-auto">
               <BentoCard
                 src="/img/optihealth.jpg"
                 title={
@@ -265,7 +265,7 @@ const Features: React.FC = () => {
               />
             </BentoTilt>
 
-            <BentoTilt className="border-hsla relative h-[50vh] overflow-hidden rounded-md md:h-auto">
+            <BentoTilt className="border border-white/20 relative h-[50vh] overflow-hidden rounded-md md:h-auto">
               <Link href="/projects" className="block size-full">
                 <div className="flex size-full flex-col justify-between bg-gradient-to-br from-black to-zinc-900 p-7 transition-all hover:opacity-90">
                   <div className="space-y-3">
@@ -294,7 +294,7 @@ const Features: React.FC = () => {
               </Link>
             </BentoTilt>
 
-            <BentoTilt className="border-hsla relative h-[50vh] overflow-hidden rounded-md md:h-auto">
+            <BentoTilt className="border border-white/20 relative h-[50vh] overflow-hidden rounded-md md:h-auto">
               <div className="relative size-full">
                 <Suspense fallback={<div className="size-full bg-zinc-900" />}>
                   <LazyDotLottieReact

@@ -19,7 +19,7 @@ const ServiceOverview = () => {
     const ctx = gsap.context(() => {
       gsap.registerPlugin(ScrollTrigger);
 
-      const elements = gsap.utils.toArray(".overview-content") as Element[];
+      const elements = gsap.utils.toArray(".overview-content");
 
       elements.forEach((element) => {
         gsap.from(element as Element, {

@@ -1,16 +1,9 @@
-import ProjectContact from "@/components/projects/ProjectContact";
-import ProjectGrid from "@/components/projects/ProjectGrid";
-import ProjectHero from "@/components/projects/ProjectHero";
-import ProjectStats from "@/components/projects/ProjectStats";
-import { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Projects - Borhan Uddin",
-  description: "Explore my portfolio of web development projects, showcasing modern technologies and innovative solutions.",
-};
-
-export const dynamic = 'force-static';
-export const revalidate = false;
+import ProjectContact from "@/app/components/projects/ProjectContact";
+import ProjectGrid from "@/app/components/projects/ProjectGrid";
+import ProjectHero from "@/app/components/projects/ProjectHero";
+import ProjectStats from "@/app/components/projects/ProjectStats";
+import Navbar from "@/app/components/homepage/Navbar";
+import Footer from "@/app/components/homepage/Footer";
 
 export default function ProjectsPage() {
   return (
@@ -19,10 +12,12 @@ export default function ProjectsPage() {
         <div className="absolute inset-0 bg-gradient-to-b from-[#0f1012] via-black to-black opacity-90" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(17,17,17,0.8),rgba(0,0,0,0.8))]" />
       </div>
+      <Navbar />
       <ProjectHero />
       <ProjectGrid />
       <ProjectStats />
       <ProjectContact />
+      <Footer />
     </main>
   );
 }

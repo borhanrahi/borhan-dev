@@ -26,7 +26,7 @@ export default function ProjectGrid() {
 
   return (
     <div ref={ref} className="relative z-10 container mx-auto px-4 pb-32">
-      <div className="grid gap-8 md:grid-cols-2 auto-rows-fr">
+      <div className="grid gap-8 md:grid-cols-2">
         {projects.map((project, index) => (
           <ProjectCard key={index} project={project} />
         ))}
