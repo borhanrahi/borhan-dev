@@ -3,6 +3,11 @@
 import { useEffect } from "react";
 import { gsap } from "@/lib/gsap";
 import { useInView } from "react-intersection-observer";
+import { 
+  createOptimizedTimeline, 
+  PERFORMANCE_CONFIG, 
+  cleanupGsapAnimations 
+} from "@/app/utils/gsapUtils";
 import ProjectCard from "./ProjectCard";
 import { projects } from "./projectData";
 
@@ -14,14 +19,36 @@ export default function ProjectGrid() {
 
   useEffect(() => {
     if (inView) {
-      gsap.from(".project-card", {
-        y: 50,
+      // Set initial state
+      gsap.set(".project-card", {
+        y: 60,
         opacity: 0,
+        scale: 0.95,
+        rotateX: 5,
+        transformOrigin: "center center",
+        ...PERFORMANCE_CONFIG,
+      });
+
+      const projectsTimeline = createOptimizedTimeline();
+      
+      projectsTimeline.to(".project-card", {
+        ...PERFORMANCE_CONFIG,
+        y: 0,
+        opacity: 1,
+        scale: 1,
+        rotateX: 0,
         duration: 0.8,
-        stagger: 0.2,
+        stagger: {
+          amount: 0.4,
+          from: "start",
+        },
         ease: "power3.out",
       });
     }
+
+    return () => {
+      cleanupGsapAnimations([".project-card"]);
+    };
   }, [inView]);
 
   return (

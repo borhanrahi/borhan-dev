@@ -2,6 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { gsap } from "@/lib/gsap";
+import { 
+  createOptimizedTimeline, 
+  PERFORMANCE_CONFIG,
+  cleanupGsapAnimations 
+} from "@/app/utils/gsapUtils";
 
 const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -24,13 +29,19 @@ const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
         });
       })
     ).then(() => {
-      gsap.to(".loading-screen", {
+      const exitTimeline = createOptimizedTimeline();
+      
+      exitTimeline.to(".loading-screen", {
+        ...PERFORMANCE_CONFIG,
         opacity: 0,
-        duration: 0.2,
+        scale: 0.95,
+        duration: 0.4,
         delay: 0.1,
+        ease: "power2.inOut",
         onComplete: () => {
           setIsLoading(false);
           onComplete();
+          cleanupGsapAnimations([".loading-screen"]);
         },
       });
     });

@@ -3,6 +3,12 @@
 import { gsap, ScrollTrigger, TextPlugin } from "@/lib/gsap";
 import { useEffect, useRef, useState, Suspense } from "react";
 import dynamic from "next/dynamic";
+import { 
+  createOptimizedTimeline, 
+  PERFORMANCE_CONFIG, 
+  SCROLL_TRIGGER_CONFIG,
+  cleanupGsapAnimations 
+} from "@/app/utils/gsapUtils";
 import Link from "next/link";
 
 // Lazy load icons
@@ -125,151 +131,204 @@ export default function GSAPWebDevHero(): React.ReactElement {
     const titleChars = splitTextIntoSpans(titleRef.current);
     const subtitleLines = subtitleRef.current.children;
 
-    // Reset initial states
-    gsap.set(subtitleLines, { opacity: 0 });
-    gsap.set(conceptsRef.current, { opacity: 0 });
+    // Reset initial states with performance config
+    gsap.set(subtitleLines, { opacity: 0, ...PERFORMANCE_CONFIG });
+    gsap.set(conceptsRef.current, { opacity: 0, ...PERFORMANCE_CONFIG });
+    gsap.set(titleChars, { transformOrigin: "center bottom" });
 
-    // Initial load animations (no scroll trigger)
-    const loadTl = gsap.timeline();
+    // Initial load animations with optimized timeline
+    const loadTl = createOptimizedTimeline();
 
     loadTl
       .from(titleChars, {
-        duration: 1.5,
+        ...PERFORMANCE_CONFIG,
+        duration: 1.2,
         opacity: 0,
         y: 50,
         rotationX: 90,
-        stagger: 0.05,
+        stagger: {
+          amount: 0.3,
+          from: "start",
+        },
         ease: "back.out(1.7)",
       })
       .to(
         subtitleLines,
         {
-          duration: 1.2,
+          ...PERFORMANCE_CONFIG,
+          duration: 1,
           opacity: 1,
           scale: 1,
           rotation: 0,
           x: 0,
-          stagger: 0.2,
-          ease: "elastic.out(1, 0.8)",
+          stagger: {
+            amount: 0.4,
+            from: "start",
+          },
+          ease: "power2.out",
         },
-        "-=1"
+        "-=0.8"
       )
       .to(
         conceptsRef.current,
         {
-          duration: 1,
+          ...PERFORMANCE_CONFIG,
+          duration: 0.8,
           opacity: 1,
         },
-        "-=0.5"
+        "-=0.4"
       )
       .add(() => {
-        // Replace the existing concepts animation with this new one
+        // Optimized concepts cycling animation
         let currentIndex = 0;
+        let conceptsAnimation: gsap.core.Tween;
 
-        gsap.to(conceptsRef.current, {
-          duration: 1.5,
-          repeat: -1,
-          repeatDelay: 1,
-          onRepeat: () => {
-            currentIndex = (currentIndex + 1) % webDevConcepts.length;
-            gsap.to(conceptsRef.current, {
-              duration: 0.75,
-              opacity: 0,
-              scale: 0.8,
-              y: -20,
-              ease: "power2.in",
-              onComplete: () => {
-                if (!conceptsRef.current) return;
-                conceptsRef.current.textContent = webDevConcepts[currentIndex];
-                gsap.to(conceptsRef.current, {
-                  duration: 0.75,
-                  opacity: 1,
-                  scale: 1,
-                  y: 0,
-                  ease: "back.out(1.7)",
-                });
-              },
-            });
-          },
-        });
+        const cycleConcepts = () => {
+          conceptsAnimation = gsap.to(conceptsRef.current, {
+            ...PERFORMANCE_CONFIG,
+            duration: 1.2,
+            repeat: -1,
+            repeatDelay: 0.8,
+            onRepeat: () => {
+              currentIndex = (currentIndex + 1) % webDevConcepts.length;
+              gsap.to(conceptsRef.current, {
+                ...PERFORMANCE_CONFIG,
+                duration: 0.4,
+                opacity: 0,
+                scale: 0.9,
+                y: -15,
+                ease: "power2.in",
+                onComplete: () => {
+                  if (!conceptsRef.current) return;
+                  conceptsRef.current.textContent = webDevConcepts[currentIndex];
+                  gsap.to(conceptsRef.current, {
+                    ...PERFORMANCE_CONFIG,
+                    duration: 0.5,
+                    opacity: 1,
+                    scale: 1,
+                    y: 0,
+                    ease: "power2.out",
+                  });
+                },
+              });
+            },
+          });
+          
+          // Store reference for cleanup
+          loadTl.conceptsAnimation = conceptsAnimation;
+        };
+        
+        cycleConcepts();
       });
 
-    // Smooth scroll effect
-    const scrollTl = gsap.timeline({
+    // Optimized scroll effect
+    const scrollTl = createOptimizedTimeline({
       scrollTrigger: {
+        ...SCROLL_TRIGGER_CONFIG,
         trigger: containerRef.current,
         start: "top top",
         end: "bottom top",
-        scrub: 1.5,
+        scrub: 1.2,
       },
     });
 
     scrollTl
-      // Main container animation
+      // Main container animation with performance config
       .to(containerRef.current, {
-        rotateX: 10,
-        scale: 0.9,
-        y: "-15%",
-        duration: 2,
-        ease: "power2.inOut",
+        ...PERFORMANCE_CONFIG,
+        rotateX: 8,
+        scale: 0.92,
+        y: "-12%",
+        duration: 1.8,
+        ease: "power2.out",
       })
-      // Background parallax
+      // Background parallax (optimized)
       .to(
         ".background-image",
         {
-          y: "-20%",
-          scale: 1.2,
-          duration: 2,
+          ...PERFORMANCE_CONFIG,
+          y: "-18%",
+          scale: 1.15,
+          duration: 1.8,
         },
         0
       )
-      // Content container
+      // Content container (batch animation)
       .to(
         ".content-container",
         {
-          y: "-10%",
-          opacity: 0.7,
-          duration: 2,
+          ...PERFORMANCE_CONFIG,
+          y: "-8%",
+          opacity: 0.75,
+          duration: 1.8,
         },
         0
       )
-      // Text elements fade with slight movement
+      // Text elements with optimized stagger
       .to(
         [titleRef.current, subtitleRef.current],
         {
-          y: "-30%",
+          ...PERFORMANCE_CONFIG,
+          y: "-25%",
           opacity: 0,
-          duration: 2,
-          stagger: 0.1,
+          duration: 1.8,
+          stagger: {
+            amount: 0.2,
+            from: "start",
+          },
         },
         0
       )
       .to(
         conceptsRef.current,
         {
-          y: "30%",
+          ...PERFORMANCE_CONFIG,
+          y: "25%",
           opacity: 0,
-          duration: 2,
-          stagger: 0.1,
+          duration: 1.8,
         },
         0
       )
-      // Atmospheric elements
+      // Atmospheric elements (if they exist)
       .to(
         ".blur-orb",
         {
-          y: "-30%",
-          opacity: 0.15,
-          scale: 1.5,
-          duration: 2,
-          stagger: 0.2,
+          ...PERFORMANCE_CONFIG,
+          y: "-25%",
+          opacity: 0.2,
+          scale: 1.3,
+          duration: 1.8,
+          stagger: {
+            amount: 0.4,
+            from: "random",
+          },
         },
         0
       );
 
     return () => {
+      // Enhanced cleanup
       loadTl.kill();
       scrollTl.kill();
+      
+      // Kill any remaining concept animations
+      if (loadTl.conceptsAnimation) {
+        loadTl.conceptsAnimation.kill();
+      }
+      
+      // Clean up all GSAP animations on elements
+      const elementsToCleanup = [
+        containerRef.current,
+        titleRef.current,
+        subtitleRef.current,
+        conceptsRef.current,
+        ...titleChars,
+        ...Array.from(subtitleLines),
+      ].filter((element): element is HTMLElement => element !== null);
+      
+      if (elementsToCleanup.length > 0) {
+        cleanupGsapAnimations(elementsToCleanup);
+      }
     };
   }, []);
 

@@ -3,6 +3,11 @@
 import { useEffect } from "react";
 import { gsap } from "@/lib/gsap";
 import { useInView } from "react-intersection-observer";
+import { 
+  createOptimizedTimeline, 
+  PERFORMANCE_CONFIG, 
+  cleanupGsapAnimations 
+} from "@/app/utils/gsapUtils";
 
 const stats = [
   { number: "50+", label: "Projects Completed" },
@@ -19,14 +24,34 @@ export default function ProjectStats() {
 
   useEffect(() => {
     if (inView) {
-      gsap.from(".stat-item", {
-        y: 30,
+      // Set initial state
+      gsap.set(".stat-item", {
+        y: 40,
         opacity: 0,
+        scale: 0.9,
+        transformOrigin: "center center",
+        ...PERFORMANCE_CONFIG,
+      });
+
+      const statsTimeline = createOptimizedTimeline();
+      
+      statsTimeline.to(".stat-item", {
+        ...PERFORMANCE_CONFIG,
+        y: 0,
+        opacity: 1,
+        scale: 1,
         duration: 0.8,
-        stagger: 0.2,
+        stagger: {
+          amount: 0.4,
+          from: "start",
+        },
         ease: "power3.out",
       });
     }
+
+    return () => {
+      cleanupGsapAnimations([".stat-item"]);
+    };
   }, [inView]);
 
   return (

@@ -2,6 +2,12 @@
 
 import { useEffect, useRef } from "react";
 import { gsap } from "@/lib/gsap";
+import { 
+  createOptimizedTimeline, 
+  PERFORMANCE_CONFIG, 
+  SCROLL_TRIGGER_CONFIG,
+  cleanupGsapAnimations 
+} from "@/app/utils/gsapUtils";
 
 const educationData = [
   {
@@ -29,19 +35,45 @@ const Education = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from(".education-item", {
-        x: -30,
+      // Set initial state
+      gsap.set(".education-item", {
+        x: -40,
         opacity: 0,
-        duration: 0.8,
-        stagger: 0.2,
+        scale: 0.95,
+        rotateY: -5,
+        transformOrigin: "left center",
+        ...PERFORMANCE_CONFIG,
+      });
+
+      const educationTimeline = createOptimizedTimeline({
         scrollTrigger: {
+          ...SCROLL_TRIGGER_CONFIG,
           trigger: containerRef.current,
           start: "top 80%",
+          end: "bottom 60%",
+          toggleActions: "play none none reverse",
         },
+      });
+
+      educationTimeline.to(".education-item", {
+        ...PERFORMANCE_CONFIG,
+        x: 0,
+        opacity: 1,
+        scale: 1,
+        rotateY: 0,
+        duration: 0.8,
+        stagger: {
+          amount: 0.4,
+          from: "start",
+        },
+        ease: "power3.out",
       });
     }, containerRef);
 
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+      cleanupGsapAnimations([".education-item"]);
+    };
   }, []);
 
   return (

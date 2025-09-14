@@ -4,27 +4,50 @@ import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { useGSAP } from "@gsap/react";
 import AnimatedTitle from "./AnimatedTitle";
 import Image from "next/image";
+import { 
+  createOptimizedTimeline, 
+  PERFORMANCE_CONFIG, 
+  SCROLL_TRIGGER_CONFIG,
+  cleanupGsapAnimations 
+} from "@/app/utils/gsapUtils";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const About: React.FC = () => {
   useGSAP(() => {
-    const clipAnimation = gsap.timeline({
+    // Set initial state for mask
+    gsap.set(".mask-clip-path", {
+      width: "50vw",
+      height: "50vh",
+      borderRadius: "20px",
+      transformOrigin: "center center",
+      ...PERFORMANCE_CONFIG,
+    });
+
+    const clipAnimation = createOptimizedTimeline({
       scrollTrigger: {
+        ...SCROLL_TRIGGER_CONFIG,
         trigger: "#clip",
         start: "center center",
         end: "+=800 center",
         scrub: 0.5,
         pin: true,
         pinSpacing: true,
+        anticipatePin: 1,
       },
     });
 
     clipAnimation.to(".mask-clip-path", {
+      ...PERFORMANCE_CONFIG,
       width: "100vw",
       height: "100vh",
       borderRadius: 0,
+      ease: "power2.inOut",
     });
+
+    return () => {
+      cleanupGsapAnimations([".mask-clip-path"]);
+    };
   });
 
   return (

@@ -9,6 +9,11 @@ import Link from "next/link";
 import Image from "next/image";
 import Button from "./Button";
 import gsap from "gsap";
+import { 
+  createOptimizedTimeline, 
+  PERFORMANCE_CONFIG,
+  cleanupGsapAnimations 
+} from "@/app/utils/gsapUtils";
 
 const navLinks = [
   { name: "About", path: "/about" },
@@ -41,41 +46,73 @@ const NavBar = () => {
   const toggleMenu = () => {
     if (!isMenuOpen) {
       setIsMenuOpen(true);
-      gsap.fromTo(
-        menuRef.current,
-        {
-          opacity: 0,
-          y: -50,
-        },
-        {
+      
+      // Set initial states
+      gsap.set(menuRef.current, {
+        opacity: 0,
+        y: -50,
+        ...PERFORMANCE_CONFIG,
+      });
+      
+      gsap.set(".mobile-nav-link", {
+        opacity: 0,
+        x: -30,
+        ...PERFORMANCE_CONFIG,
+      });
+
+      // Create optimized timeline for menu opening
+      const openTimeline = createOptimizedTimeline();
+      
+      openTimeline
+        .to(menuRef.current, {
+          ...PERFORMANCE_CONFIG,
           opacity: 1,
           y: 0,
           duration: 0.5,
           ease: "power3.out",
-        }
-      );
-      // Animate menu links
-      gsap.fromTo(
-        ".mobile-nav-link",
-        {
-          opacity: 0,
-          x: -30,
-        },
-        {
+        })
+        .to(".mobile-nav-link", {
+          ...PERFORMANCE_CONFIG,
           opacity: 1,
           x: 0,
           duration: 0.5,
-          stagger: 0.1,
+          stagger: {
+            amount: 0.3,
+            from: "start",
+          },
           ease: "power3.out",
-        }
-      );
+        }, "-=0.3");
     } else {
-      gsap.to(menuRef.current, {
-        opacity: 0,
-        duration: 0.3,
-        ease: "power3.in",
-        onComplete: () => setIsMenuOpen(false),
-      });
+      const closeTimeline = createOptimizedTimeline();
+      
+      closeTimeline
+        .to(".mobile-nav-link", {
+          ...PERFORMANCE_CONFIG,
+          opacity: 0,
+          x: -20,
+          duration: 0.2,
+          stagger: {
+            amount: 0.1,
+            from: "end",
+          },
+          ease: "power3.in",
+        })
+        .to(menuRef.current, {
+          ...PERFORMANCE_CONFIG,
+          opacity: 0,
+          y: -30,
+          duration: 0.3,
+          ease: "power3.in",
+          onComplete: () => {
+            setIsMenuOpen(false);
+            const elementsToCleanup: (string | Element)[] = [];
+            if (menuRef.current) elementsToCleanup.push(menuRef.current);
+            elementsToCleanup.push(".mobile-nav-link");
+            if (elementsToCleanup.length > 0) {
+              cleanupGsapAnimations(elementsToCleanup);
+            }
+          },
+        }, "-=0.1");
     }
   };
 

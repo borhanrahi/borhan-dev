@@ -2,6 +2,12 @@
 
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { useEffect, useRef } from "react";
+import { 
+  createOptimizedTimeline, 
+  PERFORMANCE_CONFIG, 
+  SCROLL_TRIGGER_CONFIG,
+  cleanupGsapAnimations 
+} from "@/app/utils/gsapUtils";
 
 gsap.registerPlugin(ScrollTrigger);
 interface Card {
@@ -38,29 +44,52 @@ const AnimatedCardGrid: React.FC = () => {
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top center",
-        end: "bottom center",
-        scrub: 1,
-      },
-    });
+    const ctx = gsap.context(() => {
+      // Set initial state with performance optimizations
+      cardsRef.current.forEach((card) => {
+        if (card) {
+          gsap.set(card, {
+            y: 80,
+            opacity: 0,
+            scale: 0.9,
+            rotateX: 10,
+            transformOrigin: "center center",
+            ...PERFORMANCE_CONFIG,
+          });
+        }
+      });
 
-    cardsRef.current.forEach((card, index) => {
-      if (card) {
-        tl.from(card, {
-          y: 100,
-          opacity: 0,
-          duration: 0.5,
-          ease: "power2.out",
-          delay: index * 0.1,
-        });
-      }
-    });
+      const tl = createOptimizedTimeline({
+        scrollTrigger: {
+          ...SCROLL_TRIGGER_CONFIG,
+          trigger: containerRef.current,
+          start: "top 80%",
+          end: "bottom 60%",
+          toggleActions: "play none none reverse",
+        },
+      });
+
+      cardsRef.current.forEach((card, index) => {
+        if (card) {
+          tl.to(card, {
+            ...PERFORMANCE_CONFIG,
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            rotateX: 0,
+            duration: 0.8,
+            ease: "power2.out",
+          }, index * 0.15);
+        }
+      });
+    }, containerRef);
 
     return () => {
-      tl.kill();
+      ctx.revert();
+      const validCards: Element[] = cardsRef.current.filter(card => card !== null) as Element[];
+      if (validCards.length > 0) {
+        cleanupGsapAnimations(validCards);
+      }
     };
   }, []);
 

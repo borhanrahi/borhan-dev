@@ -2,6 +2,12 @@
 
 import { gsap } from "@/lib/gsap";
 import { useEffect, useRef } from "react";
+import { 
+  createOptimizedTimeline, 
+  PERFORMANCE_CONFIG, 
+  SCROLL_TRIGGER_CONFIG,
+  cleanupGsapAnimations 
+} from "@/app/utils/gsapUtils";
 import {
   Code2,
   Palette,
@@ -45,30 +51,66 @@ const Services = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Animate cards on scroll
-      gsap.from(".service-card", {
-        y: 50,
+      // Set initial state for cards
+      gsap.set(".service-card", {
+        y: 60,
         opacity: 0,
-        duration: 0.8,
-        stagger: 0.2,
+        scale: 0.95,
+        rotateX: 10,
+        transformOrigin: "center center",
+        ...PERFORMANCE_CONFIG,
+      });
+
+      // Set initial state for icons
+      gsap.set(".service-icon", {
+        rotation: 0,
+        transformOrigin: "center center",
+        ...PERFORMANCE_CONFIG,
+      });
+
+      // Animate cards on scroll
+      const cardsTimeline = createOptimizedTimeline({
         scrollTrigger: {
+          ...SCROLL_TRIGGER_CONFIG,
           trigger: containerRef.current,
-          start: "top center",
+          start: "top 80%",
+          end: "bottom 60%",
+          toggleActions: "play none none reverse",
         },
       });
 
-      // Animate icons
-      document.querySelectorAll(".service-icon").forEach((icon) => {
-        gsap.to(icon, {
-          rotate: 360,
-          duration: 20,
-          repeat: -1,
-          ease: "none",
-        });
+      cardsTimeline.to(".service-card", {
+        ...PERFORMANCE_CONFIG,
+        y: 0,
+        opacity: 1,
+        scale: 1,
+        rotateX: 0,
+        duration: 0.8,
+        stagger: {
+          amount: 0.4,
+          from: "start",
+        },
+        ease: "power2.out",
+      });
+
+      // Optimized icon rotation
+      const iconTimeline = createOptimizedTimeline({
+        repeat: -1,
+        ease: "none",
+      });
+
+      iconTimeline.to(".service-icon", {
+        ...PERFORMANCE_CONFIG,
+        rotation: 360,
+        duration: 25,
+        ease: "none",
       });
     }, containerRef);
 
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+      cleanupGsapAnimations([".service-card", ".service-icon"]);
+    };
   }, []);
 
   return (

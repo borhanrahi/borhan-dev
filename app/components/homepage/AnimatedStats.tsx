@@ -4,6 +4,12 @@ import { gsap } from "gsap";
 import { useEffect, useRef } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import clsx from "clsx";
+import { 
+  createOptimizedTimeline, 
+  PERFORMANCE_CONFIG, 
+  SCROLL_TRIGGER_CONFIG,
+  cleanupGsapAnimations 
+} from "@/app/utils/gsapUtils";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -20,11 +26,22 @@ const AnimatedTitle: React.FC<AnimatedTitleProps> = ({
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const titleAnimation = gsap.timeline({
+      // Set initial state with performance optimizations
+      gsap.set(".animated-word", {
+        opacity: 0,
+        rotateY: -15,
+        rotateX: 15,
+        y: 30,
+        transformOrigin: "center center",
+        ...PERFORMANCE_CONFIG,
+      });
+
+      const titleAnimation = createOptimizedTimeline({
         scrollTrigger: {
+          ...SCROLL_TRIGGER_CONFIG,
           trigger: containerRef.current,
-          start: "100 bottom",
-          end: "center bottom",
+          start: "top 85%",
+          end: "center 70%",
           toggleActions: "play none none reverse",
         },
       });
@@ -32,16 +49,25 @@ const AnimatedTitle: React.FC<AnimatedTitleProps> = ({
       titleAnimation.to(
         ".animated-word",
         {
+          ...PERFORMANCE_CONFIG,
           opacity: 1,
-          transform: "translate3d(0, 0, 0) rotateY(0deg) rotateX(0deg)",
-          ease: "power2.inOut",
-          stagger: 0.02,
+          rotateY: 0,
+          rotateX: 0,
+          y: 0,
+          duration: 0.8,
+          stagger: {
+            amount: 0.3,
+            from: "start",
+          },
         },
         0
       );
     }, containerRef);
 
-    return () => ctx.revert(); // Clean up on unmount
+    return () => {
+      ctx.revert();
+      cleanupGsapAnimations([".animated-word"]);
+    };
   }, []);
 
   return (
