@@ -127,13 +127,13 @@ export const BentoCard: React.FC<BentoCardProps> = ({
       <div className="absolute inset-0 bg-black/60" />
 
       <div className="relative z-10 flex size-full flex-col justify-between p-5 text-blue-50">
-        <div>
+        <div className="mb-6">
           <h1 className="bento-title special-font">{title}</h1>
           {description && (
             <p className="mt-3 max-w-64 text-xs md:text-base">{description}</p>
           )}
           {techStack && (
-            <div className="mt-4 flex flex-wrap gap-2">
+            <div className="mt-4 flex flex-wrap gap-2 mb-4">
               {techStack.map((tech, index) => (
                 <span
                   key={index}

@@ -13,11 +13,19 @@ const FloatingImage: React.FC = () => {
   const frameRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
-    const handleMouseMove = throttle((e: MouseEvent) => {
-      const element = frameRef.current;
-      if (!element) return;
+    const element = frameRef.current;
+    if (!element) return;
 
-      const rect = element.getBoundingClientRect();
+    // Set initial GSAP properties for better performance
+    gsap.set(element, {
+      transformPerspective: 500,
+      transformStyle: "preserve-3d",
+    });
+
+    const handleMouseMove = throttle((e: MouseEvent) => {
+      if (!frameRef.current) return;
+
+      const rect = frameRef.current.getBoundingClientRect();
       const xPos = e.clientX - rect.left;
       const yPos = e.clientY - rect.top;
 
@@ -27,36 +35,36 @@ const FloatingImage: React.FC = () => {
       const rotateX = ((yPos - centerY) / centerY) * -10;
       const rotateY = ((xPos - centerX) / centerX) * 10;
 
-      element.style.transform = `perspective(500px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-    }, 16);
+      // Use GSAP for smooth hardware-accelerated transforms
+      gsap.to(frameRef.current, {
+        duration: 0.1,
+        rotateX: rotateX,
+        rotateY: rotateY,
+        ease: "none",
+        overwrite: "auto",
+      });
+    }, 32); // Increased throttle for better performance
 
     const handleMouseLeave = () => {
-      const element = frameRef.current;
-      if (element) {
-        gsap.to(element, {
-          duration: 0.3,
+      if (frameRef.current) {
+        gsap.to(frameRef.current, {
+          duration: 0.6,
           rotateX: 0,
           rotateY: 0,
-          ease: "power1.inOut",
+          ease: "power2.out",
         });
       }
     };
 
-    const element = frameRef.current;
-    if (element) {
-      element.addEventListener("mousemove", handleMouseMove);
-      element.addEventListener("mouseleave", handleMouseLeave);
-      element.addEventListener("mouseup", handleMouseLeave);
-      element.addEventListener("mouseenter", handleMouseLeave);
-    }
+    element.addEventListener("mousemove", handleMouseMove);
+    element.addEventListener("mouseleave", handleMouseLeave);
+    element.addEventListener("mouseup", handleMouseLeave);
 
     return () => {
-      if (element) {
-        element.removeEventListener("mousemove", handleMouseMove);
-        element.removeEventListener("mouseleave", handleMouseLeave);
-        element.removeEventListener("mouseup", handleMouseLeave);
-        element.removeEventListener("mouseenter", handleMouseLeave);
-      }
+      handleMouseMove.cancel?.(); // Cancel any pending throttled calls
+      element.removeEventListener("mousemove", handleMouseMove);
+      element.removeEventListener("mouseleave", handleMouseLeave);
+      element.removeEventListener("mouseup", handleMouseLeave);
     };
   }, []);
 
@@ -67,12 +75,12 @@ const FloatingImage: React.FC = () => {
           Full Stack Development Journey
         </p>
 
-        <div className="relative h-[70vh] w-full">
-          <AnimatedTitle
-            title="the st<b>o</b>ry of <br /> my j<b>o</b>urney"
-            containerClass="mt-5 pointer-events-none mix-blend-difference relative z-10"
-          />
+        <AnimatedTitle
+          title="the st<b>o</b>ry of <br /> my j<b>o</b>urney"
+          containerClass="mt-5 pointer-events-none relative z-20 text-white drop-shadow-2xl mb-8"
+        />
 
+        <div className="relative h-[60vh] w-full">
           <div className="story-img-container h-full">
             <div className="story-img-mask">
               <div className="story-img-content">

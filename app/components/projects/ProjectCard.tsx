@@ -9,11 +9,11 @@ export default function ProjectCard({ project }: ProjectCardProps) {
     <div className="project-card h-full">
       <BentoTilt className="border border-white/20 relative overflow-hidden rounded-xl h-full flex flex-col">
         <BentoCard {...project} />
-        <div className="relative z-20 bg-black/80 p-6 border-t border-white/10 flex-1">
-          <h3 className="font-circular-web text-lg text-highlight mb-3">
+        <div className="relative z-20 bg-black/80 p-6 border-t border-white/10 flex-1 mt-2">
+          <h3 className="font-circular-web text-lg text-highlight mb-4">
             Key Features
           </h3>
-          <ul className="grid grid-cols-1 gap-2">
+          <ul className="grid grid-cols-1 gap-3">
             {project.features.map((feature, idx) => (
               <li
                 key={idx}

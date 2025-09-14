@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Borhan Uddin - Full Stack Web Developer
 
-## Getting Started
+A modern, interactive portfolio website showcasing my work and expertise in full-stack web development. Built with cutting-edge technologies to demonstrate both technical proficiency and creative design capabilities.
 
-First, run the development server:
+## About Me
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+I'm Borhan Uddin, a Full Stack Web Developer passionate about creating efficient, scalable, and user-friendly web applications. I specialize in modern web technologies and deliver end-to-end solutions that combine powerful backend systems with engaging frontend experiences.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Portfolio Highlights
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- 🚀 Interactive user interfaces with smooth animations
+- 💻 Responsive and mobile-first design approach
+- 🎨 Custom 3D elements and modern design aesthetics
+- ⚡ Optimized performance and loading times
+- 🛠 Full-stack implementation showcasing various technical skills
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Technical Expertise
 
-## Learn More
+### Frontend
 
-To learn more about Next.js, take a look at the following resources:
+- [Next.js](https://nextjs.org/) - React Framework for Production
+- [React](https://react.dev/) - JavaScript Library for UI
+- [TypeScript](https://www.typescriptlang.org/) - JavaScript with syntax for types
+- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
+- [GSAP](https://greensock.com/gsap/) - Professional-grade animation
+- [Spline](https://spline.design/) - 3D Design tool
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Backend & Tools
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- [Node.js](https://nodejs.org/) - JavaScript runtime
+- [MongoDB](https://www.mongodb.com/) - NoSQL Database
+- [PostgreSQL](https://www.postgresql.org/) - Relational Database
+- [Express.js](https://expressjs.com/) - Web framework for Node.js
+- [Git](https://git-scm.com/) - Version Control System
+- [Docker](https://www.docker.com/) - Containerization Platform
 
-## Deploy on Vercel
+## Website Features
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- ⚡ Optimized performance with [next/font](https://nextjs.org/docs/basic-features/font-optimization)
+- 🎨 Smooth scroll animations using [GSAP](https://greensock.com/gsap/)
+- 🎯 Interactive 3D elements powered by [Spline](https://spline.design/)
+- 📱 Responsive layouts with [Tailwind CSS](https://tailwindcss.com/)
+- ✨ Custom animation utilities
+- 🔤 Modern typography with multiple font families
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Connect With Me
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/your-profile)
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/your-username)
+[![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/your-handle)
+[![Portfolio](https://img.shields.io/badge/Portfolio-FF5722?style=for-the-badge&logo=google-chrome&logoColor=white)](https://borhandev.site/)
+
+## Contact
+
+📧 Email: info@borhandev.site
+🌐 Website: [borhandev.site](https://borhandev.site/)
+📍 Location: Remote
+
+## License
+
+
+Private - All rights reserved

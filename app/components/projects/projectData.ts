@@ -10,6 +10,23 @@ interface Project {
 
 export const projects: Project[] = [
   {
+    title: "AI ATS CHECKER",
+    description:
+      "AI-powered resume analysis tool with ATS compatibility checking, real-time job match scoring, and comprehensive career enhancement features.",
+    longDescription:
+      "A comprehensive AI-driven platform that revolutionizes resume optimization through advanced ATS compatibility analysis, intelligent job matching algorithms, and predictive salary insights to enhance career prospects.",
+    techStack: ["nextjs", "typescript", "tailwindcss", "ai"],
+    projectUrl: "https://aiatschecker.com/",
+    src: "/img/aiatschecker.webp",
+    features: [
+      "AI-Powered Resume Analysis",
+      "ATS Compatibility Check",
+      "Real-Time Job Match Scoring",
+      "Free Visual Resume Builder",
+      "AI Salary Predictor",
+    ],
+  },
+  {
     title: "NEXLESS",
     description:
       "A comprehensive multi-purpose SaaS application offering modern solutions for businesses with real-time features and interactive interfaces.",
