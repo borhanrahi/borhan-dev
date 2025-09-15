@@ -1,8 +1,10 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link";
 import AnimatedTitle from "./AnimatedTitle";
 import Button from "./Button";
 import { useInView } from "react-intersection-observer";
+import { Github, Linkedin, Twitter } from "lucide-react";
 
 interface ImageClipBoxProps {
   src: string;
@@ -73,10 +75,13 @@ const Contact: React.FC = () => {
               title="let&#39;s b<b>u</b>ild the <br /> new era of <br /> w<b>eb </b>development<b> t</b>ogether."
               containerClass="special-font text-[3.5rem] sm:!text-6xl !md:text-[6.2rem] w-full font-zentry !font-black !leading-[1.1] sm:!leading-[.9]"
             />
-            <Button
-              title="contact me"
-              containerClass="mt-8 sm:mt-10 cursor-pointer"
-            />
+            <Link href="/contact">
+              <Button
+                title="contact me"
+                containerClass="mt-8 sm:mt-10 cursor-pointer"
+              />
+            </Link>
+            
           </div>
         </div>
       )}

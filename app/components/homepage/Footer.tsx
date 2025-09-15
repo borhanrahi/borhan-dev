@@ -29,9 +29,9 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const socialLinks = [
-    { icon: Github, href: "https://github.com", label: "GitHub" },
-    { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-    { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
+    { icon: Github, href: "https://github.com/borhanrahi", label: "GitHub" },
+    { icon: Linkedin, href: "https://www.linkedin.com/in/borhan-uddin-rahi/", label: "LinkedIn" },
+    { icon: Twitter, href: "https://x.com/borhan_rahi", label: "Twitter" },
     { icon: Mail, href: "mailto:info@borhandev.site", label: "Email" },
   ];
 
