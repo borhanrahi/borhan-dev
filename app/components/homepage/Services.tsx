@@ -42,7 +42,7 @@ const services = [
     icon: <Laptop className="h-8 w-8" />,
     title: "Technical Solutions",
     description:
-      "Developing custom solutions and integrating third-party services for complex business requirements.",
+      "Developing custom solutions and integrating third-party services for complex business requirements and workflows.",
   },
 ];
 
@@ -121,7 +121,7 @@ const Services = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-black via-purple-950/20 to-black" />
 
       <div className="relative py-10">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8 mb-16">
+        <div className="container mx-auto px-3 md:px-10 mb-16">
           <div>
             <p className="font-general text-sm uppercase text-highlight tracking-wider md:text-[15px]">
               What I Do
@@ -133,7 +133,7 @@ const Services = () => {
           </div>
         </div>
 
-        <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="relative container mx-auto px-3 md:px-10">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {services.map((service, index) => (
               <BentoTilt key={index} className="service-card">
@@ -168,7 +168,7 @@ const Services = () => {
 
           <div className="flex justify-end mt-12">
             <Link
-              href="/servicepage"
+              href="/service"
               className="group flex items-center gap-2 bg-highlight/10 hover:bg-highlight/20 
                        text-highlight px-4 py-2 rounded-full transition-all duration-300
                        border border-highlight/20 hover:border-highlight/40"

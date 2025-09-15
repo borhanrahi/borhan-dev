@@ -56,7 +56,7 @@ const Footer = () => {
           </div>
 
           <Link
-            href="#contact"
+            href="/contact"
             className="group flex items-center gap-2 rounded-full bg-highlight px-6 py-3 text-black transition-all hover:bg-highlight/90"
           >
             <span className="font-general text-xs uppercase">Get in Touch</span>

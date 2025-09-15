@@ -317,7 +317,7 @@ const ServiceGrid = () => {
                   </div>
 
                   {/* Title & Description */}
-                  <h3 className="font-zentry text-2xl text-white font-bold mb-4">
+                  <h3 className="font-zentry  text-2xl text-white font-bold mb-4">
                     {service.title}
                   </h3>
                   <p className="font-robert-regular text-gray-400 mb-6">
