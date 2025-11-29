@@ -18,8 +18,8 @@ const contactInfo = [
   {
     icon: Mail,
     title: "Email",
-    value: "info@borhandev.site",
-    link: "mailto:info@borhandev.site",
+    value: "info@borhandev.me",
+    link: "mailto:info@borhandev.me",
   },
   {
     icon: Phone,

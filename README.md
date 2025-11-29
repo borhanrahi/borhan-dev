@@ -48,12 +48,12 @@ I'm Borhan Uddin, a Full Stack Web Developer passionate about creating efficient
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/your-profile)
 [![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/your-username)
 [![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/your-handle)
-[![Portfolio](https://img.shields.io/badge/Portfolio-FF5722?style=for-the-badge&logo=google-chrome&logoColor=white)](https://borhandev.site/)
+[![Portfolio](https://img.shields.io/badge/Portfolio-FF5722?style=for-the-badge&logo=google-chrome&logoColor=white)](https://borhandev.me/)
 
 ## Contact
 
-📧 Email: info@borhandev.site
-🌐 Website: [borhandev.site](https://borhandev.site/)
+📧 Email: info@borhandev.me
+🌐 Website: [borhandev.me](https://borhandev.me/)
 📍 Location: Remote
 
 ## License

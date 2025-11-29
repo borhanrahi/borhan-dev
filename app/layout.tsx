@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Borhan Dev - Full Stack Developer & UI/UX Designer",
     description: "Professional full-stack developer specializing in React, Next.js, Node.js, and modern web technologies.",
-    url: "https://borhandev.site/",
+    url: "https://borhandev.me/",
     siteName: "Borhan Dev",
     images: [
       {

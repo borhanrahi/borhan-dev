@@ -32,7 +32,7 @@ const Footer = () => {
     { icon: Github, href: "https://github.com/borhanrahi", label: "GitHub" },
     { icon: Linkedin, href: "https://www.linkedin.com/in/borhan-uddin-rahi/", label: "LinkedIn" },
     { icon: Twitter, href: "https://x.com/borhan_rahi", label: "Twitter" },
-    { icon: Mail, href: "mailto:info@borhandev.site", label: "Email" },
+    { icon: Mail, href: "mailto:info@borhandev.me", label: "Email" },
   ];
 
   return (
@@ -48,10 +48,10 @@ const Footer = () => {
               Available for freelance work and collaborations
             </p>
             <Link
-              href="mailto:info@borhandev.site"
+              href="mailto:info@borhandev.me"
               className="mt-1 block font-circular-web text-3xl text-highlight hover:text-blue-50/60 transition-colors"
             >
-              info@borhandev.site
+              info@borhandev.me
             </Link>
           </div>
 
