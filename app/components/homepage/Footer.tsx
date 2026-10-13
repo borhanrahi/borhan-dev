@@ -2,18 +2,17 @@
 
 import Link from "next/link";
 import dynamic from "next/dynamic";
+import { SiGithub, SiX } from "react-icons/si";
+import { FaLinkedinIn } from "react-icons/fa6";
 
 // Dynamic imports for icons
 const ArrowUpRight = dynamic(() =>
   import("lucide-react").then((mod) => mod.ArrowUpRight)
 );
-const Github = dynamic(() => import("lucide-react").then((mod) => mod.Github));
-const Linkedin = dynamic(() =>
-  import("lucide-react").then((mod) => mod.Linkedin)
-);
-const Twitter = dynamic(() =>
-  import("lucide-react").then((mod) => mod.Twitter)
-);
+// Brand icons: lucide-react v1 and Simple Icons no longer ship Github/Linkedin/Twitter
+const Github = SiGithub;
+const Linkedin = FaLinkedinIn;
+const Twitter = SiX;
 const Heart = dynamic(() => import("lucide-react").then((mod) => mod.Heart));
 const Mail = dynamic(() => import("lucide-react").then((mod) => mod.Mail));
 

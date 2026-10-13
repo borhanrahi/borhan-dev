@@ -30,10 +30,13 @@ const AboutHero = () => {
             </h1>
 
             <p className="font-mono text-gray-400 text-lg leading-relaxed max-w-[50ch]">
-              Hi, I&apos;m Borhan Uddin, a Full-Stack JavaScript Developer
-              passionate about creating modern, fast, and scalable web
-              applications. I specialize in both beautiful front-end designs and
-              robust back-end systems that deliver exceptional user experiences.
+              Hi, I&apos;m Borhan Uddin, a Full-Stack JavaScript Developer. I got
+              into web development during my Electrical &amp; Electronics
+              Engineering degree — what began as a side interest quickly became
+              my focus after working on solar and IT system projects at IDCOL.
+              Today I build modern, responsive, and high-performance web apps
+              with Next.js, TailwindCSS, and MongoDB, while expanding into DevOps
+              tools like Docker, Linux, and Jenkins.
             </p>
           </div>
 

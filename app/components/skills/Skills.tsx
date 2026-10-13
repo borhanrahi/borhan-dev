@@ -3,6 +3,32 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "@/lib/gsap";
 import AnimatedTitle from "../homepage/AnimatedTitle";
+import type { IconType } from "react-icons";
+import {
+  SiJavascript,
+  SiCss,
+  SiReact,
+  SiNextdotjs,
+  SiTypescript,
+  SiTailwindcss,
+  SiGreensock,
+  SiFramer,
+  SiThreedotjs,
+  SiNodedotjs,
+  SiExpress,
+  SiPython,
+  SiFastapi,
+  SiPostgresql,
+  SiMongodb,
+  SiGraphql,
+  SiOpenapiinitiative,
+  SiGit,
+  SiDocker,
+  SiGithubactions,
+  SiJest,
+  SiWebpack,
+} from "react-icons/si";
+import { DiAws } from "react-icons/di";
 import { 
   createOptimizedTimeline, 
   PERFORMANCE_CONFIG, 
@@ -16,7 +42,7 @@ interface SkillCategory {
   description: string;
   skills: {
     name: string;
-    icon: string;
+    icon: IconType;
     color: string;
     level: "Beginner" | "Intermediate" | "Advanced" | "Expert";
   }[];
@@ -27,44 +53,41 @@ const skillCategories: SkillCategory[] = [
     title: "Frontend Mastery",
     description: "Creating seamless user experiences with modern technologies",
     skills: [
-      { name: "JavaScript", icon: "🟨", color: "#F7DF1E", level: "Expert" },
-      { name: "CSS", icon: "🎨", color: "#264DE4", level: "Expert" },
-      { name: "React.js", icon: "⚛️", color: "#61DAFB", level: "Expert" },
-      { name: "Next.js", icon: "▲", color: "#000000", level: "Expert" },
-      { name: "TypeScript", icon: "📘", color: "#3178C6", level: "Advanced" },
-      { name: "Tailwind CSS", icon: "🎨", color: "#38B2AC", level: "Expert" },
-      { name: "GSAP", icon: "🎭", color: "#88CE02", level: "Advanced" },
-      {
-        name: "Framer Motion",
-        icon: "🎬",
-        color: "#FF0055",
-        level: "Advanced",
-      },
-      { name: "Three.js", icon: "🎮", color: "#000000", level: "Intermediate" },
+      { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E", level: "Expert" },
+      { name: "CSS", icon: SiCss, color: "#264DE4", level: "Expert" },
+      { name: "React.js", icon: SiReact, color: "#61DAFB", level: "Expert" },
+      { name: "Next.js", icon: SiNextdotjs, color: "#FFFFFF", level: "Expert" },
+      { name: "TypeScript", icon: SiTypescript, color: "#3178C6", level: "Advanced" },
+      { name: "Tailwind CSS", icon: SiTailwindcss, color: "#38B2AC", level: "Expert" },
+      { name: "GSAP", icon: SiGreensock, color: "#88CE02", level: "Advanced" },
+      { name: "Framer Motion", icon: SiFramer, color: "#FF0055", level: "Advanced" },
+      { name: "Three.js", icon: SiThreedotjs, color: "#FFFFFF", level: "Intermediate" },
     ],
   },
   {
     title: "Backend Excellence",
     description: "Building robust and scalable server-side solutions",
     skills: [
-      { name: "Node.js", icon: "🟢", color: "#339933", level: "Expert" },
-      { name: "Express.js", icon: "🚂", color: "#000000", level: "Advanced" },
-      { name: "PostgreSQL", icon: "🐘", color: "#336791", level: "Advanced" },
-      { name: "MongoDB", icon: "🍃", color: "#47A248", level: "Advanced" },
-      { name: "GraphQL", icon: "📊", color: "#E535AB", level: "Intermediate" },
-      { name: "REST APIs", icon: "🔌", color: "#FF6B6B", level: "Expert" },
+      { name: "Node.js", icon: SiNodedotjs, color: "#339933", level: "Expert" },
+      { name: "Express.js", icon: SiExpress, color: "#FFFFFF", level: "Advanced" },
+      { name: "Python", icon: SiPython, color: "#3776AB", level: "Advanced" },
+      { name: "FastAPI", icon: SiFastapi, color: "#009688", level: "Advanced" },
+      { name: "PostgreSQL", icon: SiPostgresql, color: "#336791", level: "Advanced" },
+      { name: "MongoDB", icon: SiMongodb, color: "#47A248", level: "Advanced" },
+      { name: "GraphQL", icon: SiGraphql, color: "#E535AB", level: "Intermediate" },
+      { name: "REST APIs", icon: SiOpenapiinitiative, color: "#FF6B6B", level: "Expert" },
     ],
   },
   {
     title: "DevOps & Tools",
     description: "Streamlining development and deployment workflows",
     skills: [
-      { name: "Git & GitHub", icon: "🐙", color: "#F05032", level: "Expert" },
-      { name: "Docker", icon: "🐳", color: "#2496ED", level: "Advanced" },
-      { name: "AWS", icon: "☁️", color: "#FF9900", level: "Advanced" },
-      { name: "CI/CD", icon: "🔄", color: "#40B5A4", level: "Advanced" },
-      { name: "Jest", icon: "🃏", color: "#C21325", level: "Advanced" },
-      { name: "Webpack", icon: "📦", color: "#8DD6F9", level: "Intermediate" },
+      { name: "Git & GitHub", icon: SiGit, color: "#F05032", level: "Expert" },
+      { name: "Docker", icon: SiDocker, color: "#2496ED", level: "Advanced" },
+      { name: "AWS", icon: DiAws, color: "#FF9900", level: "Advanced" },
+      { name: "CI/CD", icon: SiGithubactions, color: "#40B5A4", level: "Advanced" },
+      { name: "Jest", icon: SiJest, color: "#C21325", level: "Advanced" },
+      { name: "Webpack", icon: SiWebpack, color: "#8DD6F9", level: "Intermediate" },
     ],
   },
 ];
@@ -281,8 +304,11 @@ const Skills: React.FC = () => {
                     className="skill-card group relative overflow-hidden rounded-xl bg-white/5 p-6 backdrop-blur-sm"
                   >
                     <div className="relative z-10 flex flex-col items-center gap-3">
-                      <span className="skill-icon text-3xl transform">
-                        {skill.icon}
+                      <span
+                        className="skill-icon transform"
+                        style={{ color: skill.color }}
+                      >
+                        <skill.icon size={34} aria-hidden="true" />
                       </span>
                       <span className="font-circular-web text-base font-medium text-white">
                         {skill.name}

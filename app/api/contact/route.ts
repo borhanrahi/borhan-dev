@@ -2,8 +2,6 @@ import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import type { CreateEmailResponse } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 interface ContactFormData {
   name: string;
   email: string;
@@ -28,6 +26,10 @@ export async function POST(request: Request) {
   }
 
   try {
+    // Initialize only when needed — the Resend constructor throws if the API key
+    // is missing, which would break builds/page-data collection without env vars.
+    const resend = new Resend(process.env.RESEND_API_KEY);
+
     const { name, email, message }: ContactFormData = await request.json();
 
     // Basic validation

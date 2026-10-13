@@ -13,8 +13,8 @@ const educationData = [
   {
     degree: "B.Sc. in Electrical & Electronics Engineering (EEE)",
     institution: "United International University",
-    year: "2020",
-    specialization: "Major in Power",
+    year: "Dec 2015 - Jan 2020",
+    specialization: "",
   },
   {
     degree: "HSC (Higher Secondary Certificate)",
@@ -101,8 +101,12 @@ const Education = () => {
                 </p>
                 <div className="flex gap-4 text-gray-400">
                   <span>{edu.year}</span>
-                  <span>•</span>
-                  <span>{edu.specialization}</span>
+                  {edu.specialization && (
+                    <>
+                      <span>•</span>
+                      <span>{edu.specialization}</span>
+                    </>
+                  )}
                 </div>
               </div>
             </div>

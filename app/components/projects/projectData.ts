@@ -27,6 +27,40 @@ export const projects: Project[] = [
     ],
   },
   {
+    title: "TOPDESIGNR",
+    description:
+      "Dribbble-style platform for hiring designers — built the production front-end in Next.js with dashboards, messaging, and a full hiring flow.",
+    longDescription:
+      "A client platform for discovering and hiring creative designers with a Dribbble-inspired browsing experience. I worked on the front-end only, delivering a production-ready Next.js build with responsive dashboards, a messaging inbox, and a complete hiring workflow layered with animations.",
+    techStack: ["nextjs", "tailwindcss", "shadcn", "gsap"],
+    projectUrl: "https://topdesignr.com/",
+    src: "/img/topdisigner.png",
+    features: [
+      "Designer discovery & profile views",
+      "Client and designer dashboards",
+      "Messaging inbox",
+      "End-to-end hiring module",
+      "Animated UI with authentication flow",
+    ],
+  },
+  {
+    title: "KLYRON ERP",
+    description:
+      "Full-featured ERP system with a Next.js front-end, FastAPI backend, and PostgreSQL database — unifying sales, finance, inventory, and HR.",
+    longDescription:
+      "A complete enterprise resource planning platform that brings core business operations into one place — executive dashboards with revenue analytics, sales and finance tracking, inventory and manufacturing, HR and ticketing, backed by a FastAPI server and PostgreSQL database.",
+    techStack: ["nextjs", "fastapi", "postgresql", "tailwindcss"],
+    projectUrl: "https://klyron-erp.netlify.app/",
+    src: "/img/Klyon.png",
+    features: [
+      "Executive dashboard with revenue analytics",
+      "Sales, finance & inventory management",
+      "HR, employees & ticketing modules",
+      "Invoices & exportable reports",
+      "Google & Microsoft SSO sign-in",
+    ],
+  },
+  {
     title: "NEXLESS",
     description:
       "A comprehensive multi-purpose SaaS application offering modern solutions for businesses with real-time features and interactive interfaces.",

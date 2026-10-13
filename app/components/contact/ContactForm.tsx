@@ -7,11 +7,10 @@ import {
   Mail,
   MapPin,
   Phone,
-  Github,
-  Linkedin,
-  Twitter,
   SendIcon,
 } from "lucide-react";
+import { SiGithub, SiX } from "react-icons/si";
+import { FaLinkedinIn } from "react-icons/fa6";
 import Button from "../homepage/Button";
 
 const contactInfo = [
@@ -36,9 +35,9 @@ const contactInfo = [
 ];
 
 const socialLinks = [
-  { icon: Github, href: "https://github.com/borhanrahi", label: "GitHub" },
-  { icon: Linkedin, href: "https://www.linkedin.com/in/borhan-uddin-rahi/", label: "LinkedIn" },
-  { icon: Twitter, href: "https://x.com/borhan_rahi", label: "Twitter" },
+  { icon: SiGithub, href: "https://github.com/borhanrahi", label: "GitHub" },
+  { icon: FaLinkedinIn, href: "https://www.linkedin.com/in/borhan-uddin-rahi/", label: "LinkedIn" },
+  { icon: SiX, href: "https://x.com/borhan_rahi", label: "Twitter" },
 ];
 
 const ContactForm = () => {

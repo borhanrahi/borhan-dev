@@ -5,28 +5,50 @@ import { gsap } from "@/lib/gsap";
 
 const skillCategories = [
   {
-    title: "Electrical & Electronics",
+    title: "Front-End",
     skills: [
-      "Helioscope",
-      "PSpice",
-      "PVsyst",
-      "AutoCAD",
-      "MATLAB",
-      "PCB Design (Proteus)",
-      "MOSFET Design (T-CAD)",
+      "Next.js",
+      "React.js",
+      "TailwindCSS",
+      "Framer Motion",
+      "GSAP",
+      "Shadcn/UI",
+      "JavaScript",
+      "TypeScript",
+      "UI/UX Design",
     ],
   },
   {
-    title: "Software Development",
+    title: "Back-End & APIs",
     skills: [
-      "JavaScript",
-      "Python",
       "Node.js",
-      "React.js",
-      "Next.js",
-      "TailwindCSS",
-      "Framer Motion",
+      "Express.js",
+      "MongoDB",
+      "REST APIs",
+      "Appwrite",
+      "JWT",
+      "CMS",
     ],
+  },
+  {
+    title: "DevOps & Infra",
+    skills: [
+      "Docker",
+      "Linux",
+      "Jenkins",
+      "Vercel",
+      "Netlify",
+      "GitHub Actions",
+      "CI/CD",
+    ],
+  },
+  {
+    title: "WordPress & SEO",
+    skills: ["Elementor", "WooCommerce", "Theme Customization", "SEO Optimization"],
+  },
+  {
+    title: "Tools",
+    skills: ["VS Code", "Postman", "GitHub", "Figma to Code", "Agile Boards"],
   },
 ];
 

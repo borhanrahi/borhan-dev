@@ -4,7 +4,6 @@ import Link from "next/link";
 import AnimatedTitle from "./AnimatedTitle";
 import Button from "./Button";
 import { useInView } from "react-intersection-observer";
-import { Github, Linkedin, Twitter } from "lucide-react";
 
 interface ImageClipBoxProps {
   src: string;

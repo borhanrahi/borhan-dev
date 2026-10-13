@@ -7,22 +7,38 @@ import { useGsapAnimation } from "@/app/hooks/useGsapAnimation";
 
 const experiences = [
   {
-    company: "Infrastructure Development Company Limited (IDCOL)",
-    period: "Aug 2021 - Oct 2024",
+    company: "Triangle Services Ltd.",
+    role: "Assistant Software Engineer",
+    location: "Dhaka, BD (On-site)",
+    period: "Oct 2025 - Present",
     responsibilities: [
-      "Provided technical support for solar rooftop projects",
-      "Core team member for CBS and HRMS implementation",
-      "Ensured project compliance through site evaluations",
+      "Built and maintained front-end features using Next.js — responsive UI and reusable components",
+      "Integrated REST APIs and implemented CMS-driven pages using Payload CMS",
     ],
   },
   {
-    company: "Freelance Full Stack Developer",
-    period: "2018 - Present",
+    company: "IDCOL – Infrastructure Development Company Ltd.",
+    role: "Officer (Technical)",
+    location: "Dhaka, BD",
+    period: "Aug 2021 - Sep 2024",
     responsibilities: [
-      "Delivered 65+ successful projects on Upwork and Fiverr",
-      "Specialized in React, Next.js, and Node.js development",
-      "Maintained 5-star rating with 95% client satisfaction rate",
-      "Built and deployed scalable web applications for clients worldwide",
+      "Represented IDCOL during the design and development of internal Core Banking (CBS) and HRMS systems, drafting and refining the Business Requirements Document (BRD)",
+      "Reviewed vendor codebases and enforced internal security standards, reducing bugs by ~20%",
+      "Tracked agile sprints and improved payroll processing efficiency by ~25%, helping reduce HR processing time by ~35% post-HRMS launch",
+      "Inspected and maintained 50+ rooftop solar systems and collaborated on an internal monitoring dashboard",
+      "Debugged API integrations, improving data accuracy by ~30%, and conducted onboarding for 5+ internal teams",
+    ],
+  },
+  {
+    company: "Freelance",
+    role: "Full-Stack Developer",
+    location: "Remote",
+    period: "Apr 2018 - Present",
+    responsibilities: [
+      "Built modern apps with Next.js, React, TailwindCSS, MongoDB, and Framer Motion",
+      "Completed 100+ client projects, earning 60+ 5-star reviews",
+      "Delivered fast, scalable apps with Stripe, Appwrite auth, and CMS integration",
+      "Enhanced SEO by ~35% on 20+ WordPress theme customizations",
     ],
   },
 ];
@@ -68,7 +84,10 @@ const WorkExperience = () => {
                   {exp.company}
                 </h3>
                 <p className="font-robert-regular text-highlight">
-                  {exp.period}
+                  {exp.role}
+                </p>
+                <p className="font-robert-regular text-sm text-gray-500">
+                  {exp.period} • {exp.location}
                 </p>
               </div>
               <ul className="space-y-3 text-gray-400">

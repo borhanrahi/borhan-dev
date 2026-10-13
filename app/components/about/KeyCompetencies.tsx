@@ -5,27 +5,27 @@ import { gsap } from "@/lib/gsap";
 
 const competencies = [
   {
-    title: "Technical Expertise",
+    title: "Full-Stack Development",
     description:
-      "Strong foundation in EEE principles and industrial applications, combined with full-stack development skills",
+      "End-to-end delivery across Next.js, React, Node.js, MongoDB, and Docker — from responsive UIs to APIs and deployment",
     icon: "⚡",
   },
   {
-    title: "Project Management",
+    title: "Delivery at Scale",
     description:
-      "Experience managing complex projects in both engineering and software development environments",
-    icon: "📊",
+      "100+ freelance projects completed with 60+ 5-star reviews, plus production front-end work at Triangle Services",
+    icon: "🚀",
   },
   {
-    title: "Communication",
+    title: "Agile & Requirements",
     description:
-      "Excellent verbal and written communication skills in Bengali and English",
-    icon: "💬",
+      "Tracked agile sprints and drafted BRDs at IDCOL — improved payroll efficiency by ~25% and cut HR processing time by ~35%",
+    icon: "📊",
   },
   {
     title: "Problem-Solving",
     description:
-      "Strong analytical skills with efficient technical and operational issue resolution",
+      "Debugged API integrations for ~30% better data accuracy and enforced code reviews that reduced bugs by ~20%",
     icon: "🔧",
   },
 ];
