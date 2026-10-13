@@ -39,7 +39,7 @@ const About: React.FC = () => {
 
     clipAnimation.to(".mask-clip-path", {
       ...PERFORMANCE_CONFIG,
-      width: "100vw",
+      width: "100%",
       height: "100vh",
       borderRadius: 0,
       ease: "power2.inOut",
@@ -51,7 +51,7 @@ const About: React.FC = () => {
   });
 
   return (
-    <div id="about" className="min-h-screen w-screen">
+    <div id="about" className="min-h-screen w-full">
       <div className="relative mb-16 mt-24 md:mb-8 md:mt-36 flex flex-col items-center gap-5 px-4">
         <p className="font-general text-sm uppercase md:text-[15px]">
           Welcome to My Portfolio
@@ -72,7 +72,7 @@ const About: React.FC = () => {
         </div>
       </div>
 
-      <div className="h-dvh w-screen mt-8 md:mt-0" id="clip">
+      <div className="h-dvh w-full mt-8 md:mt-0" id="clip">
         <div className="mask-clip-path about-image">
           <Image
             src="/img/office.webp"

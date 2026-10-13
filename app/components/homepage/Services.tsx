@@ -1,6 +1,6 @@
 "use client";
 
-import { gsap } from "@/lib/gsap";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { useEffect, useRef } from "react";
 import { 
   createOptimizedTimeline, 
@@ -104,6 +104,21 @@ const Services = () => {
         rotation: 360,
         duration: 25,
         ease: "none",
+      });
+
+      // Only rotate the icons while the section is on-screen — the infinite
+      // timeline otherwise keeps ticking (and compositing) while scrolled away.
+      ScrollTrigger.create({
+        trigger: containerRef.current,
+        start: "top bottom",
+        end: "bottom top",
+        onToggle: (self) => {
+          if (self.isActive) {
+            iconTimeline.play();
+          } else {
+            iconTimeline.pause();
+          }
+        },
       });
     }, containerRef);
 

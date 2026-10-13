@@ -67,6 +67,30 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        {/* Preload the critical self-hosted General Sans weights so the
+            font-display: swap happens before first paint (no fallback-text
+            reflow, no third-party font fetch). React hoists these into <head>. */}
+        <link
+          rel="preload"
+          href="/appfonts/GeneralSans-Regular.woff"
+          as="font"
+          type="font/woff"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/appfonts/GeneralSans-Semibold.woff"
+          as="font"
+          type="font/woff"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/appfonts/GeneralSans-Bold.woff"
+          as="font"
+          type="font/woff"
+          crossOrigin="anonymous"
+        />
         {children}
       </body>
     </html>

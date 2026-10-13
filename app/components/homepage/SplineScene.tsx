@@ -1,7 +1,7 @@
 "use client";
 
 import Spline from "@splinetool/react-spline";
-import { Application } from "@splinetool/runtime";
+import type { Application } from "@splinetool/runtime";
 import { useEffect, memo, useState, useCallback, useRef } from "react";
 
 type SplineApp = {
@@ -20,6 +20,8 @@ const SplineScene = memo(function SplineScene() {
   const [isLoaded, setIsLoaded] = useState(false);
   const splineContainerRef = useRef<HTMLDivElement>(null);
   const observerRef = useRef<IntersectionObserver | null>(null);
+  const splineAppRef = useRef<Application | null>(null);
+  const isVisibleRef = useRef(true);
 
   // Memoize the logo removal function
   const removeSplineLogo = useCallback((): void => {
@@ -39,6 +41,7 @@ const SplineScene = memo(function SplineScene() {
 
   // Memoize the onLoad handler
   const handleLoad = useCallback((spline: Application) => {
+    splineAppRef.current = spline;
     const camera = (spline as unknown as SplineApp).camera;
     if (camera) {
       // Configure camera settings in a batch
@@ -49,6 +52,14 @@ const SplineScene = memo(function SplineScene() {
         enableZoom: false,
         mouseButtons: { wheel: null },
       });
+    }
+    // If the hero already scrolled out of view while loading, don't render it
+    if (!isVisibleRef.current) {
+      try {
+        spline.stop();
+      } catch {
+        /* noop */
+      }
     }
     setIsLoaded(true);
   }, []);
@@ -73,6 +84,34 @@ const SplineScene = memo(function SplineScene() {
       observerRef.current?.disconnect();
     };
   }, [removeSplineLogo]);
+
+  // Pause the WebGL render loop whenever the hero is off-screen — this is the
+  // single biggest scroll-performance win (the scene renders continuously otherwise).
+  useEffect(() => {
+    const element = splineContainerRef.current;
+    if (!element || typeof IntersectionObserver === "undefined") return;
+
+    const visibilityObserver = new IntersectionObserver(
+      ([entry]) => {
+        isVisibleRef.current = entry.isIntersecting;
+        const app = splineAppRef.current;
+        if (!app) return;
+        try {
+          if (entry.isIntersecting) {
+            app.play();
+          } else {
+            app.stop();
+          }
+        } catch {
+          /* noop */
+        }
+      },
+      { threshold: 0 }
+    );
+
+    visibilityObserver.observe(element);
+    return () => visibilityObserver.disconnect();
+  }, []);
 
   return (
     <div

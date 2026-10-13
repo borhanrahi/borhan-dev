@@ -1,11 +1,11 @@
 "use client";
 
-import { gsap, ScrollTrigger, TextPlugin } from "@/lib/gsap";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { useEffect, useRef, useState, Suspense } from "react";
 import dynamic from "next/dynamic";
 import { 
   createOptimizedTimeline, 
-  PERFORMANCE_CONFIG, 
+  PERFORMANCE_CONFIG,
   SCROLL_TRIGGER_CONFIG,
   cleanupGsapAnimations 
 } from "@/app/utils/gsapUtils";
@@ -32,7 +32,7 @@ const SplineScene = dynamic(() => import("./SplineScene"), {
 });
 
 // Pre-register GSAP plugins
-gsap.registerPlugin(ScrollTrigger, TextPlugin);
+gsap.registerPlugin(ScrollTrigger);
 
 // Move constants outside component
 const webDevConcepts: string[] = [
@@ -103,6 +103,17 @@ const useScrambleText = (
   return displayText;
 };
 
+// Isolated so the 60fps scramble animation re-renders only this heading
+// instead of the entire hero (which mounts the heavy Spline scene).
+const ScrambleHeading: React.FC<{ text: string }> = ({ text }) => {
+  const scrambledText = useScrambleText(text);
+  return (
+    <h2 className="text-6xl font-bold tracking-tighter text-white sm:text-8xl md:text-9xl lg:text-[150px]">
+      {scrambledText}
+    </h2>
+  );
+};
+
 // Pre-compute static class strings to reduce runtime concatenation
 const STATIC_CLASSES = {
   container: "relative h-screen w-full overflow-hidden bg-black transform-gpu",
@@ -117,7 +128,40 @@ export default function GSAPWebDevHero(): React.ReactElement {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLDivElement>(null);
   const conceptsRef = useRef<HTMLDivElement>(null);
-  const scrambledText = useScrambleText("DEVELOP");
+  const conceptsAnimRef = useRef<gsap.core.Tween | null>(null);
+  const [showSpline, setShowSpline] = useState(false);
+
+  // Mount the heavy Spline scene after the browser is idle so it never
+  // competes with fonts/first paint (it fades in when loaded, as before).
+  useEffect(() => {
+    const idleHandle = window.requestIdleCallback(
+      () => setShowSpline(true),
+      { timeout: 1500 }
+    );
+    return () => window.cancelIdleCallback(idleHandle);
+  }, []);
+
+  // Pause the infinite concepts cycle while the hero is off-screen
+  useEffect(() => {
+    const element = containerRef.current;
+    if (!element || typeof IntersectionObserver === "undefined") return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        const animation = conceptsAnimRef.current;
+        if (!animation) return;
+        if (entry.isIntersecting) {
+          animation.play();
+        } else {
+          animation.pause();
+        }
+      },
+      { threshold: 0 }
+    );
+
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     if (
@@ -214,8 +258,18 @@ export default function GSAPWebDevHero(): React.ReactElement {
             },
           });
           
-          // Store reference for cleanup
-          loadTl.conceptsAnimation = conceptsAnimation;
+          // Store reference for cleanup + visibility pausing
+          conceptsAnimRef.current = conceptsAnimation;
+
+          // If the user already scrolled away during the intro, don't start
+          // ticking until the hero is visible again
+          const rect = containerRef.current?.getBoundingClientRect();
+          if (
+            rect &&
+            (rect.bottom <= 0 || rect.top >= window.innerHeight)
+          ) {
+            conceptsAnimation.pause();
+          }
         };
         
         cycleConcepts();
@@ -312,8 +366,9 @@ export default function GSAPWebDevHero(): React.ReactElement {
       scrollTl.kill();
       
       // Kill any remaining concept animations
-      if (loadTl.conceptsAnimation) {
-        loadTl.conceptsAnimation.kill();
+      if (conceptsAnimRef.current) {
+        conceptsAnimRef.current.kill();
+        conceptsAnimRef.current = null;
       }
       
       // Clean up all GSAP animations on elements
@@ -335,7 +390,7 @@ export default function GSAPWebDevHero(): React.ReactElement {
   return (
     <div ref={containerRef} className={STATIC_CLASSES.container}>
       <Suspense fallback={<div className="h-screen w-full bg-black" />}>
-        <SplineScene />
+        {showSpline && <SplineScene />}
       </Suspense>
 
       <div className={STATIC_CLASSES.gradient} />
@@ -392,9 +447,7 @@ export default function GSAPWebDevHero(): React.ReactElement {
         </div>
 
         <div className="content-right absolute right-[5%] bottom-[10%] w-full sm:w-[600px] text-center">
-          <h2 className="text-6xl font-bold tracking-tighter text-white sm:text-8xl md:text-9xl lg:text-[150px]">
-            {scrambledText}
-          </h2>
+          <ScrambleHeading text="DEVELOP" />
         </div>
       </div>
     </div>

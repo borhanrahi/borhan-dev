@@ -1,17 +1,14 @@
 "use client";
 
 import {
-  useState,
   useRef,
   ReactNode,
   Suspense,
   lazy,
   useCallback,
-  useMemo,
 } from "react";
 import { TiLocationArrow } from "react-icons/ti";
 import Image from "next/image";
-import { throttle } from "lodash";
 import { useInView } from "react-intersection-observer";
 import Link from "next/link";
 
@@ -34,47 +31,59 @@ interface BentoCardProps {
   projectUrl?: string;
 }
 
-interface CursorPosition {
-  x: number;
-  y: number;
-}
-
 export const BentoTilt: React.FC<BentoTiltProps> = ({
   children,
   className = "",
 }) => {
-  const [transformStyle, setTransformStyle] = useState("");
   const itemRef = useRef<HTMLDivElement>(null);
+  const frameRef = useRef<number>(0);
+  const pendingRef = useRef<{ x: number; y: number } | null>(null);
+
+  // Direct DOM writes instead of setState: zero React re-renders while moving
+  // the mouse, at most one style write per animation frame.
+  const applyTilt = () => {
+    frameRef.current = 0;
+    const pending = pendingRef.current;
+    const element = itemRef.current;
+    if (!pending || !element) return;
+
+    element.style.transform = `perspective(700px) rotateX(${(pending.y - 0.5) * 5}deg) rotateY(${
+      (pending.x - 0.5) * -5
+    }deg) scale3d(.95, .95, .95)`;
+  };
 
   const handleMouseMove = useCallback((event: React.MouseEvent) => {
     if (!itemRef.current) return;
 
     const rect = itemRef.current.getBoundingClientRect();
-    const relativeX = (event.clientX - rect.left) / rect.width;
-    const relativeY = (event.clientY - rect.top) / rect.height;
+    pendingRef.current = {
+      x: (event.clientX - rect.left) / rect.width,
+      y: (event.clientY - rect.top) / rect.height,
+    };
 
-    requestAnimationFrame(() => {
-      setTransformStyle(
-        `perspective(700px) rotateX(${(relativeY - 0.5) * 5}deg) rotateY(${
-          (relativeX - 0.5) * -5
-        }deg) scale3d(.95, .95, .95)`
-      );
-    });
+    if (!frameRef.current) {
+      frameRef.current = requestAnimationFrame(applyTilt);
+    }
   }, []);
 
-  const throttledHandleMouseMove = useMemo(
-    () => throttle(handleMouseMove, 16),
-    [handleMouseMove]
-  );
+  const handleMouseLeave = useCallback(() => {
+    if (frameRef.current) {
+      cancelAnimationFrame(frameRef.current);
+      frameRef.current = 0;
+    }
+    pendingRef.current = null;
+    if (itemRef.current) {
+      itemRef.current.style.transform = "";
+    }
+  }, []);
 
   return (
     <div
       ref={itemRef}
       className={`${className} transform-gpu`}
-      onMouseMove={throttledHandleMouseMove}
-      onMouseLeave={() => setTransformStyle("")}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
       style={{
-        transform: transformStyle,
         willChange: "transform",
         backfaceVisibility: "hidden",
       }}
@@ -91,25 +100,19 @@ export const BentoCard: React.FC<BentoCardProps> = ({
   techStack,
   projectUrl,
 }) => {
-  const [cursorPosition, setCursorPosition] = useState<CursorPosition>({
-    x: 0,
-    y: 0,
-  });
-  const [hoverOpacity, setHoverOpacity] = useState(0);
-  const hoverButtonRef = useRef<HTMLDivElement>(null);
+  const glowRef = useRef<HTMLDivElement>(null);
 
-  const handleMouseMove = (event: React.MouseEvent) => {
-    if (!hoverButtonRef.current) return;
-    const rect = hoverButtonRef.current.getBoundingClientRect();
+  // Write the cursor position straight into CSS variables (no React state):
+  // the glow still follows the cursor exactly, but without re-rendering the
+  // card (which contains a full-size image) on every mouse move.
+  const handleMouseMove = useCallback((event: React.MouseEvent) => {
+    const glow = glowRef.current;
+    if (!glow) return;
 
-    setCursorPosition({
-      x: event.clientX - rect.left,
-      y: event.clientY - rect.top,
-    });
-  };
-
-  const handleMouseEnter = () => setHoverOpacity(1);
-  const handleMouseLeave = () => setHoverOpacity(0);
+    const rect = glow.getBoundingClientRect();
+    glow.style.setProperty("--x", `${event.clientX - rect.left}px`);
+    glow.style.setProperty("--y", `${event.clientY - rect.top}px`);
+  }, []);
 
   return (
     <div className="relative size-full">
@@ -120,7 +123,6 @@ export const BentoCard: React.FC<BentoCardProps> = ({
           fill
           className="object-cover object-center"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          priority
         />
       </div>
 
@@ -148,17 +150,15 @@ export const BentoCard: React.FC<BentoCardProps> = ({
 
         {projectUrl && (
           <div
-            ref={hoverButtonRef}
             onMouseMove={handleMouseMove}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-            className="border border-white/20 relative flex w-fit cursor-pointer items-center gap-1 overflow-hidden rounded-full bg-black px-5 py-2 text-xs uppercase text-highlight"
+            className="group border border-white/20 relative flex w-fit cursor-pointer items-center gap-1 overflow-hidden rounded-full bg-black px-5 py-2 text-xs uppercase text-highlight"
           >
             <div
-              className="pointer-events-none absolute -inset-px opacity-0 transition duration-300"
+              ref={glowRef}
+              className="pointer-events-none absolute -inset-px opacity-0 transition duration-300 group-hover:opacity-100"
               style={{
-                opacity: hoverOpacity,
-                background: `radial-gradient(100px circle at ${cursorPosition.x}px ${cursorPosition.y}px, rgba(212, 255, 77, 0.5), #00000026)`,
+                background:
+                  "radial-gradient(100px circle at var(--x, 0px) var(--y, 0px), rgba(212, 255, 77, 0.5), #00000026)",
               }}
             />
             <TiLocationArrow className="relative z-20" />

@@ -34,7 +34,7 @@ const Contact: React.FC = () => {
   return (
     <div
       id="contact"
-      className="my-20 min-h-96 w-screen px-4 sm:px-10"
+      className="my-20 min-h-96 w-full px-4 sm:px-10"
       ref={ref}
     >
       {inView && (

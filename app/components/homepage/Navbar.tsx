@@ -1,7 +1,6 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useWindowScroll } from "react-use";
 import { useEffect, useRef, useState } from "react";
 import { TiLocationArrow } from "react-icons/ti";
 import { Menu, X } from "lucide-react";
@@ -27,9 +26,48 @@ const NavBar = () => {
   const navContainerRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const [isNavVisible, setIsNavVisible] = useState<boolean>(true);
+  const [isScrolled, setIsScrolled] = useState<boolean>(false);
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-  const [lastScrollY, setLastScrollY] = useState<number>(0);
-  const { y: currentScrollY } = useWindowScroll();
+  const lastScrollYRef = useRef<number>(0);
+
+  // One passive, rAF-coalesced scroll listener. State only updates when the
+  // visibility actually flips, so the navbar no longer re-renders on every
+  // scroll event (previously it re-rendered twice per event via useWindowScroll).
+  useEffect(() => {
+    const element = navContainerRef.current;
+    if (!element) return;
+
+    let ticking = false;
+    const handleScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        ticking = false;
+        const y = window.scrollY;
+        const lastY = lastScrollYRef.current;
+
+        if (y === 0) {
+          element.classList.remove("floating-nav");
+          setIsNavVisible(true);
+        } else {
+          element.classList.add("floating-nav");
+          if (y > lastY + 4) {
+            setIsNavVisible(false); // scrolling down
+          } else if (y < lastY - 4) {
+            setIsNavVisible(true); // scrolling up
+          }
+        }
+
+        lastScrollYRef.current = y;
+        setIsScrolled(y > 0);
+      });
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Prevent body scroll when menu is open
   useEffect(() => {
@@ -116,26 +154,6 @@ const NavBar = () => {
     }
   };
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!navContainerRef.current) return;
-
-      if (currentScrollY === 0) {
-        setIsNavVisible(true);
-        navContainerRef.current.classList.remove("floating-nav");
-      } else if (currentScrollY > lastScrollY) {
-        setIsNavVisible(false);
-        navContainerRef.current.classList.add("floating-nav");
-      } else if (currentScrollY < lastScrollY) {
-        setIsNavVisible(true);
-        navContainerRef.current.classList.add("floating-nav");
-      }
-      setLastScrollY(currentScrollY);
-    };
-
-    handleScroll();
-  }, [currentScrollY, lastScrollY]);
-
   return (
     <>
       <div
@@ -145,7 +163,7 @@ const NavBar = () => {
             ? "translate-y-0 opacity-100"
             : "-translate-y-full opacity-0"
         } ${
-          currentScrollY > 0
+          isScrolled
             ? "border border-white/20 bg-black/80 backdrop-blur-md"
             : ""
         }`}

@@ -3,7 +3,6 @@
 import { gsap } from "@/lib/gsap";
 import { useRef, useEffect } from "react";
 import Image from "next/image";
-import { throttle } from "lodash";
 import Link from "next/link";
 
 import Button from "./Button";
@@ -22,28 +21,40 @@ const FloatingImage: React.FC = () => {
       transformStyle: "preserve-3d",
     });
 
-    const handleMouseMove = throttle((e: MouseEvent) => {
-      if (!frameRef.current) return;
+    // rAF-batched pointer tracking: at most one GSAP tween per frame, and no
+    // full lodash import for a single throttle call.
+    let moveFrame = 0;
+    let lastEvent: MouseEvent | null = null;
 
-      const rect = frameRef.current.getBoundingClientRect();
-      const xPos = e.clientX - rect.left;
-      const yPos = e.clientY - rect.top;
+    const handleMouseMove = (e: MouseEvent) => {
+      lastEvent = e;
+      if (moveFrame) return;
 
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
+      moveFrame = requestAnimationFrame(() => {
+        moveFrame = 0;
+        const event = lastEvent;
+        if (!event || !frameRef.current) return;
 
-      const rotateX = ((yPos - centerY) / centerY) * -10;
-      const rotateY = ((xPos - centerX) / centerX) * 10;
+        const rect = frameRef.current.getBoundingClientRect();
+        const xPos = event.clientX - rect.left;
+        const yPos = event.clientY - rect.top;
 
-      // Use GSAP for smooth hardware-accelerated transforms
-      gsap.to(frameRef.current, {
-        duration: 0.1,
-        rotateX: rotateX,
-        rotateY: rotateY,
-        ease: "none",
-        overwrite: "auto",
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const rotateX = ((yPos - centerY) / centerY) * -10;
+        const rotateY = ((xPos - centerX) / centerX) * 10;
+
+        // Use GSAP for smooth hardware-accelerated transforms
+        gsap.to(frameRef.current, {
+          duration: 0.1,
+          rotateX: rotateX,
+          rotateY: rotateY,
+          ease: "none",
+          overwrite: "auto",
+        });
       });
-    }, 32); // Increased throttle for better performance
+    };
 
     const handleMouseLeave = () => {
       if (frameRef.current) {
@@ -61,7 +72,7 @@ const FloatingImage: React.FC = () => {
     element.addEventListener("mouseup", handleMouseLeave);
 
     return () => {
-      handleMouseMove.cancel?.(); // Cancel any pending throttled calls
+      if (moveFrame) cancelAnimationFrame(moveFrame); // Cancel any pending frame
       element.removeEventListener("mousemove", handleMouseMove);
       element.removeEventListener("mouseleave", handleMouseLeave);
       element.removeEventListener("mouseup", handleMouseLeave);
@@ -69,7 +80,7 @@ const FloatingImage: React.FC = () => {
   }, []);
 
   return (
-    <div id="story" className="h-dvh w-screen bg-black text-blue-50">
+    <div id="story" className="h-dvh w-full bg-black text-blue-50">
       <div className="flex flex-col items-center">
         <p className="font-general text-sm uppercase md:text-[15px]">
           Full Stack Development Journey

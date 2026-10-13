@@ -1,11 +1,50 @@
-@import url("https://fonts.cdnfonts.com/css/general-sans");
 @import "tailwindcss";
 
+/* Prevent horizontal overflow on every viewport size:
+   - html overflow-x: hidden/clip stops the 100vw-vs-scrollbar gap from ever
+     producing a horizontal scrollbar (clip also blocks programmatic drift).
+   - body width: 100% instead of 100dvw — 100dvw includes the vertical
+     scrollbar width, which made the page ~15px wider than the screen. */
+html {
+  overflow-x: hidden;
+  overflow-x: clip;
+}
+
 body {
-  width: 100dvw;
+  width: 100%;
   overflow-x: hidden;
   background-color: #dfdff0;
   font-family: "General Sans", sans-serif;
+}
+
+/* Self-hosted General Sans (replaces the render-blocking fonts.cdnfonts.com import) */
+@font-face {
+  font-family: "General Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/appfonts/GeneralSans-Regular.woff") format("woff");
+}
+@font-face {
+  font-family: "General Sans";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/appfonts/GeneralSans-Medium.woff") format("woff");
+}
+@font-face {
+  font-family: "General Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/appfonts/GeneralSans-Semibold.woff") format("woff");
+}
+@font-face {
+  font-family: "General Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/appfonts/GeneralSans-Bold.woff") format("woff");
 }
 
 @theme inline {
@@ -28,26 +67,31 @@ body {
   @font-face {
     font-family: "circular-web";
     src: url("/appfonts/circularweb-book.woff2") format("woff2");
+    font-display: swap;
   }
 
   @font-face {
     font-family: "general";
     src: url("/appfonts/general.woff2") format("woff2");
+    font-display: swap;
   }
 
   @font-face {
     font-family: "robert-medium";
     src: url("/appfonts/robert-medium.woff2") format("woff2");
+    font-display: swap;
   }
 
   @font-face {
     font-family: "robert-regular";
     src: url("/appfonts/robert-regular.woff2") format("woff2");
+    font-display: swap;
   }
 
   @font-face {
     font-family: "zentry";
     src: url("/appfonts/zentry-regular.woff2") format("woff2");
+    font-display: swap;
   }
 }
 
@@ -279,18 +323,15 @@ body {
 }
 .background-image {
   will-change: transform;
-  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .content-left,
 .content-right {
   will-change: transform, opacity;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .background-gradient {
   will-change: opacity;
-  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .perspective-1000 {
@@ -311,14 +352,6 @@ body {
 .background-gradient,
 .transform-gpu {
   will-change: transform, opacity;
-}
-
-/* Combine common transitions */
-.background-image,
-.content-left,
-.content-right,
-.background-gradient {
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Optimize transform properties */
