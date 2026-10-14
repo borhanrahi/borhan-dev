@@ -72,7 +72,11 @@ const About: React.FC = () => {
         </div>
       </div>
 
-      <div className="h-dvh w-full mt-8 md:mt-0" id="clip">
+      {/* `relative` is required: the .about-image below is absolutely positioned,
+          so without a positioned ancestor it resolves against the page origin and
+          renders ON TOP of the Hero until ScrollTrigger creates the .pin-spacer
+          (which is what used to make section 2 flash on first paint). */}
+      <div className="relative h-dvh w-full mt-8 md:mt-0" id="clip">
         <div className="mask-clip-path about-image">
           <Image
             src="/img/office.webp"
